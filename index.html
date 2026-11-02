@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Nunito+Sans:wght@400;600;700;800&display=swap">
 <style>
 :root{
-  /* Hvite flater, kontorets bl√• som prim√¶r, rav/turkis/korall som komplement */
+  /* Hvite flater, kontorets blå som primær, rav/turkis/korall som komplement */
   --bg:#F4F7FC;
   --card:#FFFFFF; --card-2:#F5F8FD; --field:#FFFFFF;
   --line:#E9EEF6; --line-strong:#D3DCEC;
@@ -367,7 +367,7 @@ td.last{color:var(--body);font-size:13px;white-space:nowrap;font-weight:600}
       </div>
     </div>
     <h1>TheFactory Foos Ligaen</h1>
-    <p class="lede">Registrer kampen, se hvem som leder, og hold telling p√• hvem som m√• krabbe under bordet.</p>
+    <p class="lede">Registrer kampen, se hvem som leder, og hold telling på hvem som må krabbe under bordet.</p>
     <div class="hero-foot">
       <p class="hdr-stats num" id="hdrStats">&nbsp;</p>
       <span class="mode is-connecting" id="modePill">Kobler til</span>
@@ -391,30 +391,30 @@ td.last{color:var(--body);font-size:13px;white-space:nowrap;font-weight:600}
 (function(){
 'use strict';
 
-/* Lim inn nettapp-URL-en fra Google Apps Script her (slutter p√• /exec).
-   Tom = appen lagrer bare p√• denne enheten. */
+/* Lim inn nettapp-URL-en fra Google Apps Script her (slutter på /exec).
+   Tom = appen lagrer bare på denne enheten. */
 const API_URL = 'https://script.google.com/macros/s/AKfycbwp6JEs427iktDbO-3VQWbul3hP7MCaZYUgmb8_xn0mxjF9da9sx_ro0iqHRoZKoAwwtA/exec';
 
-/* Eksempeldata ‚Äì brukes bare n√•r siden ikke har delt lagring (lokal modus). */
-const DEMO = {"players":[{"id":"p_ida","name":"Ida","createdAt":"2026-08-12T09:00:00+02:00"},{"id":"p_mats","name":"Mats","createdAt":"2026-08-12T09:00:00+02:00"},{"id":"p_herman","name":"Herman","createdAt":"2026-08-12T09:00:00+02:00"},{"id":"p_sigrid","name":"Sigrid","createdAt":"2026-08-12T09:00:00+02:00"},{"id":"p_jonas","name":"Jonas","createdAt":"2026-08-12T09:00:00+02:00"},{"id":"p_nora","name":"Nora","createdAt":"2026-08-12T09:00:00+02:00"},{"id":"p_kristian","name":"Kristian","createdAt":"2026-08-12T09:00:00+02:00"},{"id":"p_eirik","name":"Eirik","createdAt":"2026-08-12T09:00:00+02:00"}],"matches":[{"id":"m_001","t1":["p_mats","p_ida"],"t2":["p_jonas","p_sigrid"],"s1":10,"s2":4,"winner":1,"side1":"vindu","at":"2026-08-20T16:55:00+02:00"},{"id":"m_002","t1":["p_nora"],"t2":["p_herman"],"s1":9,"s2":10,"winner":2,"side1":null,"at":"2026-08-21T12:12:00+02:00"},{"id":"m_003","t1":["p_jonas","p_sigrid"],"t2":["p_nora","p_ida"],"s1":10,"s2":7,"winner":1,"side1":null,"at":"2026-08-24T12:35:00+02:00"},{"id":"m_004","t1":["p_nora","p_ida"],"t2":["p_sigrid","p_herman"],"s1":null,"s2":null,"winner":1,"side1":"vindu","at":"2026-08-24T15:35:00+02:00"},{"id":"m_005","t1":["p_kristian"],"t2":["p_sigrid"],"s1":5,"s2":10,"winner":2,"side1":"dor","at":"2026-08-24T15:35:00+02:00"},{"id":"m_006","t1":["p_jonas"],"t2":["p_nora"],"s1":10,"s2":7,"winner":1,"side1":null,"at":"2026-08-25T11:41:00+02:00"},{"id":"m_007","t1":["p_herman","p_mats"],"t2":["p_kristian","p_nora"],"s1":10,"s2":7,"winner":1,"side1":"vindu","at":"2026-08-25T11:41:00+02:00"},{"id":"m_008","t1":["p_herman","p_nora"],"t2":["p_jonas","p_kristian"],"s1":7,"s2":10,"winner":2,"side1":null,"at":"2026-08-25T12:35:00+02:00"},{"id":"m_009","t1":["p_kristian"],"t2":["p_sigrid"],"s1":null,"s2":null,"winner":1,"side1":"vindu","at":"2026-08-26T11:41:00+02:00"},{"id":"m_010","t1":["p_ida","p_eirik"],"t2":["p_kristian","p_jonas"],"s1":10,"s2":0,"winner":1,"side1":"vindu","at":"2026-08-27T12:05:00+02:00"},{"id":"m_011","t1":["p_mats"],"t2":["p_kristian"],"s1":10,"s2":4,"winner":1,"side1":"dor","at":"2026-08-27T15:41:00+02:00"},{"id":"m_012","t1":["p_eirik","p_sigrid"],"t2":["p_kristian","p_herman"],"s1":null,"s2":null,"winner":1,"side1":"dor","at":"2026-08-27T16:12:00+02:00"},{"id":"m_013","t1":["p_ida"],"t2":["p_mats"],"s1":7,"s2":10,"winner":2,"side1":"vindu","at":"2026-08-28T11:41:00+02:00"},{"id":"m_014","t1":["p_mats"],"t2":["p_nora"],"s1":9,"s2":10,"winner":2,"side1":"vindu","at":"2026-08-28T12:41:00+02:00"},{"id":"m_015","t1":["p_nora","p_eirik"],"t2":["p_mats","p_jonas"],"s1":9,"s2":10,"winner":2,"side1":null,"at":"2026-08-31T12:20:00+02:00"},{"id":"m_016","t1":["p_eirik","p_herman"],"t2":["p_nora","p_ida"],"s1":6,"s2":10,"winner":2,"side1":null,"at":"2026-08-31T13:12:00+02:00"},{"id":"m_017","t1":["p_nora"],"t2":["p_sigrid"],"s1":7,"s2":10,"winner":2,"side1":"vindu","at":"2026-09-01T12:05:00+02:00"},{"id":"m_018","t1":["p_sigrid","p_eirik"],"t2":["p_jonas","p_nora"],"s1":5,"s2":10,"winner":2,"side1":"dor","at":"2026-09-02T11:41:00+02:00"},{"id":"m_019","t1":["p_kristian"],"t2":["p_eirik"],"s1":9,"s2":10,"winner":2,"side1":"dor","at":"2026-09-02T15:35:00+02:00"},{"id":"m_020","t1":["p_eirik"],"t2":["p_sigrid"],"s1":null,"s2":null,"winner":1,"side1":"vindu","at":"2026-09-03T16:48:00+02:00"},{"id":"m_021","t1":["p_eirik","p_kristian"],"t2":["p_nora","p_mats"],"s1":4,"s2":10,"winner":2,"side1":"vindu","at":"2026-09-04T11:55:00+02:00"},{"id":"m_022","t1":["p_mats","p_jonas"],"t2":["p_nora","p_eirik"],"s1":10,"s2":5,"winner":1,"side1":"vindu","at":"2026-09-04T15:05:00+02:00"},{"id":"m_023","t1":["p_nora","p_herman"],"t2":["p_jonas","p_sigrid"],"s1":9,"s2":10,"winner":2,"side1":null,"at":"2026-09-07T11:12:00+02:00"},{"id":"m_024","t1":["p_herman"],"t2":["p_jonas"],"s1":10,"s2":8,"winner":1,"side1":null,"at":"2026-09-07T11:41:00+02:00"},{"id":"m_025","t1":["p_herman"],"t2":["p_mats"],"s1":null,"s2":null,"winner":1,"side1":null,"at":"2026-09-08T11:35:00+02:00"},{"id":"m_026","t1":["p_ida","p_mats"],"t2":["p_kristian","p_herman"],"s1":null,"s2":null,"winner":1,"side1":null,"at":"2026-09-09T15:12:00+02:00"},{"id":"m_027","t1":["p_mats"],"t2":["p_sigrid"],"s1":10,"s2":9,"winner":1,"side1":"dor","at":"2026-09-10T11:05:00+02:00"},{"id":"m_028","t1":["p_sigrid","p_nora"],"t2":["p_jonas","p_herman"],"s1":7,"s2":10,"winner":2,"side1":"vindu","at":"2026-09-10T12:41:00+02:00"},{"id":"m_029","t1":["p_eirik","p_herman"],"t2":["p_ida","p_mats"],"s1":null,"s2":null,"winner":2,"side1":"vindu","at":"2026-09-11T12:21:00+02:00"},{"id":"m_030","t1":["p_jonas","p_mats"],"t2":["p_sigrid","p_kristian"],"s1":null,"s2":null,"winner":2,"side1":null,"at":"2026-09-11T12:48:00+02:00"}],"crawls":[{"players":["p_ida"],"matchId":"m_013","at":"2026-08-28T11:43:00+02:00","id":"c_001"},{"players":["p_mats"],"matchId":"m_014","at":"2026-08-28T12:43:00+02:00","id":"c_002"},{"players":["p_eirik","p_herman"],"matchId":"m_016","at":"2026-08-31T13:14:00+02:00","id":"c_003"},{"players":["p_nora"],"matchId":"m_017","at":"2026-09-01T12:07:00+02:00","id":"c_004"},{"players":["p_sigrid","p_eirik"],"matchId":"m_018","at":"2026-09-02T11:43:00+02:00","id":"c_005"},{"players":["p_sigrid"],"matchId":"m_020","at":"2026-09-03T16:50:00+02:00","id":"c_006"},{"players":["p_eirik","p_kristian"],"matchId":"m_021","at":"2026-09-04T11:57:00+02:00","id":"c_007"},{"players":["p_nora","p_eirik"],"matchId":"m_022","at":"2026-09-04T15:07:00+02:00","id":"c_008"},{"players":["p_kristian"],"matchId":null,"at":"2026-09-08T09:05:00+02:00","id":"c_009"},{"players":["p_sigrid","p_nora"],"matchId":"m_028","at":"2026-09-10T12:43:00+02:00","id":"c_010"},{"players":["p_jonas","p_mats"],"matchId":"m_030","at":"2026-09-11T12:50:00+02:00","id":"c_011"}],"rules":[{"id":"r_001","text":"Taperlaget krabber under bordet. Ingen unntak, ingen forhandling.","at":"2026-08-12T09:00:00+02:00"},{"id":"r_002","text":"F√∏rste lag til 10 m√•l vinner.","at":"2026-08-12T09:01:00+02:00"},{"id":"r_003","text":"Spinning av stengene er forbudt. M√•l etter spinn teller ikke.","at":"2026-08-12T09:02:00+02:00"},{"id":"r_004","text":"Kampen registreres i appen f√∏r noen forlater bordet.","at":"2026-08-12T09:03:00+02:00"}]};
+/* Eksempeldata – brukes bare når siden ikke har delt lagring (lokal modus). */
+const DEMO = {"players":[{"id":"p_ida","name":"Ida","createdAt":"2026-08-12T09:00:00+02:00"},{"id":"p_mats","name":"Mats","createdAt":"2026-08-12T09:00:00+02:00"},{"id":"p_herman","name":"Herman","createdAt":"2026-08-12T09:00:00+02:00"},{"id":"p_sigrid","name":"Sigrid","createdAt":"2026-08-12T09:00:00+02:00"},{"id":"p_jonas","name":"Jonas","createdAt":"2026-08-12T09:00:00+02:00"},{"id":"p_nora","name":"Nora","createdAt":"2026-08-12T09:00:00+02:00"},{"id":"p_kristian","name":"Kristian","createdAt":"2026-08-12T09:00:00+02:00"},{"id":"p_eirik","name":"Eirik","createdAt":"2026-08-12T09:00:00+02:00"}],"matches":[{"id":"m_001","t1":["p_mats","p_ida"],"t2":["p_jonas","p_sigrid"],"s1":10,"s2":4,"winner":1,"side1":"vindu","at":"2026-08-20T16:55:00+02:00"},{"id":"m_002","t1":["p_nora"],"t2":["p_herman"],"s1":9,"s2":10,"winner":2,"side1":null,"at":"2026-08-21T12:12:00+02:00"},{"id":"m_003","t1":["p_jonas","p_sigrid"],"t2":["p_nora","p_ida"],"s1":10,"s2":7,"winner":1,"side1":null,"at":"2026-08-24T12:35:00+02:00"},{"id":"m_004","t1":["p_nora","p_ida"],"t2":["p_sigrid","p_herman"],"s1":null,"s2":null,"winner":1,"side1":"vindu","at":"2026-08-24T15:35:00+02:00"},{"id":"m_005","t1":["p_kristian"],"t2":["p_sigrid"],"s1":5,"s2":10,"winner":2,"side1":"dor","at":"2026-08-24T15:35:00+02:00"},{"id":"m_006","t1":["p_jonas"],"t2":["p_nora"],"s1":10,"s2":7,"winner":1,"side1":null,"at":"2026-08-25T11:41:00+02:00"},{"id":"m_007","t1":["p_herman","p_mats"],"t2":["p_kristian","p_nora"],"s1":10,"s2":7,"winner":1,"side1":"vindu","at":"2026-08-25T11:41:00+02:00"},{"id":"m_008","t1":["p_herman","p_nora"],"t2":["p_jonas","p_kristian"],"s1":7,"s2":10,"winner":2,"side1":null,"at":"2026-08-25T12:35:00+02:00"},{"id":"m_009","t1":["p_kristian"],"t2":["p_sigrid"],"s1":null,"s2":null,"winner":1,"side1":"vindu","at":"2026-08-26T11:41:00+02:00"},{"id":"m_010","t1":["p_ida","p_eirik"],"t2":["p_kristian","p_jonas"],"s1":10,"s2":0,"winner":1,"side1":"vindu","at":"2026-08-27T12:05:00+02:00"},{"id":"m_011","t1":["p_mats"],"t2":["p_kristian"],"s1":10,"s2":4,"winner":1,"side1":"dor","at":"2026-08-27T15:41:00+02:00"},{"id":"m_012","t1":["p_eirik","p_sigrid"],"t2":["p_kristian","p_herman"],"s1":null,"s2":null,"winner":1,"side1":"dor","at":"2026-08-27T16:12:00+02:00"},{"id":"m_013","t1":["p_ida"],"t2":["p_mats"],"s1":7,"s2":10,"winner":2,"side1":"vindu","at":"2026-08-28T11:41:00+02:00"},{"id":"m_014","t1":["p_mats"],"t2":["p_nora"],"s1":9,"s2":10,"winner":2,"side1":"vindu","at":"2026-08-28T12:41:00+02:00"},{"id":"m_015","t1":["p_nora","p_eirik"],"t2":["p_mats","p_jonas"],"s1":9,"s2":10,"winner":2,"side1":null,"at":"2026-08-31T12:20:00+02:00"},{"id":"m_016","t1":["p_eirik","p_herman"],"t2":["p_nora","p_ida"],"s1":6,"s2":10,"winner":2,"side1":null,"at":"2026-08-31T13:12:00+02:00"},{"id":"m_017","t1":["p_nora"],"t2":["p_sigrid"],"s1":7,"s2":10,"winner":2,"side1":"vindu","at":"2026-09-01T12:05:00+02:00"},{"id":"m_018","t1":["p_sigrid","p_eirik"],"t2":["p_jonas","p_nora"],"s1":5,"s2":10,"winner":2,"side1":"dor","at":"2026-09-02T11:41:00+02:00"},{"id":"m_019","t1":["p_kristian"],"t2":["p_eirik"],"s1":9,"s2":10,"winner":2,"side1":"dor","at":"2026-09-02T15:35:00+02:00"},{"id":"m_020","t1":["p_eirik"],"t2":["p_sigrid"],"s1":null,"s2":null,"winner":1,"side1":"vindu","at":"2026-09-03T16:48:00+02:00"},{"id":"m_021","t1":["p_eirik","p_kristian"],"t2":["p_nora","p_mats"],"s1":4,"s2":10,"winner":2,"side1":"vindu","at":"2026-09-04T11:55:00+02:00"},{"id":"m_022","t1":["p_mats","p_jonas"],"t2":["p_nora","p_eirik"],"s1":10,"s2":5,"winner":1,"side1":"vindu","at":"2026-09-04T15:05:00+02:00"},{"id":"m_023","t1":["p_nora","p_herman"],"t2":["p_jonas","p_sigrid"],"s1":9,"s2":10,"winner":2,"side1":null,"at":"2026-09-07T11:12:00+02:00"},{"id":"m_024","t1":["p_herman"],"t2":["p_jonas"],"s1":10,"s2":8,"winner":1,"side1":null,"at":"2026-09-07T11:41:00+02:00"},{"id":"m_025","t1":["p_herman"],"t2":["p_mats"],"s1":null,"s2":null,"winner":1,"side1":null,"at":"2026-09-08T11:35:00+02:00"},{"id":"m_026","t1":["p_ida","p_mats"],"t2":["p_kristian","p_herman"],"s1":null,"s2":null,"winner":1,"side1":null,"at":"2026-09-09T15:12:00+02:00"},{"id":"m_027","t1":["p_mats"],"t2":["p_sigrid"],"s1":10,"s2":9,"winner":1,"side1":"dor","at":"2026-09-10T11:05:00+02:00"},{"id":"m_028","t1":["p_sigrid","p_nora"],"t2":["p_jonas","p_herman"],"s1":7,"s2":10,"winner":2,"side1":"vindu","at":"2026-09-10T12:41:00+02:00"},{"id":"m_029","t1":["p_eirik","p_herman"],"t2":["p_ida","p_mats"],"s1":null,"s2":null,"winner":2,"side1":"vindu","at":"2026-09-11T12:21:00+02:00"},{"id":"m_030","t1":["p_jonas","p_mats"],"t2":["p_sigrid","p_kristian"],"s1":null,"s2":null,"winner":2,"side1":null,"at":"2026-09-11T12:48:00+02:00"}],"crawls":[{"players":["p_ida"],"matchId":"m_013","at":"2026-08-28T11:43:00+02:00","id":"c_001"},{"players":["p_mats"],"matchId":"m_014","at":"2026-08-28T12:43:00+02:00","id":"c_002"},{"players":["p_eirik","p_herman"],"matchId":"m_016","at":"2026-08-31T13:14:00+02:00","id":"c_003"},{"players":["p_nora"],"matchId":"m_017","at":"2026-09-01T12:07:00+02:00","id":"c_004"},{"players":["p_sigrid","p_eirik"],"matchId":"m_018","at":"2026-09-02T11:43:00+02:00","id":"c_005"},{"players":["p_sigrid"],"matchId":"m_020","at":"2026-09-03T16:50:00+02:00","id":"c_006"},{"players":["p_eirik","p_kristian"],"matchId":"m_021","at":"2026-09-04T11:57:00+02:00","id":"c_007"},{"players":["p_nora","p_eirik"],"matchId":"m_022","at":"2026-09-04T15:07:00+02:00","id":"c_008"},{"players":["p_kristian"],"matchId":null,"at":"2026-09-08T09:05:00+02:00","id":"c_009"},{"players":["p_sigrid","p_nora"],"matchId":"m_028","at":"2026-09-10T12:43:00+02:00","id":"c_010"},{"players":["p_jonas","p_mats"],"matchId":"m_030","at":"2026-09-11T12:50:00+02:00","id":"c_011"}],"rules":[{"id":"r_001","text":"Taperlaget krabber under bordet. Ingen unntak, ingen forhandling.","at":"2026-08-12T09:00:00+02:00"},{"id":"r_002","text":"Første lag til 10 mål vinner.","at":"2026-08-12T09:01:00+02:00"},{"id":"r_003","text":"Spinning av stengene er forbudt. Mål etter spinn teller ikke.","at":"2026-08-12T09:02:00+02:00"},{"id":"r_004","text":"Kampen registreres i appen før noen forlater bordet.","at":"2026-08-12T09:03:00+02:00"}]};
 
 const K = 32, START = 1000, MIN_RANKED = 3, UPSET_P = 0.35, MATCH_MINUTES = 15;
 const TITLES = [
-  [0, 'Uber√∏rt'], [1, 'Nybegynner p√• gulvet'], [3, 'Stamgjest under bordet'],
-  [6, 'St√∏vsugeren'], [11, 'Gulvets ridder'], [21, 'Gulvets hersker']
+  [0, 'Uberørt'], [1, 'Nybegynner på gulvet'], [3, 'Stamgjest under bordet'],
+  [6, 'Støvsugeren'], [11, 'Gulvets ridder'], [21, 'Gulvets hersker']
 ];
 
 /* ---------- Figurer ---------- */
 const AV_COLORS = ['#F2A33C','#2F7BF5','#12A594','#E05B4D','#8B5CF6','#EC4899','#22C55E','#F5C542','#64748B','#A67C52','#F5F7FA','#242424'];
-const AV_HATS = ['ingen','caps','b√∏tte','krone','cowboy','hjelm','propell','kjegle','panneb√•nd','sveis'];
+const AV_HATS = ['ingen','caps','bøtte','krone','cowboy','hjelm','propell','kjegle','pannebånd','sveis'];
 const AV_GLASSES = ['ingen','sol','briller','ski','monokkel'];
-const AV_OUTFITS = ['ingen','tr√∏ye','striper','prikker','dress','sash'];
+const AV_OUTFITS = ['ingen','trøye','striper','prikker','dress','sash'];
 const AV_FACES = ['glad','kul','sjokk','fokus'];
 const AV_LABELS = {
-  ingen: 'Ingen', caps: 'Caps', 'b√∏tte': 'B√∏ttehatt', krone: 'Krone', cowboy: 'Cowboy', hjelm: 'Hjelm',
-  propell: 'Propell', kjegle: 'Festhatt', 'panneb√•nd': 'Panneb√•nd', sveis: 'Sveis',
+  ingen: 'Ingen', caps: 'Caps', 'bøtte': 'Bøttehatt', krone: 'Krone', cowboy: 'Cowboy', hjelm: 'Hjelm',
+  propell: 'Propell', kjegle: 'Festhatt', 'pannebånd': 'Pannebånd', sveis: 'Sveis',
   sol: 'Solbriller', briller: 'Briller', ski: 'Skibriller', monokkel: 'Monokkel',
-  'tr√∏ye': 'Tr√∏ye', striper: 'Striper', prikker: 'Prikker', dress: 'Dress', sash: 'Skjerf',
+  'trøye': 'Trøye', striper: 'Striper', prikker: 'Prikker', dress: 'Dress', sash: 'Skjerf',
   glad: 'Glad', kul: 'Kul', sjokk: 'Sjokk', fokus: 'Fokus'
 };
 
@@ -458,7 +458,7 @@ function avatarSvg(cfg, size, view){
   const edge = shade(body, lum > 0.85 ? .16 : .1);
 
   let outfit = '';
-  if (c.outfit === 'tr√∏ye') outfit = `<path d="M21 58H79V94H21Z" fill="${oc}"/><path d="M38 58Q50 67 62 58" fill="none" stroke="${shade(oc,.22)}" stroke-width="2.6" stroke-linecap="round"/>`;
+  if (c.outfit === 'trøye') outfit = `<path d="M21 58H79V94H21Z" fill="${oc}"/><path d="M38 58Q50 67 62 58" fill="none" stroke="${shade(oc,.22)}" stroke-width="2.6" stroke-linecap="round"/>`;
   else if (c.outfit === 'striper') outfit = `<rect x="18" y="50" width="64" height="8" fill="${oc}"/><rect x="18" y="64" width="64" height="8" fill="${oc}"/><rect x="18" y="78" width="64" height="8" fill="${oc}"/>`;
   else if (c.outfit === 'prikker') outfit = [[34,56],[52,52],[68,60],[28,72],[46,70],[64,78],[36,86],[56,88]].map(([x,y]) => `<circle cx="${x}" cy="${y}" r="4.2" fill="${oc}"/>`).join('');
   else if (c.outfit === 'dress') outfit = `<path d="M21 56H79V94H21Z" fill="${oc}"/><path d="M40 56L50 72L60 56Z" fill="#F7F9FD"/><path d="M50 64L55 70L50 86L45 70Z" fill="${shade(oc,-.45)}"/>`;
@@ -478,16 +478,16 @@ function avatarSvg(cfg, size, view){
 
   let hat = '';
   if (c.hat === 'caps') hat = `<path d="M27 26Q27 5 50 5Q73 5 73 26Z" fill="${hc}"/><path d="M71 21Q89 22 89 29L69 29Z" fill="${shade(hc,.22)}"/>`;
-  else if (c.hat === 'b√∏tte') hat = `<path d="M32 9H68L72 27H28Z" fill="${hc}"/><ellipse cx="50" cy="28" rx="31" ry="6" fill="${shade(hc,.2)}"/>`;
+  else if (c.hat === 'bøtte') hat = `<path d="M32 9H68L72 27H28Z" fill="${hc}"/><ellipse cx="50" cy="28" rx="31" ry="6" fill="${shade(hc,.2)}"/>`;
   else if (c.hat === 'krone') hat = `<path d="M27 29V8L38.5 18L50 4L61.5 18L73 8V29Z" fill="${hc}"/><circle cx="50" cy="12" r="3.2" fill="${shade(hc,-.5)}"/><rect x="27" y="25" width="46" height="5" fill="${shade(hc,.22)}"/>`;
   else if (c.hat === 'cowboy') hat = `<ellipse cx="50" cy="26" rx="35" ry="7.5" fill="${hc}"/><path d="M33 26Q33 6 50 6Q67 6 67 26Z" fill="${hc}"/><rect x="33" y="19" width="34" height="5.5" fill="${shade(hc,.3)}"/>`;
   else if (c.hat === 'hjelm') hat = `<path d="M25 28Q25 5 50 5Q75 5 75 28Z" fill="${hc}"/><rect x="45.5" y="5" width="9" height="23" fill="${shade(hc,.3)}"/><rect x="25" y="25" width="50" height="4" rx="2" fill="${shade(hc,.3)}"/>`;
   else if (c.hat === 'propell') hat = `<path d="M29 27Q29 8 50 8Q71 8 71 27Z" fill="${hc}"/><rect x="32" y="2" width="36" height="4" rx="2" fill="${shade(hc,.35)}"/><circle cx="50" cy="4" r="3.4" fill="#1B1B1B"/><rect x="48.5" y="4" width="3" height="6" fill="${ink}"/>`;
   else if (c.hat === 'kjegle') hat = `<path d="M50 6L67 29H33Z" fill="${hc}"/><path d="M50 6L58 29H42Z" fill="${shade(hc,-.3)}"/><circle cx="50" cy="4" r="4.6" fill="${shade(hc,-.5)}"/>`;
-  else if (c.hat === 'panneb√•nd') hat = `<path d="M22 26H78V36H22Z" fill="${hc}"/><rect x="46" y="26" width="8" height="10" fill="${shade(hc,.28)}"/>`;
+  else if (c.hat === 'pannebånd') hat = `<path d="M22 26H78V36H22Z" fill="${hc}"/><rect x="46" y="26" width="8" height="10" fill="${shade(hc,.28)}"/>`;
   else if (c.hat === 'sveis') hat = `<path d="M23 36Q20 10 50 10Q80 10 77 36Q70 23 50 23Q30 23 23 36Z" fill="${hc}"/><path d="M23 36Q21 47 24 54Q18 44 23 36Z" fill="${hc}"/><path d="M77 36Q79 47 76 54Q82 44 77 36Z" fill="${hc}"/>`;
 
-  const clipHat = c.hat === 'panneb√•nd';
+  const clipHat = c.hat === 'pannebånd';
   return `<svg class="av" width="${size}" height="${size}" viewBox="${view || '0 0 100 100'}" aria-hidden="true" focusable="false">`
     + `<defs><clipPath id="${uid}"><path d="${BODY_D}"/></clipPath></defs>`
     + `<ellipse cx="34" cy="93.5" rx="10.5" ry="6" fill="${foot}"/><ellipse cx="66" cy="93.5" rx="10.5" ry="6" fill="${foot}"/>`
@@ -516,7 +516,7 @@ const playerOf = id => byId().get(id);
 const avatarOf = p => (p && p.avatar) || defaultAvatar(p ? p.id : 'x');
 const avatarFor = (id, size) => avatarSvg(avatarOf(playerOf(id)), size);
 const names = ids => (ids || []).map(nameOf).join(' & ');
-const slug = s => 'p_' + (s.toLowerCase().replace(/√¶/g,'ae').replace(/√∏/g,'oe').replace(/√•/g,'aa').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'') || 'spiller');
+const slug = s => 'p_' + (s.toLowerCase().replace(/æ/g,'ae').replace(/ø/g,'oe').replace(/å/g,'aa').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'') || 'spiller');
 const cap = s => s.charAt(0).toUpperCase() + s.slice(1);
 const joinNames = list => list.length > 1 ? list.slice(0, -1).join(', ') + ' og ' + list[list.length - 1] : (list[0] || '');
 
@@ -536,13 +536,13 @@ function daysBetween(iso){
 function dayLabel(iso){
   const diff = daysBetween(iso);
   if (diff === 0) return 'I dag';
-  if (diff === 1) return 'I g√•r';
+  if (diff === 1) return 'I går';
   return new Date(iso).toLocaleDateString('nb-NO', { weekday: 'short', day: 'numeric', month: 'short' });
 }
 function daysAgoText(iso){
   const diff = daysBetween(iso);
   if (diff <= 0) return 'i dag';
-  if (diff === 1) return 'i g√•r';
+  if (diff === 1) return 'i går';
   return 'for ' + diff + ' dager siden';
 }
 function daysAgoShort(iso){
@@ -722,8 +722,8 @@ function expectedFor(m, rating){
 function longestRun(res, want){ let best = 0, n = 0; res.forEach(r => { n = r === want ? n + 1 : 0; if (n > best) best = n; }); return best; }
 
 /* Rating regnes over hele historikken. Laget flytter like mange poeng som i vanlig lag-Elo,
-   men fordelingen innad i laget f√∏lger hver spillers egen forventning mot motstandernes snitt:
-   den med lavest rating f√•r mest av en seier, den med h√∏yest rating taper mest ved tap. */
+   men fordelingen innad i laget følger hver spillers egen forventning mot motstandernes snitt:
+   den med lavest rating får mest av en seier, den med høyest rating taper mest ved tap. */
 function compute(){
   const rating = new Map();
   const get = id => rating.get(id) ?? START;
@@ -810,17 +810,17 @@ function periodSummary(ms, cs, mode){
   const maxGames = Math.max(0, ...rows.map(r => r.games));
   const mostActive = rows.filter(r => r.games === maxGames && maxGames > 0).map(r => r.name);
   if (ms.length){
-    facts.push(['Seiersrekke', bestWin ? `${bestWin.name} vant ${bestWin.n} kamper p√• rad.` : 'Ingen vant tre p√• rad.']);
-    facts.push(['Flest tap p√• rad', bestLoss ? `${bestLoss.name} tapte ${bestLoss.n} kamper p√• rad. Bordet er t√•lmodig.` : 'Ingen tapte tre p√• rad. Imponerende.']);
-    facts.push(['Mest aktiv', `${joinNames(mostActive)} spilte ${maxGames} ${maxGames === 1 ? 'kamp' : 'kamper'} ‚Äì flest av alle.`]);
-    facts.push(['Tid ved bordet', `${ms.length} kamper √† ${MATCH_MINUTES} minutter er ${fmtDuration(ms.length * MATCH_MINUTES)} til sammen.`]);
+    facts.push(['Seiersrekke', bestWin ? `${bestWin.name} vant ${bestWin.n} kamper på rad.` : 'Ingen vant tre på rad.']);
+    facts.push(['Flest tap på rad', bestLoss ? `${bestLoss.name} tapte ${bestLoss.n} kamper på rad. Bordet er tålmodig.` : 'Ingen tapte tre på rad. Imponerende.']);
+    facts.push(['Mest aktiv', `${joinNames(mostActive)} spilte ${maxGames} ${maxGames === 1 ? 'kamp' : 'kamper'} – flest av alle.`]);
+    facts.push(['Tid ved bordet', `${ms.length} kamper à ${MATCH_MINUTES} minutter er ${fmtDuration(ms.length * MATCH_MINUTES)} til sammen.`]);
     const pairs = {};
     ms.forEach(m => { const a = m.t1.slice().sort().join('+'), b = m.t2.slice().sort().join('+'); const k = [a, b].sort().join('|'); const p = pairs[k] || { n: 0, wins: {}, a, b }; p.n++; const w = m.winner === 1 ? a : b; p.wins[w] = (p.wins[w] || 0) + 1; pairs[k] = p; });
     const rival = Object.values(pairs).sort((x, y) => y.n - x.n)[0];
     if (rival && rival.n >= 3){
       const wx = rival.wins[rival.a] || 0, wy = rival.wins[rival.b] || 0;
       const lead = wx >= wy ? [rival.a, wx, rival.b, wy] : [rival.b, wy, rival.a, wx];
-      facts.push(['Rivalisering', `${names(lead[0].split('+'))} leder ${lead[1]}‚Äì${lead[3]} mot ${names(lead[2].split('+'))} etter ${rival.n} oppgj√∏r.`]);
+      facts.push(['Rivalisering', `${names(lead[0].split('+'))} leder ${lead[1]}–${lead[3]} mot ${names(lead[2].split('+'))} etter ${rival.n} oppgjør.`]);
     }
   }
   // Lagkjemi: par som vinner mer enn ratingene tilsier
@@ -859,7 +859,7 @@ function renderHeader(){
   const modes = { connecting: ['Kobler til', 'is-connecting'], shared: ['Delt lagring', 'is-shared'], local: ['Kun denne enheten', 'is-local'], offline: ['Mistet forbindelsen', 'is-offline'] };
   const [txt, cls] = modes[state.mode] || modes.connecting;
   pill.textContent = txt; pill.className = 'mode ' + cls;
-  $('#hdrStats').innerHTML = d ? `${state.matches.length} kamper ¬∑ ${d.all.crawlTotal} krabbinger` : '&nbsp;';
+  $('#hdrStats').innerHTML = d ? `${state.matches.length} kamper · ${d.all.crawlTotal} krabbinger` : '&nbsp;';
 }
 function renderTabs(){
   document.querySelectorAll('#tabs [role="tab"]').forEach(b => b.setAttribute('aria-selected', String(b.dataset.screen === state.screen)));
@@ -887,7 +887,7 @@ function growTextareas(){ document.querySelectorAll('.rule-edit textarea, .newru
 
 function demoNote(){
   if (!store || !store.isDemo()) return '';
-  return `<div class="demo-note"><span>Dette er eksempeldata som bare ligger p√• denne enheten.</span><button class="link quiet" data-act="reset">Start p√• nytt uten eksempler</button></div>`;
+  return `<div class="demo-note"><span>Dette er eksempeldata som bare ligger på denne enheten.</span><button class="link quiet" data-act="reset">Start på nytt uten eksempler</button></div>`;
 }
 
 function viewRegister(){
@@ -909,32 +909,32 @@ function viewRegister(){
     </button>`;
   const teamsOk = form.red.length && form.blue.length;
   let btn = 'Registrer kamp', disabled = false;
-  if (!ready){ btn = state.mode === 'offline' ? 'Mistet forbindelsen ‚Äì last siden p√• nytt' : 'Kobler til delt lagring ‚Ä¶'; disabled = true; }
-  else if (!teamsOk){ btn = 'Velg spillere p√• begge lag'; disabled = true; }
-  else if (!form.winner){ btn = 'Hvem vant? Trykk p√• laget'; disabled = true; }
+  if (!ready){ btn = state.mode === 'offline' ? 'Mistet forbindelsen – last siden på nytt' : 'Kobler til delt lagring …'; disabled = true; }
+  else if (!teamsOk){ btn = 'Velg spillere på begge lag'; disabled = true; }
+  else if (!form.winner){ btn = 'Hvem vant? Trykk på laget'; disabled = true; }
   const last = (d ? d.annotated.slice(-3).reverse() : []);
   return `
     ${demoNote()}
     <section class="card">
-      <div class="card-head"><div><h2>Registrer kamp</h2><p class="lede-sm">Best av tre sett til 6. Velg spillere, trykk p√• laget som vant, og send inn.</p></div></div>
+      <div class="card-head"><div><h2>Registrer kamp</h2><p class="lede-sm">Best av tre sett til 6. Velg spillere, trykk på laget som vant, og send inn.</p></div></div>
       <div class="block">
         <div class="block-head"><h3>Hvem spilte?</h3>
           ${bank.length ? `<button class="ptoggle" data-act="goto" data-screen="players">Spillere</button>` : ''}
         </div>
-        <p class="hint">Trykk √©n gang for svart lag, to for hvitt, tre for √• fjerne.</p>
+        <p class="hint">Trykk én gang for svart lag, to for hvitt, tre for å fjerne.</p>
         ${bank.length ? `<div class="chips">${chips}</div>` : `<div class="empty">Ingen spillere i lista enda.<br><button class="link" data-act="goto" data-screen="players" style="margin-top:8px">Legg dem til under Spillere</button></div>`}
       </div>
       <div class="block">
         <div class="block-head"><h3>Hvem vant?</h3></div>
         <div class="teams">${team(1, form.red, 'team-a', 'Svart lag')}${team(2, form.blue, 'team-b', 'Hvitt lag')}</div>
-        <p class="hint center">Trykk p√• laget som vant.</p>
+        <p class="hint center">Trykk på laget som vant.</p>
       </div>
       <button class="primary" id="saveBtn" data-act="save" ${disabled ? 'disabled' : ''}>${btn}</button>
     </section>
     <section class="card">
       <div class="block">
         <div class="block-head"><h2>Siste kamper</h2><button class="link" data-act="goto" data-screen="history">Se alle</button></div>
-        ${last.length ? `<ul class="matchlist compact">${last.map(matchRow).join('')}</ul>` : `<div class="empty">Ingen kamper registrert enda. Den f√∏rste blir historisk.</div>`}
+        ${last.length ? `<ul class="matchlist compact">${last.map(matchRow).join('')}</ul>` : `<div class="empty">Ingen kamper registrert enda. Den første blir historisk.</div>`}
         <div><button class="link quiet" data-act="crawlonly">Registrer krabbing uten kamp</button></div>
       </div>
     </section>`;
@@ -959,7 +959,7 @@ function matchRow(m){
       </div>
       ${tags.length ? `<div class="tags">${tags.join('')}</div>` : ''}
     </div>
-    <button class="del${confirming ? ' confirm' : ''}" data-act="del" data-kind="match" data-id="${esc(m.id)}" aria-label="Slett kamp">${confirming ? 'Slett?' : '√ó'}</button>
+    <button class="del${confirming ? ' confirm' : ''}" data-act="del" data-kind="match" data-id="${esc(m.id)}" aria-label="Slett kamp">${confirming ? 'Slett?' : '×'}</button>
   </li>`;
 }
 function crawlRow(c){
@@ -967,11 +967,11 @@ function crawlRow(c){
   return `<li class="match crawlrow">
     <span class="time">${fmtTime(c.at)}</span>
     <div class="sides"><span class="tag crawl">Krabbing</span> <b>${esc(names(c.players))}</b> <span class="hint">uten kamp</span></div>
-    <button class="del${confirming ? ' confirm' : ''}" data-act="del" data-kind="crawl" data-id="${esc(c.id)}" aria-label="Slett krabbing">${confirming ? 'Slett?' : '√ó'}</button>
+    <button class="del${confirming ? ' confirm' : ''}" data-act="del" data-kind="crawl" data-id="${esc(c.id)}" aria-label="Slett krabbing">${confirming ? 'Slett?' : '×'}</button>
   </li>`;
 }
 
-const fmtPoints = p => { const r = Math.round(p); return r > 0 ? '+' + r : r < 0 ? '‚àí' + Math.abs(r) : '0'; };
+const fmtPoints = p => { const r = Math.round(p); return r > 0 ? '+' + r : r < 0 ? '−' + Math.abs(r) : '0'; };
 
 function periodBar(d){
   const all = state.period.all, key = state.period.key;
@@ -979,18 +979,18 @@ function periodBar(d){
   const per = all ? d.all : d.byMonth[key];
   const first = state.matches.length ? fmtDate(state.matches[0].at) : null;
   const label = all ? 'Totalt' : monthLabel(key);
-  const sub = all ? (first ? `siden ${first}` : 'alle kamper') : `${per.matches} ${per.matches === 1 ? 'kamp' : 'kamper'}${key === d.nowKey ? ' ¬∑ p√•g√•r' : ''}`;
+  const sub = all ? (first ? `siden ${first}` : 'alle kamper') : `${per.matches} ${per.matches === 1 ? 'kamp' : 'kamper'}${key === d.nowKey ? ' · pågår' : ''}`;
   return `<div class="period">
-    <button class="pbtn" data-act="pprev" aria-label="Forrige m√•ned" ${all || idx <= 0 ? 'disabled' : ''}>‚Äπ</button>
+    <button class="pbtn" data-act="pprev" aria-label="Forrige måned" ${all || idx <= 0 ? 'disabled' : ''}>‹</button>
     <div class="plabel"><b>${esc(label)}</b><small>${esc(sub)}</small></div>
-    <button class="pbtn" data-act="pnext" aria-label="Neste m√•ned" ${all || idx >= d.months.length - 1 ? 'disabled' : ''}>‚Ä∫</button>
-    <button class="ptoggle${all ? ' on' : ''}" data-act="pall" aria-pressed="${all}">${all ? 'M√•ned' : 'Totalt'}</button>
+    <button class="pbtn" data-act="pnext" aria-label="Neste måned" ${all || idx >= d.months.length - 1 ? 'disabled' : ''}>›</button>
+    <button class="ptoggle${all ? ' on' : ''}" data-act="pall" aria-pressed="${all}">${all ? 'Måned' : 'Totalt'}</button>
   </div>`;
 }
 
 function viewTable(){
   const d = state.derived;
-  if (!d) return '<section class="card"><div class="empty">Kobler til ‚Ä¶</div></section>';
+  if (!d) return '<section class="card"><div class="empty">Kobler til …</div></section>';
   const all = state.period.all, key = state.period.key;
   const per = all ? d.all : d.byMonth[key];
   const inPeriod = all ? 'totalt' : 'i ' + monthName(key);
@@ -1004,33 +1004,33 @@ function viewTable(){
   const stats = `<div class="stats">
     <div class="stat"><span class="stat-n">${per.matches}</span><span class="stat-l">kamper ${inPeriod}</span></div>
     <div class="stat"><span class="stat-n">${per.active}</span><span class="stat-l">aktive spillere</span></div>
-    <div class="stat"><span class="stat-n">${per.minutes ? fmtHoursShort(per.minutes) : '‚Äì'}</span><span class="stat-l">ved bordet (${MATCH_MINUTES} min per kamp)</span></div>
+    <div class="stat"><span class="stat-n">${per.minutes ? fmtHoursShort(per.minutes) : '–'}</span><span class="stat-l">ved bordet (${MATCH_MINUTES} min per kamp)</span></div>
     <div class="stat"><span class="stat-n">${per.crawlTotal}</span><span class="stat-l">krabbinger</span></div>
   </div>`;
   const rows = per.ranked.map(r => {
-    const trend = r.prev === null ? '<span class="trend new">ny</span>' : r.prev > r.pos ? `<span class="trend up">‚ñ≤${r.prev - r.pos}</span>` : r.prev < r.pos ? `<span class="trend">‚ñº${r.pos - r.prev}</span>` : '';
+    const trend = r.prev === null ? '<span class="trend new">ny</span>' : r.prev > r.pos ? `<span class="trend up">▲${r.prev - r.pos}</span>` : r.prev < r.pos ? `<span class="trend">▼${r.pos - r.prev}</span>` : '';
     const formDots = r.res.slice(-5).map(w => `<i class="${w ? 'w' : ''}"></i>`).join('');
     const main = all ? Math.round(r.rating) : `<span class="pts ${r.points > 0.5 ? 'pos' : r.points < -0.5 ? 'neg' : ''}">${fmtPoints(r.points)}</span>`;
     return `<tr>
       <td class="pos"><b>${r.pos}</b>${trend}</td>
       <td class="name"><span class="av-name">${avatarFor(r.id, 30)}<span class="txt">${esc(r.name)}</span></span></td>
       <td class="rating r">${main}</td>
-      <td class="rec r">${r.w}‚Äì${r.l}<small>${Math.round(100 * r.w / r.games)} %</small></td>
+      <td class="rec r">${r.w}–${r.l}<small>${Math.round(100 * r.w / r.games)} %</small></td>
       <td class="r"><span class="form" aria-label="Siste fem kamper">${formDots}</span></td>
     </tr>`;
   }).join('');
   const foot = all
-    ? `Alle starter p√• 1000 i rating. Sl√•r du noen som er bedre enn deg, f√•r du mer ‚Äì taper du mot noen d√•rligere, mister du mer. I lagkamper fordeles poengene innad i laget: den med h√∏yest rating taper mest ved tap, og den med lavest f√•r mest ved seier. Pilene viser endring siden forrige uke. Minst ${MIN_RANKED} kamper for √• komme p√• tabellen.`
-    : `Poeng er hvor mye ratingen har flyttet seg ${inPeriod}. Alle starter m√•neden p√• null, og du f√•r mer for √• sl√• noen som er bedre enn deg. Pilene viser plassering i forhold til forrige m√•ned. Minst ${MIN_RANKED} kamper i m√•neden for √• komme p√• tabellen.`;
+    ? `Alle starter på 1000 i rating. Slår du noen som er bedre enn deg, får du mer – taper du mot noen dårligere, mister du mer. I lagkamper fordeles poengene innad i laget: den med høyest rating taper mest ved tap, og den med lavest får mest ved seier. Pilene viser endring siden forrige uke. Minst ${MIN_RANKED} kamper for å komme på tabellen.`
+    : `Poeng er hvor mye ratingen har flyttet seg ${inPeriod}. Alle starter måneden på null, og du får mer for å slå noen som er bedre enn deg. Pilene viser plassering i forhold til forrige måned. Minst ${MIN_RANKED} kamper i måneden for å komme på tabellen.`;
   const table = per.ranked.length ? `<div style="overflow-x:auto"><table class="rank">
-    <thead><tr><th>#</th><th>Spiller</th><th class="r">${all ? 'Rating' : 'Poeng'}</th><th class="r">S‚ÄìT</th><th class="r">Form</th></tr></thead>
+    <thead><tr><th>#</th><th>Spiller</th><th class="r">${all ? 'Rating' : 'Poeng'}</th><th class="r">S–T</th><th class="r">Form</th></tr></thead>
     <tbody>${rows}</tbody></table></div><p class="foot">${foot}</p>`
     : `<div class="empty">${per.matches ? `Ingen har spilt ${MIN_RANKED} kamper ${inPeriod} enda.` : `Ingen kamper ${inPeriod} enda.`}</div>`;
 
   const hall = all ? hallOfFame(d) : '';
   const newc = per.rows.filter(r => r.games < MIN_RANKED);
-  const newcomers = newc.length && per.matches ? `<section class="card"><div class="block"><div class="block-head"><h2>P√• vei inn</h2></div>
-    <div class="newcomers">${newc.map(r => `<span><b>${esc(r.name)}</b> ¬∑ ${r.games === 0 ? `ikke spilt ${inPeriod}` : r.games + (r.games === 1 ? ' kamp' : ' kamper')}</span>`).join('')}</div></div></section>` : '';
+  const newcomers = newc.length && per.matches ? `<section class="card"><div class="block"><div class="block-head"><h2>På vei inn</h2></div>
+    <div class="newcomers">${newc.map(r => `<span><b>${esc(r.name)}</b> · ${r.games === 0 ? `ikke spilt ${inPeriod}` : r.games + (r.games === 1 ? ' kamp' : ' kamper')}</span>`).join('')}</div></div></section>` : '';
   const facts = per.facts.length ? `<section class="card"><div class="block"><div class="block-head"><h2>Fakta ${all ? 'totalt' : 'fra ' + monthName(key)}</h2></div>
     <ul class="facts">${per.facts.map(([l, v]) => `<li><span class="fact-l">${esc(l)}</span><span>${esc(v)}</span></li>`).join('')}</ul></div></section>` : '';
   const chem = per.chemistry.length ? `<section class="card"><div class="block">
@@ -1038,7 +1038,7 @@ function viewTable(){
     <p class="hint">Par som har spilt minst tre kamper sammen ${inPeriod}, og hvor mye de vinner i forhold til det ratingene skulle tilsi.</p>
     <ul class="chem">${per.chemistry.slice(0, 5).map(c => `<li>
       <div><span class="pair">${esc(names(c.key.split('+')))}</span>
-        <div class="det">${c.n} kamper ¬∑ vinner ${Math.round(c.actualPct)} % mot ${Math.round(c.expPct)} % ventet</div>
+        <div class="det">${c.n} kamper · vinner ${Math.round(c.actualPct)} % mot ${Math.round(c.expPct)} % ventet</div>
         <div class="bar"><i style="width:${Math.max(3, Math.min(100, Math.round(c.actualPct)))}%"></i></div></div>
       <span class="dx ${c.diff > 1 ? 'pos' : c.diff < -1 ? 'neg' : ''}">${c.diff > 0 ? '+' : c.diff < 0 ? '\u2212' : ''}${Math.abs(Math.round(c.diff))}</span>
     </li>`).join('')}</ul></div></section>` : '';
@@ -1048,14 +1048,14 @@ function viewTable(){
 function hallOfFame(d){
   const rows = d.months.slice().reverse().filter(k => d.byMonth[k].matches > 0).map(k => {
     const p = d.byMonth[k];
-    const win = p.winner ? `<b>${esc(p.winner.name)}</b> ${fmtPoints(p.winner.points)}` : `<span class="hint">ingen p√• tabellen enda</span>`;
+    const win = p.winner ? `<b>${esc(p.winner.name)}</b> ${fmtPoints(p.winner.points)}` : `<span class="hint">ingen på tabellen enda</span>`;
     const crawl = p.crawler ? `${esc(p.crawler.name)} (${p.crawler.n})` : 'ingen';
-    return `<li><span class="fact-l">${esc(monthLabel(k, true))}${k === d.nowKey ? '<br>p√•g√•r' : ''}</span><span>${win}<br><span class="hint">M√•nedens krabber: ${crawl}</span></span></li>`;
+    return `<li><span class="fact-l">${esc(monthLabel(k, true))}${k === d.nowKey ? '<br>pågår' : ''}</span><span>${win}<br><span class="hint">Månedens krabber: ${crawl}</span></span></li>`;
   });
   if (!rows.length) return '';
-  return `<section class="card"><div class="block"><div class="block-head"><h2>M√•nedens vinnere</h2></div>
+  return `<section class="card"><div class="block"><div class="block-head"><h2>Månedens vinnere</h2></div>
     <ul class="facts hall">${rows.join('')}</ul>
-    <p class="foot">Vinneren er den som har vunnet flest poeng i m√•neden. M√•neden som p√•g√•r kan fortsatt snu.</p></div></section>`;
+    <p class="foot">Vinneren er den som har vunnet flest poeng i måneden. Måneden som pågår kan fortsatt snu.</p></div></section>`;
 }
 
 function viewCrawls(d, per, head, inPeriod){
@@ -1080,19 +1080,19 @@ function viewCrawls(d, per, head, inPeriod){
     <tbody>${rows.map((r, i) => `<tr><td class="pos"><b>${i + 1}</b></td><td class="name"><span class="av-name">${avatarFor(r.id, 30)}<span class="txt">${esc(r.name)}<small>${all ? titleFor(r.n) : `${allBy.get(r.id) || 0} totalt`}</small></span></span></td><td class="count r">${r.n}</td><td class="last r">${r.last ? daysAgoShort(r.last) : ''}</td></tr>`).join('')}</tbody></table></div>`
     : '';
   const clean = per.crawlRows.filter(r => r.n === 0);
-  const titles = `<p class="foot">Titler (totalt): ${TITLES.slice(1).map(([n, t]) => `${t} fra ${n}`).join(' ¬∑ ')}.</p>`;
+  const titles = `<p class="foot">Titler (totalt): ${TITLES.slice(1).map(([n, t]) => `${t} fra ${n}`).join(' · ')}.</p>`;
   const untouched = clean.length ? `<section class="card"><div class="block"><div class="block-head"><h2>Rent rulleblad ${inPeriod}</h2></div><div class="newcomers">${clean.map(r => `<span><b>${esc(r.name)}</b></span>`).join('')}</div>${titles}</div></section>` : '';
   return `<section class="card">${head}${hero}${podium}${table}${clean.length ? '' : titles}</section>` + untouched;
 }
 
 function viewHistory(){
   const d = state.derived;
-  if (!d) return '<section class="card"><div class="empty">Kobler til ‚Ä¶</div></section>';
+  if (!d) return '<section class="card"><div class="empty">Kobler til …</div></section>';
   const items = [].concat(
     d.annotated.map(m => ({ t: m.at, kind: 'match', m })),
     state.crawls.filter(c => !c.matchId).map(c => ({ t: c.at, kind: 'crawl', c }))
   ).sort((a, b) => b.t.localeCompare(a.t));
-  if (!items.length) return demoNote() + '<section class="card"><div class="empty">Historikken er tom. G√• til Registrer og legg inn den f√∏rste kampen.</div></section>' + resetBlock();
+  if (!items.length) return demoNote() + '<section class="card"><div class="empty">Historikken er tom. Gå til Registrer og legg inn den første kampen.</div></section>' + resetBlock();
   const groups = [];
   items.forEach(it => { const k = dayKey(it.t); const g = groups[groups.length - 1]; if (g && g.k === k) g.items.push(it); else groups.push({ k, month: monthKeyOf(it.t), label: dayLabel(it.t), items: [it] }); });
   let lastMonth = null;
@@ -1107,8 +1107,8 @@ function resetBlock(){
   const ready = state.mode === 'shared' || state.mode === 'local';
   if (!ready) return '';
   const confirming = confirmKey === 'reset';
-  return `<section class="block" style="padding:6px 4px 0"><p class="hint">Vil dere starte med blanke ark? Dette sletter alle kamper, krabbinger og spillere${state.mode === 'shared' ? ' for alle' : ' p√• denne enheten'}. Husreglene beholdes.</p>
-    <div><button class="link danger" data-act="reset">${confirming ? 'Er du sikker? Trykk igjen for √• slette alt' : 'Nullstill ligaen'}</button></div></section>`;
+  return `<section class="block" style="padding:6px 4px 0"><p class="hint">Vil dere starte med blanke ark? Dette sletter alle kamper, krabbinger og spillere${state.mode === 'shared' ? ' for alle' : ' på denne enheten'}. Husreglene beholdes.</p>
+    <div><button class="link danger" data-act="reset">${confirming ? 'Er du sikker? Trykk igjen for å slette alt' : 'Nullstill ligaen'}</button></div></section>`;
 }
 
 function wardrobeCurrent(){
@@ -1139,7 +1139,7 @@ function viewWardrobe(seg){
   const list = state.players.filter(p => !p.archived).sort((a, b) => a.name.localeCompare(b.name, 'nb'));
   if (!list.length) return `<section class="card">${seg}
     <div class="card-head"><div><h2>Garderobe</h2><p class="lede-sm">Lag din egen figur.</p></div></div>
-    <div class="empty">Legg til spillere i lista f√∏rst, s√• kan de kle seg opp.</div></section>`;
+    <div class="empty">Legg til spillere i lista først, så kan de kle seg opp.</div></section>`;
   if (!wardrobe.id || !list.some(p => p.id === wardrobe.id)){ wardrobe.id = list[0].id; wardrobe.draft = null; }
   const me = playerOf(wardrobe.id);
   const cur = wardrobeCurrent();
@@ -1152,12 +1152,12 @@ function viewWardrobe(seg){
 
   return `
     <section class="card">${seg}
-      <div class="card-head"><div><h2>Garderobe</h2><p class="lede-sm">Bygg figuren din. Den dukker opp ved siden av navnet ditt i tabellen og p√• krabbelista.</p></div></div>
+      <div class="card-head"><div><h2>Garderobe</h2><p class="lede-sm">Bygg figuren din. Den dukker opp ved siden av navnet ditt i tabellen og på krabbelista.</p></div></div>
       <div class="wr-pick chips">${pick}</div>
       <div class="wr-stage">
         ${avatarSvg(cur, 150)}
         <span class="who">${esc(me.name)}</span>
-        <span class="sub">${c.games ? `${c.games} ${c.games === 1 ? 'kamp' : 'kamper'}${c.crawls ? ` ¬∑ ${c.crawls} ${c.crawls === 1 ? 'krabbing' : 'krabbinger'}` : ''}` : 'ingen kamper enda'}</span>
+        <span class="sub">${c.games ? `${c.games} ${c.games === 1 ? 'kamp' : 'kamper'}${c.crawls ? ` · ${c.crawls} ${c.crawls === 1 ? 'krabbing' : 'krabbinger'}` : ''}` : 'ingen kamper enda'}</span>
         <div class="wr-actions">
           <button class="secondary" data-act="wrrandom" ${ready ? '' : 'disabled'}>Tilfeldig</button>
           <button class="secondary" data-act="wrreset" ${ready ? '' : 'disabled'}>Nullstill</button>
@@ -1170,7 +1170,7 @@ function viewWardrobe(seg){
       ${group('Antrekk', items('outfit', AV_OUTFITS))}
       ${group('Antrekksfarge', colors('outfitColor'))}
       ${group('Uttrykk', items('face', AV_FACES))}
-      <p class="foot">Endringene lagres av seg selv, og alle p√• kontoret ser dem.</p>
+      <p class="foot">Endringene lagres av seg selv, og alle på kontoret ser dem.</p>
     </section>`;
 }
 
@@ -1191,17 +1191,17 @@ function viewRules(){
   const toggle = state.rules.length && ready
     ? `<button class="ptoggle${editing ? ' on' : ''}" data-act="${editing ? 'ruledone' : 'ruleedit'}">${editing ? 'Ferdig' : 'Rediger'}</button>` : '';
   const lede = editing
-    ? 'Skriv rett i teksten for √• rette opp. Endringene lagres n√•r du g√•r videre, og alle ser dem.'
+    ? 'Skriv rett i teksten for å rette opp. Endringene lagres når du går videre, og alle ser dem.'
     : 'Reglene som gjelder ved dette bordet. Alle ser det samme.';
   return `
     ${demoNote()}
     <section class="card">
       <div class="card-head"><div><h2>Husregler</h2><p class="lede-sm">${lede}</p></div>${toggle}</div>
-      ${state.rules.length ? `<ol class="rules">${list}</ol>` : `<div class="empty">Ingen regler enda. Den f√∏rste pleier √• handle om krabbing.</div>`}
+      ${state.rules.length ? `<ol class="rules">${list}</ol>` : `<div class="empty">Ingen regler enda. Den første pleier å handle om krabbing.</div>`}
       ${editing ? '' : `<form class="newrule" id="newRuleForm">
         <div class="block-head"><h3>Ny regel</h3></div>
         <textarea id="newRuleText" placeholder="Skriv regelen slik dere sier den ved bordet" maxlength="240" required ${ready ? '' : 'disabled'}></textarea>
-        <button type="submit" class="primary" ${ready ? '' : 'disabled'}>${ready ? 'Legg til regel' : 'Kobler til ‚Ä¶'}</button>
+        <button type="submit" class="primary" ${ready ? '' : 'disabled'}>${ready ? 'Legg til regel' : 'Kobler til …'}</button>
       </form>`}
     </section>`;
 }
@@ -1217,7 +1217,7 @@ function viewPlayers(){
   const meta = id => {
     const c = counts.get(id) || { games: 0, crawls: 0 };
     if (!c.games) return 'ingen kamper';
-    return `${c.games} ${c.games === 1 ? 'kamp' : 'kamper'}${c.crawls ? ` ¬∑ ${c.crawls} krabb.` : ''}`;
+    return `${c.games} ${c.games === 1 ? 'kamp' : 'kamper'}${c.crawls ? ` · ${c.crawls} krabb.` : ''}`;
   };
   const row = p => {
     if (!editing) return `<li class="prow">${avatarSvg(avatarOf(p), 34)}<span class="pname">${esc(p.name)}</span><span class="pmeta">${meta(p.id)}</span></li>`;
@@ -1226,22 +1226,22 @@ function viewPlayers(){
     const used = c.games > 0 || c.crawls > 0;
     const val = playersUi.drafts[p.id] !== undefined ? playersUi.drafts[p.id] : p.name;
     return `<li class="prow">
-      <input data-edit="player:${esc(p.id)}" value="${esc(val)}" maxlength="24" autocomplete="off" aria-label="Navn p√• ${esc(p.name)}">
+      <input data-edit="player:${esc(p.id)}" value="${esc(val)}" maxlength="24" autocomplete="off" aria-label="Navn på ${esc(p.name)}">
       <button class="mini danger${confirming ? ' confirm' : ''}" data-act="delplayer" data-id="${esc(p.id)}">${confirming ? (used ? 'Ta ut?' : 'Slett?') : 'Fjern'}</button>
     </li>`;
   };
   const toggle = state.players.length && ready
     ? `<button class="ptoggle${editing ? ' on' : ''}" data-act="${editing ? 'playerdone' : 'playeredit'}">${editing ? 'Ferdig' : 'Rediger'}</button>` : '';
   const lede = editing
-    ? 'Skriv rett i navnet for √• rette det opp. Har noen spilt kamper, blir de st√•ende i historikken selv om du fjerner dem fra lista.'
-    : 'Alle som kan velges n√•r dere registrerer en kamp.';
+    ? 'Skriv rett i navnet for å rette det opp. Har noen spilt kamper, blir de stående i historikken selv om du fjerner dem fra lista.'
+    : 'Alle som kan velges når dere registrerer en kamp.';
   const goneList = gone.length ? `<div class="block">
       <div class="block-head"><h3>Ute av lista</h3></div>
       <ul class="plist">${gone.map(p => `<li class="prow gone">
         <span class="pname">${esc(p.name)}</span>
         ${editing ? `<button class="mini go" data-act="unarchive" data-id="${esc(p.id)}">Hent tilbake</button>` : `<span class="pmeta">${meta(p.id)}</span>`}
       </li>`).join('')}</ul>
-      <p class="hint">De st√•r fortsatt i historikken og i tabellene for m√•nedene de spilte.</p>
+      <p class="hint">De står fortsatt i historikken og i tabellene for månedene de spilte.</p>
     </div>` : '';
   const seg = `<div class="seg-wide" role="tablist">
     <button role="tab" data-act="playerstab" data-tab="list" class="${state.playersTab === 'list' ? 'on' : ''}" aria-selected="${state.playersTab === 'list'}">Lista</button>
@@ -1300,10 +1300,10 @@ function renderCrawlOnlySheet(){
   openSheet(`
     <p class="sheet-kicker">Uten kamp</p>
     <h2 class="sheet-title">Hvem krabbet?</h2>
-    <p class="sheet-result">Gammel gjeld, tapt veddem√•l eller bare d√•rlig d√∏mmekraft.</p>
+    <p class="sheet-result">Gammel gjeld, tapt veddemål eller bare dårlig dømmekraft.</p>
     <div class="chips">${chips || '<span class="hint">Ingen spillere enda.</span>'}</div>
     <div class="sheet-actions">
-      <button class="primary" data-act="sheetyes" ${selected.size ? '' : 'disabled'}>${selected.size ? `Registrer krabbing (${selected.size})` : 'Velg minst √©n'}</button>
+      <button class="primary" data-act="sheetyes" ${selected.size ? '' : 'disabled'}>${selected.size ? `Registrer krabbing (${selected.size})` : 'Velg minst én'}</button>
       <button class="secondary" data-act="closesheet">Avbryt</button>
     </div>`);
 }
@@ -1322,7 +1322,7 @@ function tapChip(id){
   if (!inRed && !inBlue){
     if (form.red.length < 2) form.red.push(id);
     else if (form.blue.length < 2) form.blue.push(id);
-    else { toast('Begge lag er fulle ‚Äì fjern noen f√∏rst'); return; }
+    else { toast('Begge lag er fulle – fjern noen først'); return; }
   } else if (inRed){
     form.red = form.red.filter(x => x !== id);
     if (form.blue.length < 2) form.blue.push(id);
@@ -1333,7 +1333,7 @@ async function saveMatch(){
   if (!store || !form.red.length || !form.blue.length || !form.winner) return;
   const m = { t1: form.red.slice(), t2: form.blue.slice(), winner: form.winner, at: new Date().toISOString() };
   const { pWin } = expectedFor(m, state.derived ? state.derived.rating : new Map());
-  const btn = $('#saveBtn'); if (btn){ btn.disabled = true; btn.textContent = 'Lagrer ‚Ä¶'; }
+  const btn = $('#saveBtn'); if (btn){ btn.disabled = true; btn.textContent = 'Lagrer …'; }
   try {
     const id = await store.addMatch(m);
     lastAction = { matchId: id, crawlId: null, label: 'Kamp' };
@@ -1343,13 +1343,13 @@ async function saveMatch(){
     openCrawlSheet({ match: Object.assign({ id }, m), losers, pWin });
   } catch (e){
     console.error(e); renderScreen();
-    toast(e && e.code === 'quota_exceeded' ? 'Databasen er full ‚Äì slett gamle kamper f√∏rst' : 'Kunne ikke lagre kampen. Pr√∏v igjen.');
+    toast(e && e.code === 'quota_exceeded' ? 'Databasen er full – slett gamle kamper først' : 'Kunne ikke lagre kampen. Prøv igjen.');
   }
 }
 async function addPlayer(name){
   name = name.trim().replace(/\s+/g, ' ');
   if (!name) return;
-  if (!store){ toast('Vent litt ‚Äì kobler til lagringen'); return; }
+  if (!store){ toast('Vent litt – kobler til lagringen'); return; }
   const exists = state.players.find(p => p.name.toLowerCase() === name.toLowerCase());
   if (exists){
     if (exists.archived){
@@ -1405,7 +1405,7 @@ async function undo(){
   try {
     if (a.matchId) await store.deleteMatch(a.matchId);
     else if (a.crawlId) await store.deleteCrawl(a.crawlId);
-    toast('Angret ‚Äì ' + a.label.toLowerCase() + ' er fjernet');
+    toast('Angret – ' + a.label.toLowerCase() + ' er fjernet');
   } catch (e){ console.error(e); toast('Kunne ikke angre.'); }
 }
 function armConfirm(key){
@@ -1469,7 +1469,7 @@ document.addEventListener('click', async e => {
     const name = nameOf(id);
     delete playersUi.drafts[id];
     try {
-      if (used){ await store.updatePlayer(id, { archived: true }); toast(`${name} er ute av lista, men st√•r igjen i historikken`); }
+      if (used){ await store.updatePlayer(id, { archived: true }); toast(`${name} er ute av lista, men står igjen i historikken`); }
       else { await store.deletePlayer(id); toast(`${name} er fjernet`); }
     } catch (err){ console.error(err); toast('Kunne ikke fjerne spilleren.'); renderScreen(); }
   }
@@ -1493,7 +1493,7 @@ document.addEventListener('click', async e => {
   else if (act === 'reset'){
     if (!armConfirm('reset')) return;
     confirmKey = null;
-    try { await store.reset(); resetForm(); toast('Ligaen er nullstilt ‚Äì legg til spillere og kj√∏r i gang'); }
+    try { await store.reset(); resetForm(); toast('Ligaen er nullstilt – legg til spillere og kjør i gang'); }
     catch (err){ console.error(err); toast('Kunne ikke nullstille.'); renderScreen(); }
   }
 });
