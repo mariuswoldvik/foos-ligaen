@@ -1,0 +1,1550 @@
+<!DOCTYPE html>
+<html lang="nb">
+<head>
+<meta charset="utf-8">
+<title>TheFactory Foos Ligaen</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&family=Nunito+Sans:wght@400;600;700;800&display=swap">
+<style>
+:root{
+  /* Hvite flater, kontorets bl√• som prim√¶r, rav/turkis/korall som komplement */
+  --bg:#F4F7FC;
+  --card:#FFFFFF; --card-2:#F5F8FD; --field:#FFFFFF;
+  --line:#E9EEF6; --line-strong:#D3DCEC;
+  --text:#1B3A6B; --body:#6C7A94; --muted:#8A96AD; --on-text:#FFFFFF; --logo:#1E1E1E;
+  --brand:#2F7BF5; --brand-ink:#FFFFFF; --brand-soft:#E7F0FE; --brand-disabled:#8FB8F5;
+  --amber:#F2A33C; --amber-soft:#FDF0DE; --amber-ink:#6B4308;
+  --teal:#12A594; --teal-soft:#DDF4F1;
+  --coral:#E05B4D;
+  --tA:#1E1E1E; --tA-ring:#1E1E1E; --tA-ink:#FFFFFF;
+  --tB:#FFFFFF; --tB-ring:#1E1E1E; --tB-ink:#1B3A6B;
+  --gold:#F2A33C; --silver:#CBD5E3; --bronze:#D9A07A; --podium-ink:#2A1E08;
+  --live:#12A594; --danger:#E05B4D;
+  --toast-bg:#1B3A6B; --toast-ink:#FFFFFF;
+  --shadow:0 1px 2px rgba(27,58,107,.04), 0 8px 24px rgba(27,58,107,.06);
+  --shadow-brand:0 6px 16px rgba(47,123,245,.28);
+  --r-card:26px; --r-ctl:16px;
+  --font-display:"Nunito","Avenir Next Rounded","Avenir",system-ui,sans-serif;
+  --font-body:"Nunito Sans","Avenir Next","Avenir",system-ui,-apple-system,"Segoe UI",sans-serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0F1420;
+    --card:#19202E; --card-2:#212936; --field:#1D2532;
+    --line:#2A3444; --line-strong:#3C4859;
+    --text:#EAEFF8; --body:#B6C1D4; --muted:#8A97AE; --on-text:#0F1420; --logo:#F5F7FA;
+    --brand:#5B95F7; --brand-ink:#FFFFFF; --brand-soft:#1E3255; --brand-disabled:#3A527F;
+    --amber:#E2A34C; --amber-soft:#3A2C17; --amber-ink:#FFE2B8;
+    --teal:#3BBFAE; --teal-soft:#16332F;
+    --coral:#F0776A;
+    --tA:#05080F; --tA-ring:#B3BECF; --tA-ink:#FFFFFF;
+    --tB:#F5F8FF; --tB-ring:#F5F8FF; --tB-ink:#0F1420;
+    --gold:#E2A34C; --silver:#A8B2C1; --bronze:#C08A63; --podium-ink:#1A1408;
+    --live:#3BBFAE; --danger:#F0776A;
+    --toast-bg:#EAEFF8; --toast-ink:#0F1420;
+    --shadow:0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.35);
+    --shadow-brand:0 6px 16px rgba(91,149,247,.3);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0F1420;
+  --card:#19202E; --card-2:#212936; --field:#1D2532;
+  --line:#2A3444; --line-strong:#3C4859;
+  --text:#EAEFF8; --body:#B6C1D4; --muted:#8A97AE; --on-text:#0F1420; --logo:#F5F7FA;
+  --brand:#5B95F7; --brand-ink:#FFFFFF; --brand-soft:#1E3255; --brand-disabled:#3A527F;
+  --amber:#E2A34C; --amber-soft:#3A2C17; --amber-ink:#FFE2B8;
+  --teal:#3BBFAE; --teal-soft:#16332F;
+  --coral:#F0776A;
+  --tA:#05080F; --tA-ring:#B3BECF; --tA-ink:#FFFFFF;
+  --tB:#F5F8FF; --tB-ring:#F5F8FF; --tB-ink:#0F1420;
+  --gold:#E2A34C; --silver:#A8B2C1; --bronze:#C08A63; --podium-ink:#1A1408;
+  --live:#3BBFAE; --danger:#F0776A;
+  --toast-bg:#EAEFF8; --toast-ink:#0F1420;
+  --shadow:0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.35);
+  --shadow-brand:0 6px 16px rgba(91,149,247,.3);
+  color-scheme:dark;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+[hidden]{display:none !important}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--body);font:400 16px/1.45 var(--font-body);min-height:100vh;padding-bottom:40px}
+h1,h2,h3{margin:0;font-family:var(--font-display);font-weight:800;line-height:1.1;color:var(--text);text-wrap:balance}
+p{margin:0}
+button{font:inherit;color:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}
+button:disabled{cursor:default}
+button:focus-visible,input:focus-visible,textarea:focus-visible,a:focus-visible{outline:3px solid var(--brand);outline-offset:2px}
+ul,ol{list-style:none;margin:0;padding:0}
+a{color:var(--brand)}
+.wrap{max-width:640px;margin:0 auto;padding-inline:16px}
+.num{font-variant-numeric:tabular-nums}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r-card);box-shadow:var(--shadow);padding:22px 20px}
+
+/* Topp-kort med logo */
+.hero{margin-top:16px}
+.hero-top{display:flex;align-items:flex-start;justify-content:space-between;gap:14px}
+.kicker{flex:1;min-width:0;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);padding-top:6px}
+.hero h1{font-size:38px;font-weight:900;letter-spacing:-.015em;margin-top:8px}
+.logo{flex:none;width:62px;line-height:0;padding-top:1px}
+.logo img{display:block;width:100%;height:auto;max-width:100%}
+.logo .logo-dark{display:none}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]) .logo .logo-light{display:none}
+  :root:not([data-theme="light"]) .logo .logo-dark{display:block}
+}
+:root[data-theme="dark"] .logo .logo-light{display:none}
+:root[data-theme="dark"] .logo .logo-dark{display:block}
+.lede{color:var(--body);font-size:16px;line-height:1.5;margin-top:12px;max-width:34ch}
+.hero-foot{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:16px;padding-top:14px;border-top:1px solid var(--line)}
+.hdr-stats{font-family:var(--font-display);font-weight:800;font-size:16px;color:var(--text)}
+.mode{flex:none;font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:5px 10px;border-radius:999px;background:var(--card-2);border:1px solid var(--line-strong);color:var(--muted);white-space:nowrap}
+.mode::before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:currentColor;margin-right:6px;opacity:.6;vertical-align:1px}
+.mode.is-shared{color:var(--text);background:var(--teal-soft);border-color:transparent}
+.mode.is-shared::before{background:var(--live);opacity:1}
+.mode.is-connecting::before{animation:blink 1s infinite}
+@keyframes blink{50%{opacity:.15}}
+
+/* Fanevelger */
+.tabs{position:sticky;top:10px;z-index:20;display:grid;grid-template-columns:repeat(5,1fr);gap:2px;padding:5px;margin-top:14px;border-radius:22px}
+.tabs button{min-height:46px;padding:6px 3px;border:0;border-radius:16px;background:none;color:var(--body);font-family:var(--font-display);font-weight:800;font-size:13px;line-height:1.15}
+.tabs button[aria-selected="true"]{background:var(--brand);color:var(--brand-ink);box-shadow:var(--shadow-brand)}
+
+main{padding-block:14px 8px;display:flex;flex-direction:column;gap:14px}
+.card > .block + .block{margin-top:24px}
+.card > .primary{margin-top:24px}
+.card-head{margin-bottom:20px;display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.card-head > div{min-width:0}
+.card-head h2{font-size:25px}
+.card-head .lede-sm{color:var(--body);margin-top:4px;font-size:15px;line-height:1.45}
+.block{display:flex;flex-direction:column;gap:10px}
+.block-head{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.block-head h2{font-size:23px}
+.block-head h3{font-size:17px;font-weight:800}
+.block-head .opt{font-size:11px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.1em}
+.hint{font-size:13.5px;color:var(--body)}
+.hint.center{text-align:center}
+.link{background:none;border:0;padding:0;color:var(--brand);font-weight:800;font-size:14px}
+.link.quiet{color:var(--body);font-weight:700}
+.link.danger{color:var(--danger)}
+
+/* Spillerchips */
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{min-height:44px;padding:0 16px 0 12px;border-radius:999px;border:1.5px solid var(--line-strong);background:var(--field);color:var(--text);font-size:15px;font-weight:700;display:inline-flex;align-items:center;gap:9px;transition:transform .08s ease}
+.chip::before{content:"";width:10px;height:10px;border-radius:50%;background:var(--line-strong);flex:none}
+.chip:active{transform:scale(.96)}
+.chip.is-a{background:var(--tA);border-color:var(--tA-ring);color:var(--tA-ink)}
+.chip.is-a::before{background:var(--tA);box-shadow:0 0 0 2px var(--tA-ink)}
+.chip.is-b{background:var(--tB);border-color:var(--tB-ring);border-width:2px;color:var(--tB-ink)}
+.chip.is-b::before{background:var(--tB);box-shadow:0 0 0 2px var(--tB-ring)}
+.chip.is-on{background:var(--brand-soft);border-color:var(--brand);color:var(--text)}
+.chip.is-on::before{background:var(--brand)}
+.newplayer{display:flex;gap:8px}
+.newplayer input{flex:1;min-width:0;height:52px;border:1.5px solid var(--line-strong);border-radius:var(--r-ctl);background:var(--field);color:var(--text);padding:0 16px;font:600 16px var(--font-body)}
+.newplayer button{height:52px;padding:0 18px;border-radius:var(--r-ctl);border:0;background:var(--brand);color:var(--brand-ink);font-weight:800}
+
+/* Lagkort */
+.teams{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.team{position:relative;text-align:left;display:flex;flex-direction:column;gap:8px;min-height:118px;padding:14px 13px 16px;border:2px solid var(--line-strong);border-radius:20px;background:var(--field);transition:border-color .12s ease,box-shadow .12s ease}
+.team-mark{width:36px;height:12px;border-radius:6px;border:2px solid var(--tA-ring);background:var(--tA)}
+.team-b .team-mark{border-color:var(--tB-ring);background:var(--tB)}
+.team-label{font-family:var(--font-display);font-weight:800;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.team-names{font-family:var(--font-display);font-weight:900;font-size:21px;line-height:1.1;color:var(--text);overflow-wrap:anywhere}
+.team-names.empty{font-family:var(--font-body);font-weight:600;font-size:14px;color:var(--muted);line-height:1.35}
+.team.is-winner{border-color:var(--brand);box-shadow:0 0 0 3px var(--brand-soft)}
+.won-badge{position:absolute;top:10px;right:10px;background:var(--brand);color:var(--brand-ink);font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:5px 9px;border-radius:999px}
+
+/* Husregler */
+.rules{display:flex;flex-direction:column}
+.rule{display:grid;grid-template-columns:32px 1fr;align-items:start;gap:6px 12px;padding:12px 0;border-top:1px solid var(--line)}
+.rules > .rule:first-child{border-top:0;padding-top:0}
+.rule-n{width:32px;height:32px;border-radius:50%;background:var(--brand-soft);color:var(--text);font-family:var(--font-display);font-weight:900;font-size:15px;display:flex;align-items:center;justify-content:center;font-variant-numeric:tabular-nums}
+.rule-t{font-size:16px;line-height:1.45;color:var(--text);font-weight:600;padding-top:5px;overflow-wrap:anywhere}
+.rule-edit{grid-column:2;display:flex;flex-direction:column;gap:8px;align-items:flex-end}
+.rule-edit textarea,.newrule textarea{width:100%;min-height:76px;resize:none;overflow:hidden;border:1.5px solid var(--line-strong);border-radius:var(--r-ctl);background:var(--field);color:var(--text);padding:14px 16px;font:600 16px/1.4 var(--font-body)}
+.rule-edit textarea:focus,.newrule textarea:focus{border-color:var(--brand);outline:none}
+.newrule{display:flex;flex-direction:column;gap:10px;margin-top:22px}
+.mini{height:34px;padding:0 12px;border-radius:999px;border:1.5px solid var(--line-strong);background:var(--field);color:var(--body);font-size:13px;font-weight:800}
+.mini.confirm,.mini.danger{border-color:var(--danger);color:var(--danger)}
+.mini.go{border-color:var(--brand);color:var(--brand)}
+
+/* Spillere */
+.plist{display:flex;flex-direction:column}
+.prow{display:flex;align-items:center;gap:12px;padding:11px 0;border-top:1px solid var(--line)}
+.plist > .prow:first-child{border-top:0;padding-top:2px}
+.prow .av{flex:none}
+.pname{flex:1;min-width:0;font-weight:800;color:var(--text);font-size:16px;overflow-wrap:anywhere}
+.pmeta{font-size:13px;color:var(--body);white-space:nowrap;font-weight:600}
+.prow input{flex:1;min-width:0;height:48px;border:1.5px solid var(--line-strong);border-radius:var(--r-ctl);background:var(--field);color:var(--text);padding:0 14px;font:700 16px var(--font-body)}
+.prow input:focus{border-color:var(--brand);outline:none}
+.prow.gone .pname{color:var(--muted);font-weight:700}
+
+/* Figurer */
+.av{display:block;flex:none}
+.av-name{display:flex;align-items:center;gap:9px;min-width:0}
+.av-name .txt{min-width:0}
+td.name .av-name b{font-weight:800;color:var(--text)}
+.chip .av{margin-left:-4px}
+
+/* Garderobe */
+.wr-pick{display:flex;flex-wrap:wrap;gap:8px}
+.wr-pick .chip{padding:0 14px 0 6px}
+.wr-stage{display:flex;flex-direction:column;align-items:center;gap:8px;padding:20px 16px 18px;margin:4px 0 20px;border-radius:22px;background:var(--card-2);border:1px solid var(--line)}
+.wr-stage .av{filter:drop-shadow(0 10px 16px rgba(27,58,107,.18))}
+.wr-stage .who{font-family:var(--font-display);font-weight:900;font-size:22px;color:var(--text);margin-top:2px}
+.wr-stage .sub{font-size:13px;color:var(--body)}
+.wr-actions{display:flex;gap:8px;width:100%;margin-top:4px}
+.wr-actions button{flex:1}
+.wr-group{margin-top:18px}
+.wr-group h3{font-size:13px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.wr-row{display:flex;gap:8px;overflow-x:auto;padding:2px 2px 8px;scrollbar-width:thin;-webkit-overflow-scrolling:touch;mask-image:linear-gradient(90deg,#000 calc(100% - 26px),transparent)}
+.wr-opt{flex:none;width:62px;height:62px;border-radius:18px;border:2px solid var(--line);background:var(--line);padding:0;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.wr-opt.on{border-color:var(--brand);box-shadow:0 0 0 3px var(--brand-soft)}
+.chip.chip-av{padding:0 15px 0 5px}
+.chip.chip-av::before{display:none}
+.wr-pick .chip::before{display:none}
+.wr-sw{flex:none;width:40px;height:40px;border-radius:50%;border:2px solid var(--line);padding:0;position:relative}
+.wr-sw.on{border-color:var(--brand);box-shadow:0 0 0 3px var(--brand-soft)}
+.wr-none{font-family:var(--font-display);font-weight:800;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+
+/* Lagkjemi */
+.chem{display:flex;flex-direction:column}
+.chem li{display:grid;grid-template-columns:1fr auto;align-items:center;gap:10px;padding:11px 0;border-top:1px solid var(--line)}
+.chem li:first-child{border-top:0;padding-top:0}
+.chem .pair{font-weight:800;color:var(--text);font-size:15px;overflow-wrap:anywhere}
+.chem .det{font-size:12.5px;color:var(--body);font-weight:600;margin-top:2px}
+.chem .dx{font-family:var(--font-display);font-weight:900;font-size:20px;font-variant-numeric:tabular-nums;white-space:nowrap}
+.chem .dx.pos{color:var(--teal)}
+.chem .dx.neg{color:var(--coral)}
+.bar{height:6px;border-radius:3px;background:var(--card-2);overflow:hidden;margin-top:6px;max-width:180px}
+.bar i{display:block;height:100%;border-radius:3px;background:var(--brand)}
+
+/* Periodevelger */
+.period{display:flex;align-items:center;gap:8px;margin-bottom:14px}
+.pbtn{width:36px;height:36px;flex:none;border-radius:50%;border:1.5px solid var(--line-strong);background:var(--field);color:var(--text);font-size:20px;line-height:1;font-weight:700;display:flex;align-items:center;justify-content:center;padding:0 0 2px}
+.pbtn:disabled{opacity:.3}
+.plabel{flex:1;min-width:0;text-align:center;line-height:1.15}
+.plabel b{display:block;font-family:var(--font-display);font-weight:800;font-size:16px;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.plabel small{display:block;font-size:12px;color:var(--body);font-weight:600;margin-top:2px}
+.ptoggle{flex:none;height:36px;padding:0 12px;border-radius:999px;border:1.5px solid var(--line-strong);background:var(--field);color:var(--text);font-family:var(--font-display);font-weight:800;font-size:13px}
+.ptoggle.on{background:var(--brand);border-color:var(--brand);color:var(--brand-ink)}
+.pts.pos{color:var(--teal)}
+.pts.neg{color:var(--coral)}
+.month-h{font-family:var(--font-body);font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);padding:8px 6px 0}
+.facts.hall li{grid-template-columns:82px 1fr}
+.facts.hall b{color:var(--text);font-weight:800}
+
+/* Segmentvelger */
+.seg-wide{display:grid;grid-template-columns:1fr 1fr;gap:4px;padding:5px;border-radius:16px;background:var(--card-2);margin-bottom:18px}
+.card > .seg-wide + .card-head{margin-top:0}
+.seg-wide button{height:44px;border:0;border-radius:12px;background:none;font-family:var(--font-display);font-weight:800;font-size:15px;color:var(--body)}
+.seg-wide button.on{background:var(--brand);color:var(--brand-ink);box-shadow:var(--shadow-brand)}
+
+/* Knapper */
+.primary{width:100%;min-height:58px;border:0;border-radius:var(--r-ctl);background:var(--brand);color:var(--brand-ink);font-family:var(--font-display);font-weight:800;font-size:19px;padding:0 16px;box-shadow:var(--shadow-brand)}
+.primary:disabled{background:var(--brand-disabled);box-shadow:none;font-size:16px}
+.secondary{width:100%;min-height:52px;border:1.5px solid var(--line-strong);border-radius:var(--r-ctl);background:var(--field);color:var(--text);font-family:var(--font-display);font-weight:800;font-size:16px}
+
+/* Kamplister */
+.matchlist{display:flex;flex-direction:column}
+.match{display:grid;grid-template-columns:40px minmax(0,1fr) auto;align-items:center;gap:8px;padding:11px 0;border-top:1px solid var(--line)}
+.matchlist > .match:first-child{border-top:0;padding-top:4px}
+.match .time{font-size:13px;color:var(--body);font-variant-numeric:tabular-nums;font-weight:600}
+.match .sides{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;min-width:0}
+.side{display:flex;align-items:center;gap:6px;min-width:0;font-size:14.5px;line-height:1.3;color:var(--body)}
+.side .nm{min-width:0;overflow-wrap:break-word;hyphens:none}
+.side.left{justify-content:flex-end;text-align:right}
+.side.right{justify-content:flex-start;text-align:left}
+.side.won{color:var(--text);font-weight:800}
+.dot{width:9px;height:9px;border-radius:50%;flex:none}
+.dot-a{background:var(--tA);box-shadow:0 0 0 1.5px var(--tA-ring)}
+.dot-b{background:var(--tB);box-shadow:0 0 0 1.5px var(--tB-ring)}
+.score.word{font-family:var(--font-body);font-weight:800;font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);margin:0 9px;white-space:nowrap}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.tag{font-size:11.5px;font-weight:800;letter-spacing:.02em;padding:4px 9px;border-radius:999px;background:var(--card-2);color:var(--body)}
+.tag.crawl{background:var(--amber-soft);color:var(--amber-ink)}
+.tag.upset{background:var(--brand-soft);color:var(--text)}
+.del{width:34px;height:34px;border-radius:50%;border:1.5px solid var(--line-strong);background:none;color:var(--muted);font-size:18px;line-height:1;display:flex;align-items:center;justify-content:center;justify-self:end}
+.del.confirm{width:auto;padding:0 10px;border-radius:999px;border-color:var(--danger);color:var(--danger);font-size:13px;font-weight:800}
+.compact .match{grid-template-columns:40px minmax(0,1fr)}
+.compact .del{display:none}
+.crawlrow .sides{display:block;font-size:15px}
+.crawlrow .sides b{font-weight:800;color:var(--text)}
+.day-h{font-size:18px;margin-bottom:6px}
+
+/* Tabell */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:18px}
+.stat{background:var(--card-2);border-radius:16px;padding:12px 14px;display:flex;flex-direction:column;gap:2px;min-width:0}
+.stat-n{font-family:var(--font-display);font-weight:900;font-size:26px;line-height:1;font-variant-numeric:tabular-nums;color:var(--text)}
+.stat-l{font-size:12px;color:var(--body);line-height:1.2;font-weight:600}
+@media (max-width:440px){.stats{grid-template-columns:1fr 1fr}}
+table.rank{width:100%;border-collapse:collapse;font-size:15px}
+table.rank th{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-align:left;padding:0 6px 8px;border-bottom:2px solid var(--line-strong)}
+table.rank td{padding:10px 6px;border-bottom:1px solid var(--line);vertical-align:middle}
+table.rank th.r,table.rank td.r{text-align:right}
+table.rank th:first-child,table.rank td:first-child{padding-left:0}
+table.rank th:last-child,table.rank td:last-child{padding-right:0}
+td.pos{width:44px;white-space:nowrap}
+td.pos b{font-family:var(--font-display);font-weight:900;font-size:19px;font-variant-numeric:tabular-nums;color:var(--text)}
+.trend{font-size:11px;font-weight:800;margin-left:3px;vertical-align:2px;color:var(--muted)}
+.trend.up{color:var(--teal)}
+.trend.new{background:var(--brand-soft);color:var(--text);padding:1px 6px;border-radius:999px}
+td.name{font-weight:800;color:var(--text)}
+td.name small{display:block;font-weight:600;font-size:12.5px;color:var(--body);line-height:1.25}
+td.rating{font-family:var(--font-display);font-weight:900;font-size:19px;font-variant-numeric:tabular-nums;color:var(--text)}
+td.rec{font-variant-numeric:tabular-nums;white-space:nowrap;font-weight:700;color:var(--text)}
+td.rec small{display:block;font-size:12px;color:var(--body);font-weight:600}
+.form{display:inline-flex;gap:3px}
+.form i{width:10px;height:10px;border-radius:50%;border:2px solid var(--line-strong);display:inline-block}
+.form i.w{background:var(--brand);border-color:var(--brand)}
+.foot{font-size:13px;color:var(--body);line-height:1.45;margin-top:12px}
+.newcomers{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:14px;color:var(--body)}
+.newcomers b{color:var(--text);font-weight:800}
+.facts{display:flex;flex-direction:column}
+.facts li{display:grid;grid-template-columns:112px 1fr;gap:10px;padding:10px 0;border-top:1px solid var(--line);font-size:14.5px;line-height:1.4}
+.facts li:first-child{border-top:0;padding-top:0}
+.fact-l{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding-top:3px}
+.empty{padding:24px 16px;text-align:center;color:var(--body);font-size:15px;background:var(--card-2);border-radius:16px}
+
+/* Krabbing */
+.crawl-hero{text-align:center;padding:4px 0 6px}
+.crawl-hero .big{display:block;font-family:var(--font-display);font-weight:900;font-size:70px;line-height:.95;font-variant-numeric:tabular-nums;color:var(--amber)}
+.crawl-hero .lbl{display:block;font-family:var(--font-display);font-weight:800;font-size:18px;color:var(--text);margin-top:4px}
+.crawl-hero .sub{display:block;font-size:14px;color:var(--body);margin-top:6px}
+.stage{margin:18px 0 20px;padding:0 2px}
+.podium{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;align-items:end}
+.podium li{display:flex;flex-direction:column;align-items:center;gap:4px;text-align:center;min-width:0}
+.podium .av{margin-bottom:-2px;filter:drop-shadow(0 4px 6px rgba(27,58,107,.18))}
+.podium .who{font-weight:800;font-size:14px;overflow-wrap:anywhere;color:var(--text);line-height:1.15}
+.podium .ttl{font-size:11px;color:var(--muted);line-height:1.2;font-weight:700;text-transform:uppercase;letter-spacing:.04em}
+.podium .box{position:relative;width:100%;border-radius:10px 10px 0 0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;color:var(--podium-ink);box-shadow:inset 0 -7px 0 rgba(0,0,0,.13), inset 0 2px 0 rgba(255,255,255,.35)}
+.podium .box b{font-family:var(--font-display);font-weight:900;font-size:34px;line-height:1;font-variant-numeric:tabular-nums}
+.podium .box small{font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;opacity:.72}
+.podium .rank{position:absolute;top:5px;left:7px;font-family:var(--font-display);font-weight:900;font-size:12px;opacity:.4}
+.podium .p1 .box b{font-size:40px}
+.podium .p1{order:2}.podium .p2{order:1}.podium .p3{order:3}
+.podium .p1 .box{height:104px;background:var(--gold)}
+.podium .p2 .box{height:84px;background:var(--silver)}
+.podium .p3 .box{height:68px;background:var(--bronze)}
+.floor{height:8px;border-radius:0 0 6px 6px;background:linear-gradient(180deg,var(--line-strong),var(--card-2));box-shadow:0 6px 14px rgba(27,58,107,.10)}
+.floor-lbl{text-align:center;font-size:10.5px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-top:8px}
+td.count{font-family:var(--font-display);font-weight:900;font-size:21px;font-variant-numeric:tabular-nums;color:var(--text)}
+td.last{color:var(--body);font-size:13px;white-space:nowrap;font-weight:600}
+
+/* Ark nederst */
+.sheet{position:fixed;inset:0;z-index:40;display:flex;align-items:flex-end;justify-content:center}
+.sheet-bg{position:absolute;inset:0;background:rgba(14,21,38,.5)}
+.sheet-panel{position:relative;width:100%;max-width:560px;background:var(--card);border-radius:26px 26px 0 0;padding:22px 20px calc(24px + env(safe-area-inset-bottom));box-shadow:var(--shadow);display:flex;flex-direction:column;gap:12px;animation:rise .22s ease-out}
+@keyframes rise{from{transform:translateY(24px);opacity:0}}
+.sheet-kicker{font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.sheet-title{font-size:32px;font-weight:900}
+.sheet-result{font-size:15px;color:var(--body)}
+.sheet .q{font-weight:800;font-size:16px;margin-top:4px;color:var(--text)}
+.sheet-actions{display:flex;flex-direction:column;gap:8px;margin-top:6px}
+@media (min-width:720px){.sheet{align-items:center;padding:16px}.sheet-panel{border-radius:26px}}
+
+/* Toast */
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:30;display:flex;align-items:center;gap:14px;background:var(--toast-bg);color:var(--toast-ink);padding:12px 12px 12px 16px;border-radius:14px;box-shadow:0 10px 30px rgba(27,58,107,.25);font-size:14.5px;font-weight:700;max-width:calc(100% - 32px);width:max-content}
+.toast button{border:0;background:rgba(127,127,127,.25);color:inherit;font-weight:800;padding:7px 12px;border-radius:9px}
+
+.demo-note{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:13px;color:var(--body);background:var(--amber-soft);color:var(--amber-ink);border-radius:14px;padding:10px 14px}
+.demo-note .link{color:var(--amber-ink);text-decoration:underline;text-underline-offset:3px}
+
+@media (prefers-reduced-motion: reduce){*{animation:none !important;transition:none !important}}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="card hero">
+    <div class="hero-top">
+      <p class="kicker">Kontoret holder poeng</p>
+      <div class="logo">
+        <img class="logo-light" src="data:image/png;base64,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" width="240" height="179" alt="The Factory">
+        <img class="logo-dark" src="data:image/png;base64,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" width="240" height="179" alt="" aria-hidden="true">
+      </div>
+    </div>
+    <h1>TheFactory Foos Ligaen</h1>
+    <p class="lede">Registrer kampen, se hvem som leder, og hold telling p√• hvem som m√• krabbe under bordet.</p>
+    <div class="hero-foot">
+      <p class="hdr-stats num" id="hdrStats">&nbsp;</p>
+      <span class="mode is-connecting" id="modePill">Kobler til</span>
+    </div>
+  </header>
+
+  <nav class="tabs card" role="tablist" aria-label="Sider" id="tabs">
+    <button role="tab" data-screen="register" aria-selected="true">Registrer</button>
+    <button role="tab" data-screen="table" aria-selected="false">Tabell</button>
+    <button role="tab" data-screen="history" aria-selected="false">Historikk</button>
+    <button role="tab" data-screen="players" aria-selected="false">Spillere</button>
+    <button role="tab" data-screen="rules" aria-selected="false">Regler</button>
+  </nav>
+</div>
+
+<main id="view" class="wrap" aria-live="polite"></main>
+<div id="sheet" class="sheet" hidden></div>
+<div id="toast" class="toast" role="status" hidden></div>
+
+<script>
+(function(){
+'use strict';
+
+/* Lim inn nettapp-URL-en fra Google Apps Script her (slutter p√• /exec).
+   Tom = appen lagrer bare p√• denne enheten. */
+const API_URL = 'https://script.google.com/macros/s/AKfycbwp6JEs427iktDbO-3VQWbul3hP7MCaZYUgmb8_xn0mxjF9da9sx_ro0iqHRoZKoAwwtA/exec';
+
+/* Eksempeldata ‚Äì brukes bare n√•r siden ikke har delt lagring (lokal modus). */
+const DEMO = {"players":[{"id":"p_ida","name":"Ida","createdAt":"2026-08-12T09:00:00+02:00"},{"id":"p_mats","name":"Mats","createdAt":"2026-08-12T09:00:00+02:00"},{"id":"p_herman","name":"Herman","createdAt":"2026-08-12T09:00:00+02:00"},{"id":"p_sigrid","name":"Sigrid","createdAt":"2026-08-12T09:00:00+02:00"},{"id":"p_jonas","name":"Jonas","createdAt":"2026-08-12T09:00:00+02:00"},{"id":"p_nora","name":"Nora","createdAt":"2026-08-12T09:00:00+02:00"},{"id":"p_kristian","name":"Kristian","createdAt":"2026-08-12T09:00:00+02:00"},{"id":"p_eirik","name":"Eirik","createdAt":"2026-08-12T09:00:00+02:00"}],"matches":[{"id":"m_001","t1":["p_mats","p_ida"],"t2":["p_jonas","p_sigrid"],"s1":10,"s2":4,"winner":1,"side1":"vindu","at":"2026-08-20T16:55:00+02:00"},{"id":"m_002","t1":["p_nora"],"t2":["p_herman"],"s1":9,"s2":10,"winner":2,"side1":null,"at":"2026-08-21T12:12:00+02:00"},{"id":"m_003","t1":["p_jonas","p_sigrid"],"t2":["p_nora","p_ida"],"s1":10,"s2":7,"winner":1,"side1":null,"at":"2026-08-24T12:35:00+02:00"},{"id":"m_004","t1":["p_nora","p_ida"],"t2":["p_sigrid","p_herman"],"s1":null,"s2":null,"winner":1,"side1":"vindu","at":"2026-08-24T15:35:00+02:00"},{"id":"m_005","t1":["p_kristian"],"t2":["p_sigrid"],"s1":5,"s2":10,"winner":2,"side1":"dor","at":"2026-08-24T15:35:00+02:00"},{"id":"m_006","t1":["p_jonas"],"t2":["p_nora"],"s1":10,"s2":7,"winner":1,"side1":null,"at":"2026-08-25T11:41:00+02:00"},{"id":"m_007","t1":["p_herman","p_mats"],"t2":["p_kristian","p_nora"],"s1":10,"s2":7,"winner":1,"side1":"vindu","at":"2026-08-25T11:41:00+02:00"},{"id":"m_008","t1":["p_herman","p_nora"],"t2":["p_jonas","p_kristian"],"s1":7,"s2":10,"winner":2,"side1":null,"at":"2026-08-25T12:35:00+02:00"},{"id":"m_009","t1":["p_kristian"],"t2":["p_sigrid"],"s1":null,"s2":null,"winner":1,"side1":"vindu","at":"2026-08-26T11:41:00+02:00"},{"id":"m_010","t1":["p_ida","p_eirik"],"t2":["p_kristian","p_jonas"],"s1":10,"s2":0,"winner":1,"side1":"vindu","at":"2026-08-27T12:05:00+02:00"},{"id":"m_011","t1":["p_mats"],"t2":["p_kristian"],"s1":10,"s2":4,"winner":1,"side1":"dor","at":"2026-08-27T15:41:00+02:00"},{"id":"m_012","t1":["p_eirik","p_sigrid"],"t2":["p_kristian","p_herman"],"s1":null,"s2":null,"winner":1,"side1":"dor","at":"2026-08-27T16:12:00+02:00"},{"id":"m_013","t1":["p_ida"],"t2":["p_mats"],"s1":7,"s2":10,"winner":2,"side1":"vindu","at":"2026-08-28T11:41:00+02:00"},{"id":"m_014","t1":["p_mats"],"t2":["p_nora"],"s1":9,"s2":10,"winner":2,"side1":"vindu","at":"2026-08-28T12:41:00+02:00"},{"id":"m_015","t1":["p_nora","p_eirik"],"t2":["p_mats","p_jonas"],"s1":9,"s2":10,"winner":2,"side1":null,"at":"2026-08-31T12:20:00+02:00"},{"id":"m_016","t1":["p_eirik","p_herman"],"t2":["p_nora","p_ida"],"s1":6,"s2":10,"winner":2,"side1":null,"at":"2026-08-31T13:12:00+02:00"},{"id":"m_017","t1":["p_nora"],"t2":["p_sigrid"],"s1":7,"s2":10,"winner":2,"side1":"vindu","at":"2026-09-01T12:05:00+02:00"},{"id":"m_018","t1":["p_sigrid","p_eirik"],"t2":["p_jonas","p_nora"],"s1":5,"s2":10,"winner":2,"side1":"dor","at":"2026-09-02T11:41:00+02:00"},{"id":"m_019","t1":["p_kristian"],"t2":["p_eirik"],"s1":9,"s2":10,"winner":2,"side1":"dor","at":"2026-09-02T15:35:00+02:00"},{"id":"m_020","t1":["p_eirik"],"t2":["p_sigrid"],"s1":null,"s2":null,"winner":1,"side1":"vindu","at":"2026-09-03T16:48:00+02:00"},{"id":"m_021","t1":["p_eirik","p_kristian"],"t2":["p_nora","p_mats"],"s1":4,"s2":10,"winner":2,"side1":"vindu","at":"2026-09-04T11:55:00+02:00"},{"id":"m_022","t1":["p_mats","p_jonas"],"t2":["p_nora","p_eirik"],"s1":10,"s2":5,"winner":1,"side1":"vindu","at":"2026-09-04T15:05:00+02:00"},{"id":"m_023","t1":["p_nora","p_herman"],"t2":["p_jonas","p_sigrid"],"s1":9,"s2":10,"winner":2,"side1":null,"at":"2026-09-07T11:12:00+02:00"},{"id":"m_024","t1":["p_herman"],"t2":["p_jonas"],"s1":10,"s2":8,"winner":1,"side1":null,"at":"2026-09-07T11:41:00+02:00"},{"id":"m_025","t1":["p_herman"],"t2":["p_mats"],"s1":null,"s2":null,"winner":1,"side1":null,"at":"2026-09-08T11:35:00+02:00"},{"id":"m_026","t1":["p_ida","p_mats"],"t2":["p_kristian","p_herman"],"s1":null,"s2":null,"winner":1,"side1":null,"at":"2026-09-09T15:12:00+02:00"},{"id":"m_027","t1":["p_mats"],"t2":["p_sigrid"],"s1":10,"s2":9,"winner":1,"side1":"dor","at":"2026-09-10T11:05:00+02:00"},{"id":"m_028","t1":["p_sigrid","p_nora"],"t2":["p_jonas","p_herman"],"s1":7,"s2":10,"winner":2,"side1":"vindu","at":"2026-09-10T12:41:00+02:00"},{"id":"m_029","t1":["p_eirik","p_herman"],"t2":["p_ida","p_mats"],"s1":null,"s2":null,"winner":2,"side1":"vindu","at":"2026-09-11T12:21:00+02:00"},{"id":"m_030","t1":["p_jonas","p_mats"],"t2":["p_sigrid","p_kristian"],"s1":null,"s2":null,"winner":2,"side1":null,"at":"2026-09-11T12:48:00+02:00"}],"crawls":[{"players":["p_ida"],"matchId":"m_013","at":"2026-08-28T11:43:00+02:00","id":"c_001"},{"players":["p_mats"],"matchId":"m_014","at":"2026-08-28T12:43:00+02:00","id":"c_002"},{"players":["p_eirik","p_herman"],"matchId":"m_016","at":"2026-08-31T13:14:00+02:00","id":"c_003"},{"players":["p_nora"],"matchId":"m_017","at":"2026-09-01T12:07:00+02:00","id":"c_004"},{"players":["p_sigrid","p_eirik"],"matchId":"m_018","at":"2026-09-02T11:43:00+02:00","id":"c_005"},{"players":["p_sigrid"],"matchId":"m_020","at":"2026-09-03T16:50:00+02:00","id":"c_006"},{"players":["p_eirik","p_kristian"],"matchId":"m_021","at":"2026-09-04T11:57:00+02:00","id":"c_007"},{"players":["p_nora","p_eirik"],"matchId":"m_022","at":"2026-09-04T15:07:00+02:00","id":"c_008"},{"players":["p_kristian"],"matchId":null,"at":"2026-09-08T09:05:00+02:00","id":"c_009"},{"players":["p_sigrid","p_nora"],"matchId":"m_028","at":"2026-09-10T12:43:00+02:00","id":"c_010"},{"players":["p_jonas","p_mats"],"matchId":"m_030","at":"2026-09-11T12:50:00+02:00","id":"c_011"}],"rules":[{"id":"r_001","text":"Taperlaget krabber under bordet. Ingen unntak, ingen forhandling.","at":"2026-08-12T09:00:00+02:00"},{"id":"r_002","text":"F√∏rste lag til 10 m√•l vinner.","at":"2026-08-12T09:01:00+02:00"},{"id":"r_003","text":"Spinning av stengene er forbudt. M√•l etter spinn teller ikke.","at":"2026-08-12T09:02:00+02:00"},{"id":"r_004","text":"Kampen registreres i appen f√∏r noen forlater bordet.","at":"2026-08-12T09:03:00+02:00"}]};
+
+const K = 32, START = 1000, MIN_RANKED = 3, UPSET_P = 0.35, MATCH_MINUTES = 15;
+const TITLES = [
+  [0, 'Uber√∏rt'], [1, 'Nybegynner p√• gulvet'], [3, 'Stamgjest under bordet'],
+  [6, 'St√∏vsugeren'], [11, 'Gulvets ridder'], [21, 'Gulvets hersker']
+];
+
+/* ---------- Figurer ---------- */
+const AV_COLORS = ['#F2A33C','#2F7BF5','#12A594','#E05B4D','#8B5CF6','#EC4899','#22C55E','#F5C542','#64748B','#A67C52','#F5F7FA','#242424'];
+const AV_HATS = ['ingen','caps','b√∏tte','krone','cowboy','hjelm','propell','kjegle','panneb√•nd','sveis'];
+const AV_GLASSES = ['ingen','sol','briller','ski','monokkel'];
+const AV_OUTFITS = ['ingen','tr√∏ye','striper','prikker','dress','sash'];
+const AV_FACES = ['glad','kul','sjokk','fokus'];
+const AV_LABELS = {
+  ingen: 'Ingen', caps: 'Caps', 'b√∏tte': 'B√∏ttehatt', krone: 'Krone', cowboy: 'Cowboy', hjelm: 'Hjelm',
+  propell: 'Propell', kjegle: 'Festhatt', 'panneb√•nd': 'Panneb√•nd', sveis: 'Sveis',
+  sol: 'Solbriller', briller: 'Briller', ski: 'Skibriller', monokkel: 'Monokkel',
+  'tr√∏ye': 'Tr√∏ye', striper: 'Striper', prikker: 'Prikker', dress: 'Dress', sash: 'Skjerf',
+  glad: 'Glad', kul: 'Kul', sjokk: 'Sjokk', fokus: 'Fokus'
+};
+
+function hashStr(s){ let h = 2166136261; for (let i = 0; i < s.length; i++){ h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); } return h >>> 0; }
+function shade(hex, amt){
+  const n = parseInt(hex.slice(1), 16);
+  let r = (n >> 16) & 255, g = (n >> 8) & 255, b = n & 255;
+  if (amt < 0){ const t = -amt; r += (255-r)*t; g += (255-g)*t; b += (255-b)*t; }
+  else { r *= 1-amt; g *= 1-amt; b *= 1-amt; }
+  const h = v => Math.round(Math.max(0, Math.min(255, v))).toString(16).padStart(2,'0');
+  return '#' + h(r) + h(g) + h(b);
+}
+function defaultAvatar(id){
+  const h = hashStr(id || 'x');
+  const pick = (arr, shift) => arr[(h >>> shift) % arr.length];
+  return {
+    body: pick(AV_COLORS, 0),
+    outfit: pick(AV_OUTFITS, 4),
+    outfitColor: pick(AV_COLORS, 8),
+    hat: pick(AV_HATS, 12),
+    hatColor: pick(AV_COLORS, 16),
+    glasses: pick(AV_GLASSES, 20),
+    face: pick(AV_FACES, 24)
+  };
+}
+function randomAvatar(){
+  const pick = a => a[Math.floor(Math.random()*a.length)];
+  return { body: pick(AV_COLORS), outfit: pick(AV_OUTFITS), outfitColor: pick(AV_COLORS),
+           hat: pick(AV_HATS), hatColor: pick(AV_COLORS), glasses: pick(AV_GLASSES), face: pick(AV_FACES) };
+}
+
+const BODY_D = 'M50 14C67 14 79 26 79 45L79 66C79 82 66 92 50 92C34 92 21 82 21 66L21 45C21 26 33 14 50 14Z';
+let avUid = 0;
+
+function avatarSvg(cfg, size, view){
+  const c = Object.assign({ body:'#2F7BF5', outfit:'ingen', outfitColor:'#F5F7FA', hat:'ingen', hatColor:'#E05B4D', glasses:'ingen', face:'glad' }, cfg || {});
+  const uid = 'a' + (++avUid);
+  const body = c.body, foot = shade(body, .28), oc = c.outfitColor, hc = c.hatColor;
+  const lum = (h => { const n = parseInt(h.slice(1),16); return (0.299*((n>>16)&255) + 0.587*((n>>8)&255) + 0.114*(n&255))/255; })(body);
+  const ink = lum < 0.32 ? '#F2F5FA' : '#1B1B1B';
+  const edge = shade(body, lum > 0.85 ? .16 : .1);
+
+  let outfit = '';
+  if (c.outfit === 'tr√∏ye') outfit = `<path d="M21 58H79V94H21Z" fill="${oc}"/><path d="M38 58Q50 67 62 58" fill="none" stroke="${shade(oc,.22)}" stroke-width="2.6" stroke-linecap="round"/>`;
+  else if (c.outfit === 'striper') outfit = `<rect x="18" y="50" width="64" height="8" fill="${oc}"/><rect x="18" y="64" width="64" height="8" fill="${oc}"/><rect x="18" y="78" width="64" height="8" fill="${oc}"/>`;
+  else if (c.outfit === 'prikker') outfit = [[34,56],[52,52],[68,60],[28,72],[46,70],[64,78],[36,86],[56,88]].map(([x,y]) => `<circle cx="${x}" cy="${y}" r="4.2" fill="${oc}"/>`).join('');
+  else if (c.outfit === 'dress') outfit = `<path d="M21 56H79V94H21Z" fill="${oc}"/><path d="M40 56L50 72L60 56Z" fill="#F7F9FD"/><path d="M50 64L55 70L50 86L45 70Z" fill="${shade(oc,-.45)}"/>`;
+  else if (c.outfit === 'sash') outfit = `<path d="M14 96L70 42L82 56L26 110Z" fill="${oc}"/>`;
+
+  let face = '';
+  if (c.face === 'glad') face = `<ellipse cx="38" cy="44" rx="7.6" ry="8.6" fill="#FFF"/><ellipse cx="62" cy="44" rx="7.6" ry="8.6" fill="#FFF"/><circle cx="39.5" cy="45.5" r="3.9" fill="#1B1B1B"/><circle cx="63.5" cy="45.5" r="3.9" fill="#1B1B1B"/><path d="M41 62Q50 71 59 62" fill="none" stroke="${ink}" stroke-width="3.2" stroke-linecap="round"/>`;
+  else if (c.face === 'kul') face = `<ellipse cx="38" cy="44" rx="7.6" ry="8.6" fill="#FFF"/><ellipse cx="62" cy="44" rx="7.6" ry="8.6" fill="#FFF"/><circle cx="39.5" cy="46" r="3.9" fill="#1B1B1B"/><circle cx="63.5" cy="46" r="3.9" fill="#1B1B1B"/><path d="M28 32H72V44H28Z" fill="${body}"/><path d="M30.4 43.5Q38 39 45.6 43.5M54.4 43.5Q62 39 69.6 43.5" fill="none" stroke="${ink}" stroke-width="2.4" stroke-linecap="round"/><path d="M42 64Q51 69 59 61" fill="none" stroke="${ink}" stroke-width="3.2" stroke-linecap="round"/>`;
+  else if (c.face === 'sjokk') face = `<ellipse cx="37" cy="43" rx="8.8" ry="10" fill="#FFF"/><ellipse cx="63" cy="43" rx="8.8" ry="10" fill="#FFF"/><circle cx="38" cy="44" r="3.4" fill="#1B1B1B"/><circle cx="64" cy="44" r="3.4" fill="#1B1B1B"/><ellipse cx="50" cy="67" rx="5.2" ry="6.4" fill="${ink}"/>`;
+  else face = `<ellipse cx="38" cy="44" rx="7.6" ry="5.4" fill="#FFF"/><ellipse cx="62" cy="44" rx="7.6" ry="5.4" fill="#FFF"/><circle cx="39" cy="44.5" r="3.3" fill="#1B1B1B"/><circle cx="63" cy="44.5" r="3.3" fill="#1B1B1B"/><path d="M42 65H58" fill="none" stroke="${ink}" stroke-width="3.2" stroke-linecap="round"/>`;
+
+  let glasses = '';
+  if (c.glasses === 'sol') glasses = `<path d="M26 39H74" stroke="${ink}" stroke-width="3" stroke-linecap="round"/><rect x="27" y="38" width="19" height="14" rx="6" fill="${ink}"/><rect x="54" y="38" width="19" height="14" rx="6" fill="${ink}"/><path d="M46 43H54" stroke="${ink}" stroke-width="3"/>`;
+  else if (c.glasses === 'briller') glasses = `<circle cx="38" cy="44" r="10.5" fill="#FFFFFF" fill-opacity=".22" stroke="${ink}" stroke-width="2.6"/><circle cx="62" cy="44" r="10.5" fill="#FFFFFF" fill-opacity=".22" stroke="${ink}" stroke-width="2.6"/><path d="M48.5 44H51.5" stroke="${ink}" stroke-width="2.6"/>`;
+  else if (c.glasses === 'ski') glasses = `<rect x="22" y="33" width="56" height="19" rx="9.5" fill="${shade(hc,.3)}"/><rect x="27" y="37" width="46" height="11" rx="5.5" fill="#8AD8FF"/><path d="M31 47Q38 39 46 40" fill="none" stroke="#FFF" stroke-width="2.6" stroke-linecap="round" stroke-opacity=".75"/>`;
+  else if (c.glasses === 'monokkel') glasses = `<circle cx="62" cy="44" r="11" fill="#FFFFFF" fill-opacity=".22" stroke="${ink}" stroke-width="2.6"/><path d="M62 55Q65 66 58 71" fill="none" stroke="${ink}" stroke-width="1.9" fill-opacity="0"/>`;
+
+  let hat = '';
+  if (c.hat === 'caps') hat = `<path d="M27 26Q27 5 50 5Q73 5 73 26Z" fill="${hc}"/><path d="M71 21Q89 22 89 29L69 29Z" fill="${shade(hc,.22)}"/>`;
+  else if (c.hat === 'b√∏tte') hat = `<path d="M32 9H68L72 27H28Z" fill="${hc}"/><ellipse cx="50" cy="28" rx="31" ry="6" fill="${shade(hc,.2)}"/>`;
+  else if (c.hat === 'krone') hat = `<path d="M27 29V8L38.5 18L50 4L61.5 18L73 8V29Z" fill="${hc}"/><circle cx="50" cy="12" r="3.2" fill="${shade(hc,-.5)}"/><rect x="27" y="25" width="46" height="5" fill="${shade(hc,.22)}"/>`;
+  else if (c.hat === 'cowboy') hat = `<ellipse cx="50" cy="26" rx="35" ry="7.5" fill="${hc}"/><path d="M33 26Q33 6 50 6Q67 6 67 26Z" fill="${hc}"/><rect x="33" y="19" width="34" height="5.5" fill="${shade(hc,.3)}"/>`;
+  else if (c.hat === 'hjelm') hat = `<path d="M25 28Q25 5 50 5Q75 5 75 28Z" fill="${hc}"/><rect x="45.5" y="5" width="9" height="23" fill="${shade(hc,.3)}"/><rect x="25" y="25" width="50" height="4" rx="2" fill="${shade(hc,.3)}"/>`;
+  else if (c.hat === 'propell') hat = `<path d="M29 27Q29 8 50 8Q71 8 71 27Z" fill="${hc}"/><rect x="32" y="2" width="36" height="4" rx="2" fill="${shade(hc,.35)}"/><circle cx="50" cy="4" r="3.4" fill="#1B1B1B"/><rect x="48.5" y="4" width="3" height="6" fill="${ink}"/>`;
+  else if (c.hat === 'kjegle') hat = `<path d="M50 6L67 29H33Z" fill="${hc}"/><path d="M50 6L58 29H42Z" fill="${shade(hc,-.3)}"/><circle cx="50" cy="4" r="4.6" fill="${shade(hc,-.5)}"/>`;
+  else if (c.hat === 'panneb√•nd') hat = `<path d="M22 26H78V36H22Z" fill="${hc}"/><rect x="46" y="26" width="8" height="10" fill="${shade(hc,.28)}"/>`;
+  else if (c.hat === 'sveis') hat = `<path d="M23 36Q20 10 50 10Q80 10 77 36Q70 23 50 23Q30 23 23 36Z" fill="${hc}"/><path d="M23 36Q21 47 24 54Q18 44 23 36Z" fill="${hc}"/><path d="M77 36Q79 47 76 54Q82 44 77 36Z" fill="${hc}"/>`;
+
+  const clipHat = c.hat === 'panneb√•nd';
+  return `<svg class="av" width="${size}" height="${size}" viewBox="${view || '0 0 100 100'}" aria-hidden="true" focusable="false">`
+    + `<defs><clipPath id="${uid}"><path d="${BODY_D}"/></clipPath></defs>`
+    + `<ellipse cx="34" cy="93.5" rx="10.5" ry="6" fill="${foot}"/><ellipse cx="66" cy="93.5" rx="10.5" ry="6" fill="${foot}"/>`
+    + `<path d="${BODY_D}" fill="${body}" stroke="${edge}" stroke-width="1.6"/>`
+    + `<g clip-path="url(#${uid})">${outfit}${clipHat ? hat : ''}</g>`
+    + face + glasses + (clipHat ? '' : hat)
+    + `</svg>`;
+}
+
+const AV_VIEW = { hat: '17 -7 66 58', glasses: '21 24 58 42', face: '21 24 58 42', outfit: '17 46 66 52' };
+
+const state = { mode: 'connecting', players: [], matches: [], crawls: [], rules: [], screen: 'register', tableTab: 'matches', playersTab: 'list', period: { all: false, key: null }, derived: null };
+const form = { red: [], blue: [], winner: null };
+const rulesUi = { editing: false, drafts: {} };
+const playersUi = { editing: false, drafts: {} };
+const wardrobe = { id: null, draft: null };
+let wardrobeTimer = null;
+let store = null, lastAction = null, toastTimer = null, confirmKey = null, confirmTimer = null;
+
+const $ = (s, el) => (el || document).querySelector(s);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const avg = a => a.reduce((x, y) => x + y, 0) / (a.length || 1);
+const byId = () => state.pmap || new Map();
+const nameOf = id => (byId().get(id) || {}).name || 'Ukjent';
+const playerOf = id => byId().get(id);
+const avatarOf = p => (p && p.avatar) || defaultAvatar(p ? p.id : 'x');
+const avatarFor = (id, size) => avatarSvg(avatarOf(playerOf(id)), size);
+const names = ids => (ids || []).map(nameOf).join(' & ');
+const slug = s => 'p_' + (s.toLowerCase().replace(/√¶/g,'ae').replace(/√∏/g,'oe').replace(/√•/g,'aa').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'') || 'spiller');
+const cap = s => s.charAt(0).toUpperCase() + s.slice(1);
+const joinNames = list => list.length > 1 ? list.slice(0, -1).join(', ') + ' og ' + list[list.length - 1] : (list[0] || '');
+
+/* ---------- Tid ---------- */
+const dayKey = iso => { const d = new Date(iso); return d.getFullYear() + '-' + (d.getMonth()+1) + '-' + d.getDate(); };
+const fmtTime = iso => new Date(iso).toLocaleTimeString('nb-NO', { hour: '2-digit', minute: '2-digit' });
+const monthKeyOf = v => { const d = v instanceof Date ? v : new Date(v); return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0'); };
+function monthLabel(key, short){
+  const [y, m] = key.split('-').map(Number);
+  return cap(new Date(y, m - 1, 1).toLocaleDateString('nb-NO', { month: short ? 'short' : 'long', year: 'numeric' }));
+}
+const monthName = key => monthLabel(key).replace(/\s\d{4}$/, '').toLowerCase();
+function daysBetween(iso){
+  const d = new Date(iso), now = new Date();
+  return Math.round((new Date(now.getFullYear(), now.getMonth(), now.getDate()) - new Date(d.getFullYear(), d.getMonth(), d.getDate())) / 864e5);
+}
+function dayLabel(iso){
+  const diff = daysBetween(iso);
+  if (diff === 0) return 'I dag';
+  if (diff === 1) return 'I g√•r';
+  return new Date(iso).toLocaleDateString('nb-NO', { weekday: 'short', day: 'numeric', month: 'short' });
+}
+function daysAgoText(iso){
+  const diff = daysBetween(iso);
+  if (diff <= 0) return 'i dag';
+  if (diff === 1) return 'i g√•r';
+  return 'for ' + diff + ' dager siden';
+}
+function daysAgoShort(iso){
+  const t = daysAgoText(iso);
+  return t.startsWith('for ') ? t.replace('for ', '').replace(' dager siden', ' d. siden') : t;
+}
+const fmtDate = iso => new Date(iso).toLocaleDateString('nb-NO', { day: 'numeric', month: 'short', year: 'numeric' });
+function fmtDuration(min){
+  if (min < 60) return min + ' min';
+  const h = Math.floor(min / 60), m = min % 60;
+  return (h === 1 ? '1 time' : h + ' timer') + (m ? ' og ' + m + ' min' : '');
+}
+function fmtHoursShort(min){
+  if (min < 60) return min + ' min';
+  return (min / 60).toLocaleString('nb-NO', { maximumFractionDigits: 1 }) + ' t';
+}
+
+/* ---------- Lagring: delt (db) eller lokal ---------- */
+function localStore(){
+  const KEY = 'krabbeligaen.v2';
+  let data = null;
+  try { data = JSON.parse(localStorage.getItem(KEY)); } catch (e) { data = null; }
+  if (!data || !Array.isArray(data.players)) data = Object.assign(JSON.parse(JSON.stringify(DEMO)), { demo: true });
+  data.rules = data.rules || [];
+  const save = () => { try { localStorage.setItem(KEY, JSON.stringify(data)); } catch (e) {} };
+  const uid = p => p + '_' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
+  const push = () => setData(data.players, data.matches, data.crawls, data.rules);
+  return {
+    kind: 'local',
+    start(){ push(); },
+    async addPlayer(p){ data.players.push(p); save(); push(); },
+    async updatePlayer(id, fields){ const p = data.players.find(x => x.id === id); if (p) Object.assign(p, fields); save(); push(); },
+    async deletePlayer(id){ data.players = data.players.filter(p => p.id !== id); save(); push(); },
+    async addMatch(m){ const id = uid('m'); data.matches.push(Object.assign({}, m, { id })); save(); push(); return id; },
+    async addCrawl(c){ const id = uid('c'); data.crawls.push(Object.assign({}, c, { id })); save(); push(); return id; },
+    async deleteMatch(id){ data.matches = data.matches.filter(m => m.id !== id); data.crawls = data.crawls.filter(c => c.matchId !== id); save(); push(); },
+    async deleteCrawl(id){ data.crawls = data.crawls.filter(c => c.id !== id); save(); push(); },
+    async addRule(r){ const id = uid('r'); data.rules.push(Object.assign({}, r, { id })); save(); push(); return id; },
+    async updateRule(id, text){ const r = data.rules.find(x => x.id === id); if (r) r.text = text; save(); push(); },
+    async deleteRule(id){ data.rules = data.rules.filter(r => r.id !== id); save(); push(); },
+    async reset(){ data = { players: [], matches: [], crawls: [], rules: data.rules }; save(); push(); },
+    isDemo(){ return !!data.demo; }
+  };
+}
+
+function dbStore(db){
+  const COLLS = ['players', 'matches', 'crawls', 'rules'];
+  const cache = { players: null, matches: null, crawls: null, rules: null };
+  return {
+    kind: 'shared',
+    start(){
+      COLLS.forEach(c => {
+        db.collection(c).onSnapshot(snap => {
+          cache[c] = snap.docs.map(d => Object.assign({ id: d.id }, d.data()));
+          if (COLLS.every(k => cache[k])){
+            if (state.mode !== 'shared'){ state.mode = 'shared'; }
+            setData(cache.players, cache.matches, cache.crawls, cache.rules);
+          }
+        }, err => {
+          console.error('db', err);
+          if (state.mode !== 'shared' || err.code === 'not_granted' || err.code === 'capability_disabled' || err.code === 'capability_removed') useLocal();
+          else { state.mode = 'offline'; renderHeader(); }
+        });
+      });
+    },
+    async addPlayer(p){ const body = Object.assign({}, p); delete body.id; await db.collection('players').doc(p.id).set(body); },
+    async updatePlayer(id, fields){ await db.doc('players/' + id).update(fields); },
+    async deletePlayer(id){ await db.doc('players/' + id).delete(); },
+    async addMatch(m){ const ref = await db.collection('matches').add(m); return ref.id; },
+    async addCrawl(c){ const ref = await db.collection('crawls').add(c); return ref.id; },
+    async deleteMatch(id){
+      const linked = (cache.crawls || []).filter(c => c.matchId === id);
+      await Promise.all([db.doc('matches/' + id).delete()].concat(linked.map(c => db.doc('crawls/' + c.id).delete())));
+    },
+    async deleteCrawl(id){ await db.doc('crawls/' + id).delete(); },
+    async addRule(r){ const ref = await db.collection('rules').add(r); return ref.id; },
+    async updateRule(id, text){ await db.doc('rules/' + id).update({ text }); },
+    async deleteRule(id){ await db.doc('rules/' + id).delete(); },
+    async reset(){
+      const refs = [].concat(
+        (cache.matches || []).map(m => 'matches/' + m.id),
+        (cache.crawls || []).map(c => 'crawls/' + c.id),
+        (cache.players || []).map(p => 'players/' + p.id));
+      for (let i = 0; i < refs.length; i += 10) await Promise.all(refs.slice(i, i + 10).map(r => db.doc(r).delete()));
+    },
+    isDemo(){ return false; }
+  };
+}
+
+/* ---------- Lagring: Google Sheets via Apps Script-API ---------- */
+function gasStore(){
+  const POLL_MS = 8000;
+  const cache = { players: [], matches: [], crawls: [], rules: [] };
+  let version = null, timer = null, busy = false;
+  async function call(fn, ...args){
+    const res = fn === 'getAll'
+      ? await fetch(API_URL + (args[0] != null ? '?v=' + encodeURIComponent(args[0]) : ''))
+      : await fetch(API_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ fn, args }) });
+    const body = await res.json();
+    if (!body.ok) throw new Error(body.error || 'Ukjent feil');
+    return body.result;
+  }
+  function apply(res){
+    if (!res) return;
+    version = res.version;
+    ['players', 'matches', 'crawls', 'rules'].forEach(c => { cache[c] = res[c] || []; });
+    state.mode = 'shared';
+    setData(cache.players, cache.matches, cache.crawls, cache.rules);
+  }
+  let again = false;
+  async function refresh(force){
+    if (busy){ if (force) again = true; return; }
+    busy = true;
+    try { apply(await call('getAll', force ? null : version)); }
+    catch (err){ console.error('gas', err); state.mode = 'offline'; renderHeader(); }
+    finally { busy = false; }
+    if (again){ again = false; await refresh(true); }
+  }
+  const write = async p => { try { return await p; } finally { await refresh(true); } };
+  return {
+    kind: 'shared',
+    start(){
+      refresh(true);
+      timer = setInterval(() => { if (!document.hidden) refresh(false); }, POLL_MS);
+      document.addEventListener('visibilitychange', () => { if (!document.hidden) refresh(false); });
+    },
+    addPlayer(p){ return write(call('setDoc', 'players', p.id, p)); },
+    updatePlayer(id, fields){ return write(call('updateDoc', 'players', id, fields)); },
+    deletePlayer(id){ return write(call('deleteDocs', ['players/' + id])); },
+    addMatch(m){ return write(call('addDoc', 'matches', m)); },
+    addCrawl(c){ return write(call('addDoc', 'crawls', c)); },
+    deleteMatch(id){
+      const linked = cache.crawls.filter(c => c.matchId === id).map(c => 'crawls/' + c.id);
+      return write(call('deleteDocs', ['matches/' + id].concat(linked)));
+    },
+    deleteCrawl(id){ return write(call('deleteDocs', ['crawls/' + id])); },
+    addRule(r){ return write(call('addDoc', 'rules', r)); },
+    updateRule(id, text){ return write(call('updateDoc', 'rules', id, { text })); },
+    deleteRule(id){ return write(call('deleteDocs', ['rules/' + id])); },
+    reset(){
+      const refs = [].concat(
+        cache.matches.map(m => 'matches/' + m.id),
+        cache.crawls.map(c => 'crawls/' + c.id),
+        cache.players.map(p => 'players/' + p.id));
+      return write(call('deleteDocs', refs));
+    },
+    isDemo(){ return false; }
+  };
+}
+
+function setData(players, matches, crawls, rules){
+  const byAt = (a, b) => a.at < b.at ? -1 : a.at > b.at ? 1 : 0;
+  state.players = players.slice().sort((a, b) => a.name.localeCompare(b.name, 'nb'));
+  state.matches = matches.slice().sort(byAt);
+  state.crawls = crawls.slice().sort(byAt);
+  state.rules = (rules || []).slice().sort(byAt);
+  state.pmap = new Map(state.players.map(p => [p.id, p]));
+  const ids = new Set(state.players.map(p => p.id));
+  const pickable = new Set(state.players.filter(p => !p.archived).map(p => p.id));
+  form.red = form.red.filter(id => pickable.has(id)); form.blue = form.blue.filter(id => pickable.has(id));
+  Object.keys(rulesUi.drafts).forEach(id => { if (!state.rules.some(r => r.id === id)) delete rulesUi.drafts[id]; });
+  Object.keys(playersUi.drafts).forEach(id => { if (!ids.has(id)) delete playersUi.drafts[id]; });
+  if (!state.rules.length) rulesUi.editing = false;
+  if (!state.players.length) playersUi.editing = false;
+  state.derived = compute();
+  if (!state.period.key || !state.derived.months.includes(state.period.key)) state.period.key = state.derived.nowKey;
+  render();
+}
+
+/* ---------- Beregninger: rating, perioder, krabbing, fakta ---------- */
+function expectedFor(m, rating){
+  const get = id => rating.get(id) ?? START;
+  const r1 = avg(m.t1.map(get)), r2 = avg(m.t2.map(get));
+  const e1 = 1 / (1 + Math.pow(10, (r2 - r1) / 400));
+  return { e1, pWin: m.winner === 1 ? e1 : 1 - e1 };
+}
+function longestRun(res, want){ let best = 0, n = 0; res.forEach(r => { n = r === want ? n + 1 : 0; if (n > best) best = n; }); return best; }
+
+/* Rating regnes over hele historikken. Laget flytter like mange poeng som i vanlig lag-Elo,
+   men fordelingen innad i laget f√∏lger hver spillers egen forventning mot motstandernes snitt:
+   den med lavest rating f√•r mest av en seier, den med h√∏yest rating taper mest ved tap. */
+function compute(){
+  const rating = new Map();
+  const get = id => rating.get(id) ?? START;
+  const f = diff => 1 / (1 + Math.pow(10, -diff / 400));
+  const annotated = [];
+  for (const m of state.matches){
+    const { e1, pWin } = expectedFor(m, rating);
+    const w1 = m.winner === 1;
+    const winners = w1 ? m.t1 : m.t2, losers = w1 ? m.t2 : m.t1;
+    const winAvg = avg(winners.map(get)), loseAvg = avg(losers.map(get));
+    const surprise = 1 - pWin;
+    const wWeights = winners.map(id => 1 - f(get(id) - loseAvg));
+    const lWeights = losers.map(id => f(get(id) - winAvg));
+    const wSum = wWeights.reduce((a, b) => a + b, 0), lSum = lWeights.reduce((a, b) => a + b, 0);
+    const deltas = {};
+    winners.forEach((id, i) => { deltas[id] = K * surprise * winners.length * wWeights[i] / wSum; });
+    losers.forEach((id, i) => { deltas[id] = -K * surprise * losers.length * lWeights[i] / lSum; });
+    Object.keys(deltas).forEach(id => rating.set(id, get(id) + deltas[id]));
+    annotated.push(Object.assign({}, m, { upset: pWin < UPSET_P, pWin, e1, deltas, month: monthKeyOf(m.at) }));
+  }
+
+  const nowKey = monthKeyOf(new Date());
+  const keys = new Set([nowKey]);
+  annotated.forEach(m => keys.add(m.month));
+  state.crawls.forEach(c => keys.add(monthKeyOf(c.at)));
+  const months = Array.from(keys).sort();
+
+  const all = periodSummary(annotated, state.crawls, 'all');
+  const cutoff = Date.now() - 7 * 864e5;
+  const allBefore = periodSummary(annotated.filter(m => new Date(m.at).getTime() <= cutoff), [], 'all');
+  applyTrend(all.ranked, allBefore.ranked);
+
+  const byMonth = {};
+  months.forEach(k => { byMonth[k] = periodSummary(annotated.filter(m => m.month === k), state.crawls.filter(c => monthKeyOf(c.at) === k), 'month'); });
+  months.forEach((k, i) => applyTrend(byMonth[k].ranked, i > 0 ? byMonth[months[i - 1]].ranked : []));
+
+  const weekStart = (() => { const d = new Date(); const day = (d.getDay() + 6) % 7; return new Date(d.getFullYear(), d.getMonth(), d.getDate() - day).getTime(); })();
+  const thisWeek = annotated.filter(m => new Date(m.at).getTime() >= weekStart).length;
+
+  const counts = new Map();
+  const bump = (id, key) => { const c = counts.get(id) || { games: 0, crawls: 0 }; c[key]++; counts.set(id, c); };
+  state.matches.forEach(m => [].concat(m.t1, m.t2).forEach(id => bump(id, 'games')));
+  state.crawls.forEach(c => (c.players || []).forEach(id => bump(id, 'crawls')));
+
+  return { rating, annotated, months, nowKey, all, byMonth, thisWeek, counts };
+}
+
+function periodSummary(ms, cs, mode){
+  const stats = new Map();
+  ms.forEach(m => {
+    const w1 = m.winner === 1;
+    [].concat(m.t1, m.t2).forEach(id => {
+      const s = stats.get(id) || { w: 0, l: 0, res: [], points: 0 };
+      const won = m.t1.includes(id) === w1;
+      won ? s.w++ : s.l++; s.res.push(won); s.points += m.deltas[id] || 0; stats.set(id, s);
+    });
+  });
+  const rows = state.players.map(p => {
+    const s = stats.get(p.id) || { w: 0, l: 0, res: [], points: 0 };
+    return { id: p.id, name: p.name, archived: !!p.archived, w: s.w, l: s.l, games: s.w + s.l, res: s.res, points: s.points, rating: START + s.points };
+  }).filter(r => !r.archived || r.games > 0);
+  const score = r => mode === 'all' ? r.rating : r.points;
+  const ranked = rows.filter(r => r.games >= MIN_RANKED)
+    .sort((a, b) => score(b) - score(a) || (b.w / b.games) - (a.w / a.games) || b.w - a.w || a.name.localeCompare(b.name, 'nb'));
+  ranked.forEach((r, i) => { r.pos = i + 1; });
+
+  // Krabbing i perioden
+  const crawlBy = new Map();
+  let crawlTotal = 0;
+  cs.forEach(c => (c.players || []).forEach(id => { const x = crawlBy.get(id) || { n: 0, last: null }; x.n++; x.last = c.at; crawlBy.set(id, x); crawlTotal++; }));
+  const crawlRows = state.players.map(p => ({ id: p.id, name: p.name, archived: !!p.archived, n: (crawlBy.get(p.id) || {}).n || 0, last: (crawlBy.get(p.id) || {}).last || null }))
+    .filter(r => !r.archived || r.n > 0)
+    .sort((a, b) => b.n - a.n || (b.last || '').localeCompare(a.last || '') || a.name.localeCompare(b.name, 'nb'));
+  const lastCrawl = cs.length ? cs[cs.length - 1] : null;
+
+  // Fakta
+  const facts = [];
+  let bestWin = null, bestLoss = null;
+  rows.forEach(r => {
+    const w = longestRun(r.res, true), l = longestRun(r.res, false);
+    if (w >= 3 && (!bestWin || w > bestWin.n)) bestWin = { name: r.name, n: w };
+    if (l >= 3 && (!bestLoss || l > bestLoss.n)) bestLoss = { name: r.name, n: l };
+  });
+  const maxGames = Math.max(0, ...rows.map(r => r.games));
+  const mostActive = rows.filter(r => r.games === maxGames && maxGames > 0).map(r => r.name);
+  if (ms.length){
+    facts.push(['Seiersrekke', bestWin ? `${bestWin.name} vant ${bestWin.n} kamper p√• rad.` : 'Ingen vant tre p√• rad.']);
+    facts.push(['Flest tap p√• rad', bestLoss ? `${bestLoss.name} tapte ${bestLoss.n} kamper p√• rad. Bordet er t√•lmodig.` : 'Ingen tapte tre p√• rad. Imponerende.']);
+    facts.push(['Mest aktiv', `${joinNames(mostActive)} spilte ${maxGames} ${maxGames === 1 ? 'kamp' : 'kamper'} ‚Äì flest av alle.`]);
+    facts.push(['Tid ved bordet', `${ms.length} kamper √† ${MATCH_MINUTES} minutter er ${fmtDuration(ms.length * MATCH_MINUTES)} til sammen.`]);
+    const pairs = {};
+    ms.forEach(m => { const a = m.t1.slice().sort().join('+'), b = m.t2.slice().sort().join('+'); const k = [a, b].sort().join('|'); const p = pairs[k] || { n: 0, wins: {}, a, b }; p.n++; const w = m.winner === 1 ? a : b; p.wins[w] = (p.wins[w] || 0) + 1; pairs[k] = p; });
+    const rival = Object.values(pairs).sort((x, y) => y.n - x.n)[0];
+    if (rival && rival.n >= 3){
+      const wx = rival.wins[rival.a] || 0, wy = rival.wins[rival.b] || 0;
+      const lead = wx >= wy ? [rival.a, wx, rival.b, wy] : [rival.b, wy, rival.a, wx];
+      facts.push(['Rivalisering', `${names(lead[0].split('+'))} leder ${lead[1]}‚Äì${lead[3]} mot ${names(lead[2].split('+'))} etter ${rival.n} oppgj√∏r.`]);
+    }
+  }
+  // Lagkjemi: par som vinner mer enn ratingene tilsier
+  const pairs = {};
+  ms.forEach(m => {
+    [[m.t1, 1], [m.t2, 2]].forEach(([team, side]) => {
+      if (!team || team.length !== 2) return;
+      const key = team.slice().sort().join('+');
+      const exp = side === 1 ? m.e1 : 1 - m.e1;
+      const p = pairs[key] || { key, n: 0, w: 0, exp: 0 };
+      p.n++; p.w += (m.winner === side ? 1 : 0); p.exp += exp; pairs[key] = p;
+    });
+  });
+  const chemistry = Object.values(pairs).filter(p => p.n >= 3)
+    .map(p => ({ key: p.key, n: p.n, actualPct: 100 * p.w / p.n, expPct: 100 * p.exp / p.n, diff: 100 * (p.w - p.exp) / p.n }))
+    .sort((a, b) => b.diff - a.diff);
+
+  return {
+    mode, matches: ms.length, rows, ranked, chemistry, active: rows.filter(r => r.games > 0).length,
+    minutes: ms.length * MATCH_MINUTES, crawlRows, crawlTotal, lastCrawl, facts,
+    winner: ranked[0] || null, crawler: crawlRows[0] && crawlRows[0].n > 0 ? crawlRows[0] : null
+  };
+}
+function applyTrend(ranked, prevRanked){
+  const prevPos = new Map(prevRanked.map(r => [r.id, r.pos]));
+  ranked.forEach(r => { r.prev = prevPos.get(r.id) || null; });
+}
+const titleFor = n => TITLES.reduce((t, [min, name]) => n >= min ? name : t, TITLES[0][1]);
+
+/* ---------- Rendering ---------- */
+function render(){ renderHeader(); renderTabs(); renderScreen(); }
+
+function renderHeader(){
+  const d = state.derived;
+  const pill = $('#modePill');
+  const modes = { connecting: ['Kobler til', 'is-connecting'], shared: ['Delt lagring', 'is-shared'], local: ['Kun denne enheten', 'is-local'], offline: ['Mistet forbindelsen', 'is-offline'] };
+  const [txt, cls] = modes[state.mode] || modes.connecting;
+  pill.textContent = txt; pill.className = 'mode ' + cls;
+  $('#hdrStats').innerHTML = d ? `${state.matches.length} kamper ¬∑ ${d.all.crawlTotal} krabbinger` : '&nbsp;';
+}
+function renderTabs(){
+  document.querySelectorAll('#tabs [role="tab"]').forEach(b => b.setAttribute('aria-selected', String(b.dataset.screen === state.screen)));
+}
+function renderScreen(){
+  const v = $('#view');
+  const typedRule = $('#newRuleText') ? $('#newRuleText').value : '';
+  const ae = document.activeElement;
+  const keepFocus = ae && ae.dataset && ae.dataset.edit
+    ? { key: ae.dataset.edit, start: ae.selectionStart, end: ae.selectionEnd } : null;
+  if (state.screen === 'register') v.innerHTML = viewRegister();
+  else if (state.screen === 'table') v.innerHTML = viewTable();
+  else if (state.screen === 'players') v.innerHTML = viewPlayers();
+  else if (state.screen === 'rules') v.innerHTML = viewRules();
+  else v.innerHTML = viewHistory();
+  const nr = $('#newRuleText'); if (nr && typedRule) nr.value = typedRule;
+  if (keepFocus){
+    const t = $('[data-edit="' + keepFocus.key + '"]');
+    if (t){ t.focus(); try { t.setSelectionRange(keepFocus.start, keepFocus.end); } catch (e) {} }
+  }
+  growTextareas();
+}
+function grow(t){ t.style.height = 'auto'; t.style.height = Math.max(76, t.scrollHeight) + 'px'; }
+function growTextareas(){ document.querySelectorAll('.rule-edit textarea, .newrule textarea').forEach(grow); }
+
+function demoNote(){
+  if (!store || !store.isDemo()) return '';
+  return `<div class="demo-note"><span>Dette er eksempeldata som bare ligger p√• denne enheten.</span><button class="link quiet" data-act="reset">Start p√• nytt uten eksempler</button></div>`;
+}
+
+function viewRegister(){
+  const d = state.derived, ready = state.mode === 'shared' || state.mode === 'local';
+  const recent = new Map();
+  const since = Date.now() - 30 * 864e5;
+  state.matches.forEach(m => { if (new Date(m.at).getTime() >= since) [].concat(m.t1, m.t2).forEach(id => recent.set(id, (recent.get(id) || 0) + 1)); });
+  const bank = state.players.filter(p => !p.archived).sort((a, b) => (recent.get(b.id) || 0) - (recent.get(a.id) || 0) || a.name.localeCompare(b.name, 'nb'));
+  const chips = bank.map(p => {
+    const cls = form.red.includes(p.id) ? ' is-a' : form.blue.includes(p.id) ? ' is-b' : '';
+    return `<button class="chip chip-av${cls}" data-act="chip" data-id="${esc(p.id)}" aria-pressed="${cls ? 'true' : 'false'}">${avatarSvg(avatarOf(p), 26)}${esc(p.name)}</button>`;
+  }).join('');
+  const team = (n, ids, cls, label) => `
+    <button class="team ${cls}${form.winner === n ? ' is-winner' : ''}" data-act="team" data-team="${n}" aria-pressed="${form.winner === n}">
+      <span class="team-mark" aria-hidden="true"></span>
+      <span class="team-label">${label}</span>
+      <span class="team-names${ids.length ? '' : ' empty'}">${ids.length ? esc(names(ids)) : 'Velg spillere over'}</span>
+      ${form.winner === n ? '<span class="won-badge">Vant</span>' : ''}
+    </button>`;
+  const teamsOk = form.red.length && form.blue.length;
+  let btn = 'Registrer kamp', disabled = false;
+  if (!ready){ btn = state.mode === 'offline' ? 'Mistet forbindelsen ‚Äì last siden p√• nytt' : 'Kobler til delt lagring ‚Ä¶'; disabled = true; }
+  else if (!teamsOk){ btn = 'Velg spillere p√• begge lag'; disabled = true; }
+  else if (!form.winner){ btn = 'Hvem vant? Trykk p√• laget'; disabled = true; }
+  const last = (d ? d.annotated.slice(-3).reverse() : []);
+  return `
+    ${demoNote()}
+    <section class="card">
+      <div class="card-head"><div><h2>Registrer kamp</h2><p class="lede-sm">Best av tre sett til 6. Velg spillere, trykk p√• laget som vant, og send inn.</p></div></div>
+      <div class="block">
+        <div class="block-head"><h3>Hvem spilte?</h3>
+          ${bank.length ? `<button class="ptoggle" data-act="goto" data-screen="players">Spillere</button>` : ''}
+        </div>
+        <p class="hint">Trykk √©n gang for svart lag, to for hvitt, tre for √• fjerne.</p>
+        ${bank.length ? `<div class="chips">${chips}</div>` : `<div class="empty">Ingen spillere i lista enda.<br><button class="link" data-act="goto" data-screen="players" style="margin-top:8px">Legg dem til under Spillere</button></div>`}
+      </div>
+      <div class="block">
+        <div class="block-head"><h3>Hvem vant?</h3></div>
+        <div class="teams">${team(1, form.red, 'team-a', 'Svart lag')}${team(2, form.blue, 'team-b', 'Hvitt lag')}</div>
+        <p class="hint center">Trykk p√• laget som vant.</p>
+      </div>
+      <button class="primary" id="saveBtn" data-act="save" ${disabled ? 'disabled' : ''}>${btn}</button>
+    </section>
+    <section class="card">
+      <div class="block">
+        <div class="block-head"><h2>Siste kamper</h2><button class="link" data-act="goto" data-screen="history">Se alle</button></div>
+        ${last.length ? `<ul class="matchlist compact">${last.map(matchRow).join('')}</ul>` : `<div class="empty">Ingen kamper registrert enda. Den f√∏rste blir historisk.</div>`}
+        <div><button class="link quiet" data-act="crawlonly">Registrer krabbing uten kamp</button></div>
+      </div>
+    </section>`;
+}
+
+function matchRow(m){
+  const crawl = state.crawls.filter(c => c.matchId === m.id);
+  const tags = [];
+  if (crawl.length) tags.push(`<span class="tag crawl">Krabbet: ${esc(names([].concat.apply([], crawl.map(c => c.players))))}</span>`);
+  if (m.upset) tags.push('<span class="tag upset">Sensasjon</span>');
+  const confirming = confirmKey === 'm:' + m.id;
+  const w1 = m.winner === 1;
+  const winIds = w1 ? m.t1 : m.t2, loseIds = w1 ? m.t2 : m.t1;
+  const winDot = w1 ? 'a' : 'b', loseDot = w1 ? 'b' : 'a';
+  return `<li class="match">
+    <span class="time">${fmtTime(m.at)}</span>
+    <div>
+      <div class="sides">
+        <span class="side left won"><i class="dot dot-${winDot}"></i><span class="nm">${esc(names(winIds))}</span></span>
+        <span class="score word">vasket</span>
+        <span class="side right"><span class="nm">${esc(names(loseIds))}</span><i class="dot dot-${loseDot}"></i></span>
+      </div>
+      ${tags.length ? `<div class="tags">${tags.join('')}</div>` : ''}
+    </div>
+    <button class="del${confirming ? ' confirm' : ''}" data-act="del" data-kind="match" data-id="${esc(m.id)}" aria-label="Slett kamp">${confirming ? 'Slett?' : '√ó'}</button>
+  </li>`;
+}
+function crawlRow(c){
+  const confirming = confirmKey === 'c:' + c.id;
+  return `<li class="match crawlrow">
+    <span class="time">${fmtTime(c.at)}</span>
+    <div class="sides"><span class="tag crawl">Krabbing</span> <b>${esc(names(c.players))}</b> <span class="hint">uten kamp</span></div>
+    <button class="del${confirming ? ' confirm' : ''}" data-act="del" data-kind="crawl" data-id="${esc(c.id)}" aria-label="Slett krabbing">${confirming ? 'Slett?' : '√ó'}</button>
+  </li>`;
+}
+
+const fmtPoints = p => { const r = Math.round(p); return r > 0 ? '+' + r : r < 0 ? '‚àí' + Math.abs(r) : '0'; };
+
+function periodBar(d){
+  const all = state.period.all, key = state.period.key;
+  const idx = d.months.indexOf(key);
+  const per = all ? d.all : d.byMonth[key];
+  const first = state.matches.length ? fmtDate(state.matches[0].at) : null;
+  const label = all ? 'Totalt' : monthLabel(key);
+  const sub = all ? (first ? `siden ${first}` : 'alle kamper') : `${per.matches} ${per.matches === 1 ? 'kamp' : 'kamper'}${key === d.nowKey ? ' ¬∑ p√•g√•r' : ''}`;
+  return `<div class="period">
+    <button class="pbtn" data-act="pprev" aria-label="Forrige m√•ned" ${all || idx <= 0 ? 'disabled' : ''}>‚Äπ</button>
+    <div class="plabel"><b>${esc(label)}</b><small>${esc(sub)}</small></div>
+    <button class="pbtn" data-act="pnext" aria-label="Neste m√•ned" ${all || idx >= d.months.length - 1 ? 'disabled' : ''}>‚Ä∫</button>
+    <button class="ptoggle${all ? ' on' : ''}" data-act="pall" aria-pressed="${all}">${all ? 'M√•ned' : 'Totalt'}</button>
+  </div>`;
+}
+
+function viewTable(){
+  const d = state.derived;
+  if (!d) return '<section class="card"><div class="empty">Kobler til ‚Ä¶</div></section>';
+  const all = state.period.all, key = state.period.key;
+  const per = all ? d.all : d.byMonth[key];
+  const inPeriod = all ? 'totalt' : 'i ' + monthName(key);
+  const seg = `<div class="seg-wide" role="tablist">
+    <button role="tab" data-act="tabletab" data-tab="matches" class="${state.tableTab === 'matches' ? 'on' : ''}" aria-selected="${state.tableTab === 'matches'}">Kamper</button>
+    <button role="tab" data-act="tabletab" data-tab="crawls" class="${state.tableTab === 'crawls' ? 'on' : ''}" aria-selected="${state.tableTab === 'crawls'}">Krabbing</button>
+  </div>`;
+  const head = periodBar(d) + seg;
+  if (state.tableTab === 'crawls') return demoNote() + viewCrawls(d, per, head, inPeriod);
+
+  const stats = `<div class="stats">
+    <div class="stat"><span class="stat-n">${per.matches}</span><span class="stat-l">kamper ${inPeriod}</span></div>
+    <div class="stat"><span class="stat-n">${per.active}</span><span class="stat-l">aktive spillere</span></div>
+    <div class="stat"><span class="stat-n">${per.minutes ? fmtHoursShort(per.minutes) : '‚Äì'}</span><span class="stat-l">ved bordet (${MATCH_MINUTES} min per kamp)</span></div>
+    <div class="stat"><span class="stat-n">${per.crawlTotal}</span><span class="stat-l">krabbinger</span></div>
+  </div>`;
+  const rows = per.ranked.map(r => {
+    const trend = r.prev === null ? '<span class="trend new">ny</span>' : r.prev > r.pos ? `<span class="trend up">‚ñ≤${r.prev - r.pos}</span>` : r.prev < r.pos ? `<span class="trend">‚ñº${r.pos - r.prev}</span>` : '';
+    const formDots = r.res.slice(-5).map(w => `<i class="${w ? 'w' : ''}"></i>`).join('');
+    const main = all ? Math.round(r.rating) : `<span class="pts ${r.points > 0.5 ? 'pos' : r.points < -0.5 ? 'neg' : ''}">${fmtPoints(r.points)}</span>`;
+    return `<tr>
+      <td class="pos"><b>${r.pos}</b>${trend}</td>
+      <td class="name"><span class="av-name">${avatarFor(r.id, 30)}<span class="txt">${esc(r.name)}</span></span></td>
+      <td class="rating r">${main}</td>
+      <td class="rec r">${r.w}‚Äì${r.l}<small>${Math.round(100 * r.w / r.games)} %</small></td>
+      <td class="r"><span class="form" aria-label="Siste fem kamper">${formDots}</span></td>
+    </tr>`;
+  }).join('');
+  const foot = all
+    ? `Alle starter p√• 1000 i rating. Sl√•r du noen som er bedre enn deg, f√•r du mer ‚Äì taper du mot noen d√•rligere, mister du mer. I lagkamper fordeles poengene innad i laget: den med h√∏yest rating taper mest ved tap, og den med lavest f√•r mest ved seier. Pilene viser endring siden forrige uke. Minst ${MIN_RANKED} kamper for √• komme p√• tabellen.`
+    : `Poeng er hvor mye ratingen har flyttet seg ${inPeriod}. Alle starter m√•neden p√• null, og du f√•r mer for √• sl√• noen som er bedre enn deg. Pilene viser plassering i forhold til forrige m√•ned. Minst ${MIN_RANKED} kamper i m√•neden for √• komme p√• tabellen.`;
+  const table = per.ranked.length ? `<div style="overflow-x:auto"><table class="rank">
+    <thead><tr><th>#</th><th>Spiller</th><th class="r">${all ? 'Rating' : 'Poeng'}</th><th class="r">S‚ÄìT</th><th class="r">Form</th></tr></thead>
+    <tbody>${rows}</tbody></table></div><p class="foot">${foot}</p>`
+    : `<div class="empty">${per.matches ? `Ingen har spilt ${MIN_RANKED} kamper ${inPeriod} enda.` : `Ingen kamper ${inPeriod} enda.`}</div>`;
+
+  const hall = all ? hallOfFame(d) : '';
+  const newc = per.rows.filter(r => r.games < MIN_RANKED);
+  const newcomers = newc.length && per.matches ? `<section class="card"><div class="block"><div class="block-head"><h2>P√• vei inn</h2></div>
+    <div class="newcomers">${newc.map(r => `<span><b>${esc(r.name)}</b> ¬∑ ${r.games === 0 ? `ikke spilt ${inPeriod}` : r.games + (r.games === 1 ? ' kamp' : ' kamper')}</span>`).join('')}</div></div></section>` : '';
+  const facts = per.facts.length ? `<section class="card"><div class="block"><div class="block-head"><h2>Fakta ${all ? 'totalt' : 'fra ' + monthName(key)}</h2></div>
+    <ul class="facts">${per.facts.map(([l, v]) => `<li><span class="fact-l">${esc(l)}</span><span>${esc(v)}</span></li>`).join('')}</ul></div></section>` : '';
+  const chem = per.chemistry.length ? `<section class="card"><div class="block">
+    <div class="block-head"><h2>Lagkjemi</h2></div>
+    <p class="hint">Par som har spilt minst tre kamper sammen ${inPeriod}, og hvor mye de vinner i forhold til det ratingene skulle tilsi.</p>
+    <ul class="chem">${per.chemistry.slice(0, 5).map(c => `<li>
+      <div><span class="pair">${esc(names(c.key.split('+')))}</span>
+        <div class="det">${c.n} kamper ¬∑ vinner ${Math.round(c.actualPct)} % mot ${Math.round(c.expPct)} % ventet</div>
+        <div class="bar"><i style="width:${Math.max(3, Math.min(100, Math.round(c.actualPct)))}%"></i></div></div>
+      <span class="dx ${c.diff > 1 ? 'pos' : c.diff < -1 ? 'neg' : ''}">${c.diff > 0 ? '+' : c.diff < 0 ? '\u2212' : ''}${Math.abs(Math.round(c.diff))}</span>
+    </li>`).join('')}</ul></div></section>` : '';
+  return demoNote() + `<section class="card">${head}${stats}${table}</section>` + hall + chem + newcomers + facts;
+}
+
+function hallOfFame(d){
+  const rows = d.months.slice().reverse().filter(k => d.byMonth[k].matches > 0).map(k => {
+    const p = d.byMonth[k];
+    const win = p.winner ? `<b>${esc(p.winner.name)}</b> ${fmtPoints(p.winner.points)}` : `<span class="hint">ingen p√• tabellen enda</span>`;
+    const crawl = p.crawler ? `${esc(p.crawler.name)} (${p.crawler.n})` : 'ingen';
+    return `<li><span class="fact-l">${esc(monthLabel(k, true))}${k === d.nowKey ? '<br>p√•g√•r' : ''}</span><span>${win}<br><span class="hint">M√•nedens krabber: ${crawl}</span></span></li>`;
+  });
+  if (!rows.length) return '';
+  return `<section class="card"><div class="block"><div class="block-head"><h2>M√•nedens vinnere</h2></div>
+    <ul class="facts hall">${rows.join('')}</ul>
+    <p class="foot">Vinneren er den som har vunnet flest poeng i m√•neden. M√•neden som p√•g√•r kan fortsatt snu.</p></div></section>`;
+}
+
+function viewCrawls(d, per, head, inPeriod){
+  const all = state.period.all;
+  const rows = per.crawlRows.filter(r => r.n > 0);
+  const top = rows.slice(0, 3);
+  const last = per.lastCrawl;
+  const allBy = new Map(d.all.crawlRows.map(r => [r.id, r.n]));
+  const hero = `<div class="crawl-hero">
+    <span class="big">${per.crawlTotal}</span>
+    <span class="lbl">${per.crawlTotal === 1 ? 'krabbing' : 'krabbinger'} under bordet ${inPeriod}</span>
+    <span class="sub">${last ? `Sist ${daysAgoText(last.at)}: ${esc(names(last.players))}` : (all ? 'Ingen har krabbet enda. Bordet venter.' : `Ingen har krabbet ${inPeriod}.`)}</span>
+  </div>`;
+  const podium = top.length >= 2 ? `<div class="stage"><ol class="podium">${top.map((r, i) => `<li class="p${i + 1}">
+      ${avatarFor(r.id, i === 0 ? 60 : 50)}
+      <span class="who">${esc(r.name)}</span>
+      <span class="ttl">${all ? titleFor(r.n) : `${allBy.get(r.id) || 0} totalt`}</span>
+      <div class="box"><span class="rank">${i + 1}</span><b>${r.n}</b><small>${r.n === 1 ? 'gang' : 'ganger'}</small></div>
+    </li>`).join('')}</ol><div class="floor"></div><p class="floor-lbl">Gulvet under bordet</p></div>` : '';
+  const table = rows.length ? `<div style="overflow-x:auto"><table class="rank crawl">
+    <thead><tr><th>#</th><th>Spiller</th><th class="r">Antall</th><th class="r">Sist</th></tr></thead>
+    <tbody>${rows.map((r, i) => `<tr><td class="pos"><b>${i + 1}</b></td><td class="name"><span class="av-name">${avatarFor(r.id, 30)}<span class="txt">${esc(r.name)}<small>${all ? titleFor(r.n) : `${allBy.get(r.id) || 0} totalt`}</small></span></span></td><td class="count r">${r.n}</td><td class="last r">${r.last ? daysAgoShort(r.last) : ''}</td></tr>`).join('')}</tbody></table></div>`
+    : '';
+  const clean = per.crawlRows.filter(r => r.n === 0);
+  const titles = `<p class="foot">Titler (totalt): ${TITLES.slice(1).map(([n, t]) => `${t} fra ${n}`).join(' ¬∑ ')}.</p>`;
+  const untouched = clean.length ? `<section class="card"><div class="block"><div class="block-head"><h2>Rent rulleblad ${inPeriod}</h2></div><div class="newcomers">${clean.map(r => `<span><b>${esc(r.name)}</b></span>`).join('')}</div>${titles}</div></section>` : '';
+  return `<section class="card">${head}${hero}${podium}${table}${clean.length ? '' : titles}</section>` + untouched;
+}
+
+function viewHistory(){
+  const d = state.derived;
+  if (!d) return '<section class="card"><div class="empty">Kobler til ‚Ä¶</div></section>';
+  const items = [].concat(
+    d.annotated.map(m => ({ t: m.at, kind: 'match', m })),
+    state.crawls.filter(c => !c.matchId).map(c => ({ t: c.at, kind: 'crawl', c }))
+  ).sort((a, b) => b.t.localeCompare(a.t));
+  if (!items.length) return demoNote() + '<section class="card"><div class="empty">Historikken er tom. G√• til Registrer og legg inn den f√∏rste kampen.</div></section>' + resetBlock();
+  const groups = [];
+  items.forEach(it => { const k = dayKey(it.t); const g = groups[groups.length - 1]; if (g && g.k === k) g.items.push(it); else groups.push({ k, month: monthKeyOf(it.t), label: dayLabel(it.t), items: [it] }); });
+  let lastMonth = null;
+  const html = groups.map(g => {
+    const mh = g.month !== lastMonth ? `<h2 class="month-h">${esc(monthLabel(g.month))}</h2>` : '';
+    lastMonth = g.month;
+    return mh + `<section class="card"><h2 class="day-h">${esc(g.label)}</h2><ul class="matchlist">${g.items.map(it => it.kind === 'match' ? matchRow(it.m) : crawlRow(it.c)).join('')}</ul></section>`;
+  }).join('');
+  return demoNote() + html + resetBlock();
+}
+function resetBlock(){
+  const ready = state.mode === 'shared' || state.mode === 'local';
+  if (!ready) return '';
+  const confirming = confirmKey === 'reset';
+  return `<section class="block" style="padding:6px 4px 0"><p class="hint">Vil dere starte med blanke ark? Dette sletter alle kamper, krabbinger og spillere${state.mode === 'shared' ? ' for alle' : ' p√• denne enheten'}. Husreglene beholdes.</p>
+    <div><button class="link danger" data-act="reset">${confirming ? 'Er du sikker? Trykk igjen for √• slette alt' : 'Nullstill ligaen'}</button></div></section>`;
+}
+
+function wardrobeCurrent(){
+  const p = playerOf(wardrobe.id);
+  if (!p) return null;
+  return wardrobe.draft || avatarOf(p);
+}
+function saveWardrobe(){
+  clearTimeout(wardrobeTimer);
+  const id = wardrobe.id, draft = wardrobe.draft;
+  if (!id || !draft || !store) return;
+  wardrobeTimer = setTimeout(async () => {
+    try { await store.updatePlayer(id, { avatar: draft }); }
+    catch (e){ console.error(e); toast('Kunne ikke lagre figuren.'); }
+  }, 500);
+}
+function setWardrobe(patch){
+  const cur = wardrobeCurrent();
+  if (!cur) return;
+  wardrobe.draft = Object.assign({}, cur, patch);
+  renderScreen();
+  saveWardrobe();
+}
+
+function viewWardrobe(seg){
+  const ready = state.mode === 'shared' || state.mode === 'local';
+  const d = state.derived;
+  const list = state.players.filter(p => !p.archived).sort((a, b) => a.name.localeCompare(b.name, 'nb'));
+  if (!list.length) return `<section class="card">${seg}
+    <div class="card-head"><div><h2>Garderobe</h2><p class="lede-sm">Lag din egen figur.</p></div></div>
+    <div class="empty">Legg til spillere i lista f√∏rst, s√• kan de kle seg opp.</div></section>`;
+  if (!wardrobe.id || !list.some(p => p.id === wardrobe.id)){ wardrobe.id = list[0].id; wardrobe.draft = null; }
+  const me = playerOf(wardrobe.id);
+  const cur = wardrobeCurrent();
+  const c = (d && d.counts.get(wardrobe.id)) || { games: 0, crawls: 0 };
+
+  const pick = list.map(x => `<button class="chip chip-av${x.id === wardrobe.id ? ' is-on' : ''}" data-act="wrpick" data-id="${esc(x.id)}" aria-pressed="${x.id === wardrobe.id}">${avatarSvg(x.id === wardrobe.id ? cur : avatarOf(x), 26)}${esc(x.name)}</button>`).join('');
+  const items = (key, arr) => arr.map(v => `<button class="wr-opt${cur[key] === v ? ' on' : ''}" data-act="wrset" data-key="${key}" data-val="${esc(v)}" aria-label="${esc(AV_LABELS[v] || v)}" title="${esc(AV_LABELS[v] || v)}">${avatarSvg(Object.assign({}, cur, { [key]: v }), 56, AV_VIEW[key])}</button>`).join('');
+  const colors = key => AV_COLORS.map(v => `<button class="wr-sw${cur[key] === v ? ' on' : ''}" style="background:${v}" data-act="wrset" data-key="${key}" data-val="${esc(v)}" aria-label="Farge ${esc(v)}"></button>`).join('');
+  const group = (title, inner) => `<div class="wr-group"><h3>${title}</h3><div class="wr-row">${inner}</div></div>`;
+
+  return `
+    <section class="card">${seg}
+      <div class="card-head"><div><h2>Garderobe</h2><p class="lede-sm">Bygg figuren din. Den dukker opp ved siden av navnet ditt i tabellen og p√• krabbelista.</p></div></div>
+      <div class="wr-pick chips">${pick}</div>
+      <div class="wr-stage">
+        ${avatarSvg(cur, 150)}
+        <span class="who">${esc(me.name)}</span>
+        <span class="sub">${c.games ? `${c.games} ${c.games === 1 ? 'kamp' : 'kamper'}${c.crawls ? ` ¬∑ ${c.crawls} ${c.crawls === 1 ? 'krabbing' : 'krabbinger'}` : ''}` : 'ingen kamper enda'}</span>
+        <div class="wr-actions">
+          <button class="secondary" data-act="wrrandom" ${ready ? '' : 'disabled'}>Tilfeldig</button>
+          <button class="secondary" data-act="wrreset" ${ready ? '' : 'disabled'}>Nullstill</button>
+        </div>
+      </div>
+      ${group('Kroppsfarge', colors('body'))}
+      ${group('Hatt', items('hat', AV_HATS))}
+      ${group('Hattefarge', colors('hatColor'))}
+      ${group('Briller', items('glasses', AV_GLASSES))}
+      ${group('Antrekk', items('outfit', AV_OUTFITS))}
+      ${group('Antrekksfarge', colors('outfitColor'))}
+      ${group('Uttrykk', items('face', AV_FACES))}
+      <p class="foot">Endringene lagres av seg selv, og alle p√• kontoret ser dem.</p>
+    </section>`;
+}
+
+function viewRules(){
+  const ready = state.mode === 'shared' || state.mode === 'local';
+  const editing = rulesUi.editing;
+  const list = state.rules.map((r, i) => {
+    if (!editing) return `<li class="rule"><span class="rule-n">${i + 1}</span><span class="rule-t">${esc(r.text)}</span></li>`;
+    const confirming = confirmKey === 'r:' + r.id;
+    const val = rulesUi.drafts[r.id] !== undefined ? rulesUi.drafts[r.id] : r.text;
+    return `<li class="rule">
+      <span class="rule-n">${i + 1}</span>
+      <div class="rule-edit">
+        <textarea data-edit="rule:${esc(r.id)}" maxlength="240" aria-label="Regel ${i + 1}">${esc(val)}</textarea>
+        <button class="mini danger${confirming ? ' confirm' : ''}" data-act="del" data-kind="rule" data-id="${esc(r.id)}">${confirming ? 'Slett regelen?' : 'Slett'}</button>
+      </div></li>`;
+  }).join('');
+  const toggle = state.rules.length && ready
+    ? `<button class="ptoggle${editing ? ' on' : ''}" data-act="${editing ? 'ruledone' : 'ruleedit'}">${editing ? 'Ferdig' : 'Rediger'}</button>` : '';
+  const lede = editing
+    ? 'Skriv rett i teksten for √• rette opp. Endringene lagres n√•r du g√•r videre, og alle ser dem.'
+    : 'Reglene som gjelder ved dette bordet. Alle ser det samme.';
+  return `
+    ${demoNote()}
+    <section class="card">
+      <div class="card-head"><div><h2>Husregler</h2><p class="lede-sm">${lede}</p></div>${toggle}</div>
+      ${state.rules.length ? `<ol class="rules">${list}</ol>` : `<div class="empty">Ingen regler enda. Den f√∏rste pleier √• handle om krabbing.</div>`}
+      ${editing ? '' : `<form class="newrule" id="newRuleForm">
+        <div class="block-head"><h3>Ny regel</h3></div>
+        <textarea id="newRuleText" placeholder="Skriv regelen slik dere sier den ved bordet" maxlength="240" required ${ready ? '' : 'disabled'}></textarea>
+        <button type="submit" class="primary" ${ready ? '' : 'disabled'}>${ready ? 'Legg til regel' : 'Kobler til ‚Ä¶'}</button>
+      </form>`}
+    </section>`;
+}
+
+function viewPlayers(){
+  const ready = state.mode === 'shared' || state.mode === 'local';
+  const d = state.derived;
+  const editing = playersUi.editing;
+  const counts = d ? d.counts : new Map();
+  const sorted = state.players.slice().sort((a, b) => a.name.localeCompare(b.name, 'nb'));
+  const active = sorted.filter(p => !p.archived);
+  const gone = sorted.filter(p => p.archived);
+  const meta = id => {
+    const c = counts.get(id) || { games: 0, crawls: 0 };
+    if (!c.games) return 'ingen kamper';
+    return `${c.games} ${c.games === 1 ? 'kamp' : 'kamper'}${c.crawls ? ` ¬∑ ${c.crawls} krabb.` : ''}`;
+  };
+  const row = p => {
+    if (!editing) return `<li class="prow">${avatarSvg(avatarOf(p), 34)}<span class="pname">${esc(p.name)}</span><span class="pmeta">${meta(p.id)}</span></li>`;
+    const confirming = confirmKey === 'p:' + p.id;
+    const c = counts.get(p.id) || { games: 0, crawls: 0 };
+    const used = c.games > 0 || c.crawls > 0;
+    const val = playersUi.drafts[p.id] !== undefined ? playersUi.drafts[p.id] : p.name;
+    return `<li class="prow">
+      <input data-edit="player:${esc(p.id)}" value="${esc(val)}" maxlength="24" autocomplete="off" aria-label="Navn p√• ${esc(p.name)}">
+      <button class="mini danger${confirming ? ' confirm' : ''}" data-act="delplayer" data-id="${esc(p.id)}">${confirming ? (used ? 'Ta ut?' : 'Slett?') : 'Fjern'}</button>
+    </li>`;
+  };
+  const toggle = state.players.length && ready
+    ? `<button class="ptoggle${editing ? ' on' : ''}" data-act="${editing ? 'playerdone' : 'playeredit'}">${editing ? 'Ferdig' : 'Rediger'}</button>` : '';
+  const lede = editing
+    ? 'Skriv rett i navnet for √• rette det opp. Har noen spilt kamper, blir de st√•ende i historikken selv om du fjerner dem fra lista.'
+    : 'Alle som kan velges n√•r dere registrerer en kamp.';
+  const goneList = gone.length ? `<div class="block">
+      <div class="block-head"><h3>Ute av lista</h3></div>
+      <ul class="plist">${gone.map(p => `<li class="prow gone">
+        <span class="pname">${esc(p.name)}</span>
+        ${editing ? `<button class="mini go" data-act="unarchive" data-id="${esc(p.id)}">Hent tilbake</button>` : `<span class="pmeta">${meta(p.id)}</span>`}
+      </li>`).join('')}</ul>
+      <p class="hint">De st√•r fortsatt i historikken og i tabellene for m√•nedene de spilte.</p>
+    </div>` : '';
+  const seg = `<div class="seg-wide" role="tablist">
+    <button role="tab" data-act="playerstab" data-tab="list" class="${state.playersTab === 'list' ? 'on' : ''}" aria-selected="${state.playersTab === 'list'}">Lista</button>
+    <button role="tab" data-act="playerstab" data-tab="wardrobe" class="${state.playersTab === 'wardrobe' ? 'on' : ''}" aria-selected="${state.playersTab === 'wardrobe'}">Garderobe</button>
+  </div>`;
+  if (state.playersTab === 'wardrobe') return demoNote() + viewWardrobe(seg);
+  return `
+    ${demoNote()}
+    <section class="card">${seg}
+      <div class="card-head"><div><h2>Spillere</h2><p class="lede-sm">${lede}</p></div>${toggle}</div>
+      ${active.length ? `<ul class="plist">${active.map(row).join('')}</ul>` : `<div class="empty">Ingen spillere enda. Legg til kollegaene dine under.</div>`}
+      ${goneList}
+      ${editing ? '' : `<form class="newrule" id="newRosterForm">
+        <div class="block-head"><h3>Ny spiller</h3></div>
+        <div class="newplayer">
+          <input id="newRosterName" placeholder="Navn" maxlength="24" autocomplete="off" required ${ready ? '' : 'disabled'}>
+          <button type="submit" ${ready ? '' : 'disabled'}>Legg til</button>
+        </div>
+      </form>`}
+    </section>`;
+}
+
+/* ---------- Ark og varsler ---------- */
+function openSheet(html){ const s = $('#sheet'); s.innerHTML = `<div class="sheet-bg" data-act="closesheet"></div><div class="sheet-panel" role="dialog" aria-modal="true">${html}</div>`; s.hidden = false; }
+function closeSheet(){ $('#sheet').hidden = true; $('#sheet').innerHTML = ''; }
+let sheetState = null;
+function openCrawlSheet(ctx){
+  sheetState = { ctx, selected: new Set(ctx.losers) };
+  renderSheet();
+}
+function renderSheet(){
+  const { ctx, selected } = sheetState;
+  const m = ctx.match;
+  let title = 'Kamp lagret', extra = '';
+  if (ctx.pWin < UPSET_P){ title = 'Sensasjon!'; extra = 'Laget med lavest rating vant mot alle odds.'; }
+  const wn = m.winner === 1 ? names(m.t1) : names(m.t2), ln = m.winner === 1 ? names(m.t2) : names(m.t1);
+  const chips = ctx.losers.map(id => `<button class="chip${selected.has(id) ? ' is-on' : ''}" data-act="sheetchip" data-id="${esc(id)}" aria-pressed="${selected.has(id)}">${esc(nameOf(id))}</button>`).join('');
+  openSheet(`
+    <p class="sheet-kicker">Registrert</p>
+    <h2 class="sheet-title">${title}</h2>
+    <p class="sheet-result">${esc(wn)} vasket ${esc(ln)}.${extra ? ' ' + extra : ''}</p>
+    <p class="q">Krabbet taperlaget under bordet?</p>
+    <div class="chips">${chips}</div>
+    <div class="sheet-actions">
+      <button class="primary" data-act="sheetyes" ${selected.size ? '' : 'disabled'}>${selected.size ? `Ja, de krabbet (${selected.size})` : 'Velg hvem som krabbet'}</button>
+      <button class="secondary" data-act="sheetno">Nei, slapp unna</button>
+    </div>`);
+}
+function openCrawlOnlySheet(){
+  sheetState = { ctx: { standalone: true }, selected: new Set() };
+  renderCrawlOnlySheet();
+}
+function renderCrawlOnlySheet(){
+  const { selected } = sheetState;
+  const chips = state.players.filter(p => !p.archived).map(p => `<button class="chip${selected.has(p.id) ? ' is-on' : ''}" data-act="sheetchip" data-id="${esc(p.id)}" aria-pressed="${selected.has(p.id)}">${esc(p.name)}</button>`).join('');
+  openSheet(`
+    <p class="sheet-kicker">Uten kamp</p>
+    <h2 class="sheet-title">Hvem krabbet?</h2>
+    <p class="sheet-result">Gammel gjeld, tapt veddem√•l eller bare d√•rlig d√∏mmekraft.</p>
+    <div class="chips">${chips || '<span class="hint">Ingen spillere enda.</span>'}</div>
+    <div class="sheet-actions">
+      <button class="primary" data-act="sheetyes" ${selected.size ? '' : 'disabled'}>${selected.size ? `Registrer krabbing (${selected.size})` : 'Velg minst √©n'}</button>
+      <button class="secondary" data-act="closesheet">Avbryt</button>
+    </div>`);
+}
+function toast(msg, undo){
+  const t = $('#toast');
+  t.innerHTML = `<span>${esc(msg)}</span>${undo ? '<button data-act="undo">Angre</button>' : ''}`;
+  t.hidden = false;
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => { t.hidden = true; }, undo ? 7000 : 3500);
+}
+
+/* ---------- Handlinger ---------- */
+function resetForm(){ form.red = []; form.blue = []; form.winner = null; }
+function tapChip(id){
+  const inRed = form.red.includes(id), inBlue = form.blue.includes(id);
+  if (!inRed && !inBlue){
+    if (form.red.length < 2) form.red.push(id);
+    else if (form.blue.length < 2) form.blue.push(id);
+    else { toast('Begge lag er fulle ‚Äì fjern noen f√∏rst'); return; }
+  } else if (inRed){
+    form.red = form.red.filter(x => x !== id);
+    if (form.blue.length < 2) form.blue.push(id);
+  } else form.blue = form.blue.filter(x => x !== id);
+  renderScreen();
+}
+async function saveMatch(){
+  if (!store || !form.red.length || !form.blue.length || !form.winner) return;
+  const m = { t1: form.red.slice(), t2: form.blue.slice(), winner: form.winner, at: new Date().toISOString() };
+  const { pWin } = expectedFor(m, state.derived ? state.derived.rating : new Map());
+  const btn = $('#saveBtn'); if (btn){ btn.disabled = true; btn.textContent = 'Lagrer ‚Ä¶'; }
+  try {
+    const id = await store.addMatch(m);
+    lastAction = { matchId: id, crawlId: null, label: 'Kamp' };
+    const losers = m.winner === 1 ? m.t2 : m.t1;
+    resetForm();
+    renderScreen();
+    openCrawlSheet({ match: Object.assign({ id }, m), losers, pWin });
+  } catch (e){
+    console.error(e); renderScreen();
+    toast(e && e.code === 'quota_exceeded' ? 'Databasen er full ‚Äì slett gamle kamper f√∏rst' : 'Kunne ikke lagre kampen. Pr√∏v igjen.');
+  }
+}
+async function addPlayer(name){
+  name = name.trim().replace(/\s+/g, ' ');
+  if (!name) return;
+  if (!store){ toast('Vent litt ‚Äì kobler til lagringen'); return; }
+  const exists = state.players.find(p => p.name.toLowerCase() === name.toLowerCase());
+  if (exists){
+    if (exists.archived){
+      try { await store.updatePlayer(exists.id, { archived: false }); toast(`${exists.name} er med igjen`); }
+      catch (e){ console.error(e); toast('Kunne ikke hente spilleren tilbake.'); }
+    } else toast(`${exists.name} er allerede med`);
+    renderScreen(); return;
+  }
+  let id = slug(name); const ids = new Set(state.players.map(p => p.id)); let n = 2; const base = id;
+  while (ids.has(id)) id = base + '-' + n++;
+  try { await store.addPlayer({ id, name, createdAt: new Date().toISOString() }); toast(`${name} er med i ligaen`); }
+  catch (e){ console.error(e); toast('Kunne ikke legge til spilleren.'); }
+  renderScreen();
+}
+async function addRule(text){
+  text = text.trim().replace(/\s+/g, ' ');
+  if (!text || !store) return;
+  try { await store.addRule({ text, at: new Date().toISOString() }); toast('Regel lagt til'); }
+  catch (e){ console.error(e); toast('Kunne ikke lagre regelen.'); }
+}
+async function saveDrafts(){
+  const ids = Object.keys(rulesUi.drafts);
+  if (!ids.length || !store) return;
+  let saved = 0;
+  for (const id of ids){
+    const rule = state.rules.find(x => x.id === id);
+    const text = (rulesUi.drafts[id] || '').trim().replace(/\s+/g, ' ');
+    delete rulesUi.drafts[id];
+    if (!rule || !text || text === rule.text) continue;
+    try { await store.updateRule(id, text); saved++; }
+    catch (e){ console.error(e); toast('Kunne ikke lagre endringen.'); }
+  }
+  if (saved) toast(saved === 1 ? 'Regel oppdatert' : saved + ' regler oppdatert');
+}
+async function savePlayerDrafts(){
+  const ids = Object.keys(playersUi.drafts);
+  if (!ids.length || !store) return;
+  let saved = 0;
+  for (const id of ids){
+    const p = state.players.find(x => x.id === id);
+    const name = (playersUi.drafts[id] || '').trim().replace(/\s+/g, ' ');
+    delete playersUi.drafts[id];
+    if (!p || !name || name === p.name) continue;
+    if (state.players.some(x => x.id !== id && x.name.toLowerCase() === name.toLowerCase())){ toast(`${name} finnes allerede`); continue; }
+    try { await store.updatePlayer(id, { name }); saved++; }
+    catch (e){ console.error(e); toast('Kunne ikke lagre navnet.'); }
+  }
+  if (saved) toast(saved === 1 ? 'Navnet er oppdatert' : saved + ' navn oppdatert');
+}
+async function undo(){
+  if (!lastAction) return;
+  const a = lastAction; lastAction = null;
+  try {
+    if (a.matchId) await store.deleteMatch(a.matchId);
+    else if (a.crawlId) await store.deleteCrawl(a.crawlId);
+    toast('Angret ‚Äì ' + a.label.toLowerCase() + ' er fjernet');
+  } catch (e){ console.error(e); toast('Kunne ikke angre.'); }
+}
+function armConfirm(key){
+  if (confirmKey === key) return true;
+  confirmKey = key; clearTimeout(confirmTimer);
+  confirmTimer = setTimeout(() => { confirmKey = null; renderScreen(); }, 4000);
+  renderScreen();
+  return false;
+}
+function shiftPeriod(dir){
+  const d = state.derived; if (!d) return;
+  const idx = d.months.indexOf(state.period.key);
+  const next = d.months[idx + dir];
+  if (next){ state.period.key = next; state.period.all = false; renderScreen(); }
+}
+
+document.addEventListener('click', async e => {
+  const el = e.target.closest('[data-act]');
+  if (!el) return;
+  const act = el.dataset.act;
+  if (act === 'chip') tapChip(el.dataset.id);
+  else if (act === 'team'){ const n = Number(el.dataset.team); form.winner = form.winner === n ? null : n; renderScreen(); }
+  else if (act === 'save') saveMatch();
+  else if (act === 'goto'){ state.screen = el.dataset.screen; render(); window.scrollTo({ top: 0 }); }
+  else if (act === 'tabletab'){ state.tableTab = el.dataset.tab; renderScreen(); }
+  else if (act === 'playerstab'){ state.playersTab = el.dataset.tab; confirmKey = null; renderScreen(); window.scrollTo({ top: 0 }); }
+  else if (act === 'pprev') shiftPeriod(-1);
+  else if (act === 'pnext') shiftPeriod(1);
+  else if (act === 'pall'){ state.period.all = !state.period.all; if (!state.period.all && state.derived) state.period.key = state.derived.nowKey; renderScreen(); }
+  else if (act === 'crawlonly') openCrawlOnlySheet();
+  else if (act === 'closesheet') closeSheet();
+  else if (act === 'sheetchip'){
+    const id = el.dataset.id; sheetState.selected.has(id) ? sheetState.selected.delete(id) : sheetState.selected.add(id);
+    sheetState.ctx.standalone ? renderCrawlOnlySheet() : renderSheet();
+  }
+  else if (act === 'sheetno'){ closeSheet(); toast('Kamp lagret', true); }
+  else if (act === 'sheetyes'){
+    const { ctx, selected } = sheetState; const players = Array.from(selected);
+    closeSheet();
+    try {
+      const cid = await store.addCrawl({ players, matchId: ctx.standalone ? null : ctx.match.id, at: new Date().toISOString() });
+      if (ctx.standalone){ lastAction = { matchId: null, crawlId: cid, label: 'Krabbing' }; toast(`Krabbing lagret: ${names(players)}`, true); }
+      else toast('Kamp og krabbing lagret', true);
+    } catch (err){ console.error(err); toast('Kunne ikke lagre krabbingen.'); }
+  }
+  else if (act === 'undo'){ $('#toast').hidden = true; undo(); }
+  else if (act === 'ruleedit'){ rulesUi.editing = true; confirmKey = null; renderScreen(); }
+  else if (act === 'ruledone'){ rulesUi.editing = false; confirmKey = null; renderScreen(); await saveDrafts(); }
+  else if (act === 'wrpick'){ wardrobe.id = el.dataset.id; wardrobe.draft = null; clearTimeout(wardrobeTimer); renderScreen(); }
+  else if (act === 'wrset') setWardrobe({ [el.dataset.key]: el.dataset.val });
+  else if (act === 'wrrandom'){ wardrobe.draft = randomAvatar(); renderScreen(); saveWardrobe(); }
+  else if (act === 'wrreset'){ wardrobe.draft = defaultAvatar(wardrobe.id); renderScreen(); saveWardrobe(); }
+  else if (act === 'playeredit'){ playersUi.editing = true; confirmKey = null; renderScreen(); }
+  else if (act === 'playerdone'){ playersUi.editing = false; confirmKey = null; renderScreen(); await savePlayerDrafts(); }
+  else if (act === 'delplayer'){
+    const id = el.dataset.id;
+    if (!armConfirm('p:' + id)) return;
+    confirmKey = null;
+    const c = (state.derived && state.derived.counts.get(id)) || { games: 0, crawls: 0 };
+    const used = c.games > 0 || c.crawls > 0;
+    const name = nameOf(id);
+    delete playersUi.drafts[id];
+    try {
+      if (used){ await store.updatePlayer(id, { archived: true }); toast(`${name} er ute av lista, men st√•r igjen i historikken`); }
+      else { await store.deletePlayer(id); toast(`${name} er fjernet`); }
+    } catch (err){ console.error(err); toast('Kunne ikke fjerne spilleren.'); renderScreen(); }
+  }
+  else if (act === 'unarchive'){
+    const id = el.dataset.id;
+    try { await store.updatePlayer(id, { archived: false }); toast(`${nameOf(id)} er med igjen`); }
+    catch (err){ console.error(err); toast('Kunne ikke hente spilleren tilbake.'); }
+  }
+  else if (act === 'del'){
+    const kind = el.dataset.kind, id = el.dataset.id;
+    if (!armConfirm(kind[0] + ':' + id)) return;
+    confirmKey = null;
+    try {
+      if (kind === 'match') await store.deleteMatch(id);
+      else if (kind === 'crawl') await store.deleteCrawl(id);
+      else await store.deleteRule(id);
+      toast('Slettet');
+    }
+    catch (err){ console.error(err); toast('Kunne ikke slette.'); renderScreen(); }
+  }
+  else if (act === 'reset'){
+    if (!armConfirm('reset')) return;
+    confirmKey = null;
+    try { await store.reset(); resetForm(); toast('Ligaen er nullstilt ‚Äì legg til spillere og kj√∏r i gang'); }
+    catch (err){ console.error(err); toast('Kunne ikke nullstille.'); renderScreen(); }
+  }
+});
+document.addEventListener('submit', e => {
+  if (e.target.id === 'newRosterForm'){ e.preventDefault(); const t = $('#newRosterName'); const v = t.value; t.value = ''; addPlayer(v); }
+  else if (e.target.id === 'newRuleForm'){ e.preventDefault(); const t = $('#newRuleText'); const v = t.value; t.value = ''; addRule(v); }
+});
+document.addEventListener('input', e => {
+  const t = e.target;
+  if (t.tagName === 'TEXTAREA') grow(t);
+  const key = t.dataset && t.dataset.edit;
+  if (!key) return;
+  const i = key.indexOf(':'), kind = key.slice(0, i), id = key.slice(i + 1);
+  if (kind === 'rule') rulesUi.drafts[id] = t.value;
+  else if (kind === 'player') playersUi.drafts[id] = t.value;
+});
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && !$('#sheet').hidden) closeSheet(); });
+$('#tabs').addEventListener('click', async e => {
+  const b = e.target.closest('[data-screen]'); if (!b) return;
+  const leavingRules = state.screen === 'rules' && rulesUi.editing;
+  const leavingPlayers = state.screen === 'players' && playersUi.editing;
+  state.screen = b.dataset.screen;
+  if (leavingRules) rulesUi.editing = false;
+  if (leavingPlayers) playersUi.editing = false;
+  render(); window.scrollTo({ top: 0 });
+  if (leavingRules) await saveDrafts();
+  if (leavingPlayers) await savePlayerDrafts();
+});
+
+/* ---------- Oppstart ---------- */
+function useLocal(){ if (store && store.kind === 'local') return; store = localStore(); state.mode = 'local'; store.start(); }
+function start(saved){
+  try {
+    if (saved && saved.form && typeof saved.form === 'object'){ form.red = Array.isArray(saved.form.red) ? saved.form.red : []; form.blue = Array.isArray(saved.form.blue) ? saved.form.blue : []; form.winner = saved.form.winner || null; }
+    if (saved && saved.screen) state.screen = saved.screen === 'wardrobe' ? 'players' : saved.screen;
+    if (saved && saved.screen === 'wardrobe') state.playersTab = 'wardrobe';
+    if (saved && saved.playersTab) state.playersTab = saved.playersTab;
+    if (saved && saved.tableTab) state.tableTab = saved.tableTab;
+    if (saved && saved.period && typeof saved.period === 'object') state.period = { all: !!saved.period.all, key: saved.period.key || null };
+    if (saved && saved.wardrobeId) wardrobe.id = saved.wardrobeId;
+  } catch (e) {}
+  render();
+  if (API_URL){ store = gasStore(); store.start(); return; }
+  const c = window.claude;
+  if (!c || typeof c.use !== 'function'){ useLocal(); return; }
+  c.use('db').then(db => { if (db){ store = dbStore(db); store.start(); } else useLocal(); }).catch(() => useLocal());
+}
+try { window.claude && window.claude.hot && typeof window.claude.hot.snapshot === 'function' && window.claude.hot.snapshot(() => ({ screen: state.screen, tableTab: state.tableTab, period: Object.assign({}, state.period), playersTab: state.playersTab, wardrobeId: wardrobe.id, form: Object.assign({}, form) })); } catch (e) {}
+const hot = window.claude && window.claude.hot;
+if (hot && typeof hot.ready === 'function') hot.ready(start); else start(hot && hot.data ? hot.data : {});
+})();
+</script>
+</body>
+</html>
