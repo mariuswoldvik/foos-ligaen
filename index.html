@@ -161,7 +161,7 @@ main{padding-block:14px 8px;display:flex;flex-direction:column;gap:14px}
 .rule{display:grid;grid-template-columns:32px 1fr;align-items:start;gap:6px 12px;padding:12px 0;border-top:1px solid var(--line)}
 .rules > .rule:first-child{border-top:0;padding-top:0}
 .rule-n{width:32px;height:32px;border-radius:50%;background:var(--brand-soft);color:var(--text);font-family:var(--font-display);font-weight:900;font-size:15px;display:flex;align-items:center;justify-content:center;font-variant-numeric:tabular-nums}
-.rule-t{font-size:16px;line-height:1.45;color:var(--text);font-weight:600;padding-top:5px;overflow-wrap:anywhere}
+.rule-t{font-size:16px;line-height:1.45;color:var(--text);font-weight:600;padding-top:5px;overflow-wrap:anywhere;white-space:pre-line}
 .rule-edit{grid-column:2;display:flex;flex-direction:column;gap:8px;align-items:flex-end}
 .rule-edit textarea,.newrule textarea{width:100%;min-height:76px;resize:none;overflow:hidden;border:1.5px solid var(--line-strong);border-radius:var(--r-ctl);background:var(--field);color:var(--text);padding:14px 16px;font:600 16px/1.4 var(--font-body)}
 .rule-edit textarea:focus,.newrule textarea:focus{border-color:var(--brand);outline:none}
@@ -265,6 +265,7 @@ td.name .av-name b{font-weight:800;color:var(--text)}
 .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
 .tag{font-size:11.5px;font-weight:800;letter-spacing:.02em;padding:4px 9px;border-radius:999px;background:var(--card-2);color:var(--body)}
 .tag.crawl{background:var(--amber-soft);color:var(--amber-ink)}
+.tag.add{border:1.5px dashed var(--line-strong);background:none;color:var(--body);font-family:inherit;cursor:pointer}
 .tag.upset{background:var(--brand-soft);color:var(--text)}
 .del{width:34px;height:34px;border-radius:50%;border:1.5px solid var(--line-strong);background:none;color:var(--muted);font-size:18px;line-height:1;display:flex;align-items:center;justify-content:center;justify-self:end}
 .del.confirm{width:auto;padding:0 10px;border-radius:999px;border-color:var(--danger);color:var(--danger);font-size:13px;font-weight:800}
@@ -794,8 +795,17 @@ function periodSummary(ms, cs, mode){
   const crawlBy = new Map();
   let crawlTotal = 0;
   cs.forEach(c => (c.players || []).forEach(id => { const x = crawlBy.get(id) || { n: 0, last: null }; x.n++; x.last = c.at; crawlBy.set(id, x); crawlTotal++; }));
-  const crawlRows = state.players.map(p => ({ id: p.id, name: p.name, archived: !!p.archived, n: (crawlBy.get(p.id) || {}).n || 0, last: (crawlBy.get(p.id) || {}).last || null }))
-    .filter(r => !r.archived || r.n > 0)
+  // Sendt under bordet: vinnerne får ett poeng for hver taper som krabbet etter kampen
+  const matchById = new Map(state.matches.map(m => [m.id, m]));
+  const sentBy = new Map();
+  cs.forEach(c => {
+    const m = c.matchId && matchById.get(c.matchId); if (!m) return;
+    const winners = m.winner === 1 ? m.t1 : m.t2, losers = m.winner === 1 ? m.t2 : m.t1;
+    const n = (c.players || []).filter(id => losers.includes(id)).length;
+    if (n) winners.forEach(id => sentBy.set(id, (sentBy.get(id) || 0) + n));
+  });
+  const crawlRows = state.players.map(p => ({ id: p.id, name: p.name, archived: !!p.archived, n: (crawlBy.get(p.id) || {}).n || 0, sent: sentBy.get(p.id) || 0, last: (crawlBy.get(p.id) || {}).last || null }))
+    .filter(r => !r.archived || r.n > 0 || r.sent > 0)
     .sort((a, b) => b.n - a.n || (b.last || '').localeCompare(a.last || '') || a.name.localeCompare(b.name, 'nb'));
   const lastCrawl = cs.length ? cs[cs.length - 1] : null;
 
@@ -943,8 +953,15 @@ function viewRegister(){
 function matchRow(m){
   const crawl = state.crawls.filter(c => c.matchId === m.id);
   const tags = [];
-  if (crawl.length) tags.push(`<span class="tag crawl">Krabbet: ${esc(names([].concat.apply([], crawl.map(c => c.players))))}</span>`);
+  if (crawl.length){
+    // Samme spiller kan krabbe flere ganger i én kamp – vis antall
+    const n = new Map();
+    crawl.forEach(c => (c.players || []).forEach(id => n.set(id, (n.get(id) || 0) + 1)));
+    const txt = Array.from(n, ([id, k]) => nameOf(id) + (k > 1 ? ' ×' + k : '')).join(' & ');
+    tags.push(`<span class="tag crawl">Krabbet: ${esc(txt)}</span>`);
+  }
   if (m.upset) tags.push('<span class="tag upset">Sensasjon</span>');
+  tags.push(`<button class="tag add" data-act="crawlextra" data-id="${esc(m.id)}">+ Krabbing</button>`);
   const confirming = confirmKey === 'm:' + m.id;
   const w1 = m.winner === 1;
   const winIds = w1 ? m.t1 : m.t2, loseIds = w1 ? m.t2 : m.t1;
@@ -957,7 +974,7 @@ function matchRow(m){
         <span class="score word">vasket</span>
         <span class="side right"><span class="nm">${esc(names(loseIds))}</span><i class="dot dot-${loseDot}"></i></span>
       </div>
-      ${tags.length ? `<div class="tags">${tags.join('')}</div>` : ''}
+      <div class="tags">${tags.join('')}</div>
     </div>
     <button class="del${confirming ? ' confirm' : ''}" data-act="del" data-kind="match" data-id="${esc(m.id)}" aria-label="Slett kamp">${confirming ? 'Slett?' : '×'}</button>
   </li>`;
@@ -1079,10 +1096,16 @@ function viewCrawls(d, per, head, inPeriod){
     <thead><tr><th>#</th><th>Spiller</th><th class="r">Antall</th><th class="r">Sist</th></tr></thead>
     <tbody>${rows.map((r, i) => `<tr><td class="pos"><b>${i + 1}</b></td><td class="name"><span class="av-name">${avatarFor(r.id, 30)}<span class="txt">${esc(r.name)}<small>${all ? titleFor(r.n) : `${allBy.get(r.id) || 0} totalt`}</small></span></span></td><td class="count r">${r.n}</td><td class="last r">${r.last ? daysAgoShort(r.last) : ''}</td></tr>`).join('')}</tbody></table></div>`
     : '';
+  const senders = per.crawlRows.filter(r => r.sent > 0).sort((a, b) => b.sent - a.sent || a.name.localeCompare(b.name, 'nb'));
+  const sent = senders.length ? `<section class="card"><div class="block"><div class="block-head"><h2>Sendt under bordet ${inPeriod}</h2></div>
+    <p class="hint">Du får ett poeng for hver motstander som må krabbe etter at du har vunnet.</p>
+    <div style="overflow-x:auto"><table class="rank crawl">
+    <thead><tr><th>#</th><th>Spiller</th><th class="r">Sendt</th></tr></thead>
+    <tbody>${senders.map((r, i) => `<tr><td class="pos"><b>${i + 1}</b></td><td class="name"><span class="av-name">${avatarFor(r.id, 30)}<span class="txt">${esc(r.name)}</span></span></td><td class="count r">${r.sent}</td></tr>`).join('')}</tbody></table></div></div></section>` : '';
   const clean = per.crawlRows.filter(r => r.n === 0);
   const titles = `<p class="foot">Titler (totalt): ${TITLES.slice(1).map(([n, t]) => `${t} fra ${n}`).join(' · ')}.</p>`;
   const untouched = clean.length ? `<section class="card"><div class="block"><div class="block-head"><h2>Rent rulleblad ${inPeriod}</h2></div><div class="newcomers">${clean.map(r => `<span><b>${esc(r.name)}</b></span>`).join('')}</div>${titles}</div></section>` : '';
-  return `<section class="card">${head}${hero}${podium}${table}${clean.length ? '' : titles}</section>` + untouched;
+  return `<section class="card">${head}${hero}${podium}${table}${clean.length ? '' : titles}</section>` + sent + untouched;
 }
 
 function viewHistory(){
@@ -1184,7 +1207,7 @@ function viewRules(){
     return `<li class="rule">
       <span class="rule-n">${i + 1}</span>
       <div class="rule-edit">
-        <textarea data-edit="rule:${esc(r.id)}" maxlength="240" aria-label="Regel ${i + 1}">${esc(val)}</textarea>
+        <textarea data-edit="rule:${esc(r.id)}" maxlength="5000" aria-label="Regel ${i + 1}">${esc(val)}</textarea>
         <button class="mini danger${confirming ? ' confirm' : ''}" data-act="del" data-kind="rule" data-id="${esc(r.id)}">${confirming ? 'Slett regelen?' : 'Slett'}</button>
       </div></li>`;
   }).join('');
@@ -1200,7 +1223,7 @@ function viewRules(){
       ${state.rules.length ? `<ol class="rules">${list}</ol>` : `<div class="empty">Ingen regler enda. Den første pleier å handle om krabbing.</div>`}
       ${editing ? '' : `<form class="newrule" id="newRuleForm">
         <div class="block-head"><h3>Ny regel</h3></div>
-        <textarea id="newRuleText" placeholder="Skriv regelen slik dere sier den ved bordet" maxlength="240" required ${ready ? '' : 'disabled'}></textarea>
+        <textarea id="newRuleText" placeholder="Skriv regelen slik dere sier den ved bordet" maxlength="5000" required ${ready ? '' : 'disabled'}></textarea>
         <button type="submit" class="primary" ${ready ? '' : 'disabled'}>${ready ? 'Legg til regel' : 'Kobler til …'}</button>
       </form>`}
     </section>`;
@@ -1307,6 +1330,25 @@ function renderCrawlOnlySheet(){
       <button class="secondary" data-act="closesheet">Avbryt</button>
     </div>`);
 }
+function openExtraCrawlSheet(match){
+  sheetState = { ctx: { extra: true, match }, selected: new Set() };
+  renderExtraCrawlSheet();
+}
+function renderExtraCrawlSheet(){
+  const { ctx, selected } = sheetState;
+  const m = ctx.match, w1 = m.winner === 1;
+  const ids = (w1 ? m.t2 : m.t1).concat(w1 ? m.t1 : m.t2);
+  const chips = ids.map(id => `<button class="chip${selected.has(id) ? ' is-on' : ''}" data-act="sheetchip" data-id="${esc(id)}" aria-pressed="${selected.has(id)}">${esc(nameOf(id))}</button>`).join('');
+  openSheet(`
+    <p class="sheet-kicker">Ekstra krabbing</p>
+    <h2 class="sheet-title">Hvem krabbet igjen?</h2>
+    <p class="sheet-result">${esc(names(w1 ? m.t1 : m.t2))} vasket ${esc(names(w1 ? m.t2 : m.t1))}. Registreres som en egen krabbing på denne kampen.</p>
+    <div class="chips">${chips}</div>
+    <div class="sheet-actions">
+      <button class="primary" data-act="sheetyes" ${selected.size ? '' : 'disabled'}>${selected.size ? `Registrer krabbing (${selected.size})` : 'Velg minst én'}</button>
+      <button class="secondary" data-act="closesheet">Avbryt</button>
+    </div>`);
+}
 function toast(msg, undo){
   const t = $('#toast');
   t.innerHTML = `<span>${esc(msg)}</span>${undo ? '<button data-act="undo">Angre</button>' : ''}`;
@@ -1364,8 +1406,10 @@ async function addPlayer(name){
   catch (e){ console.error(e); toast('Kunne ikke legge til spilleren.'); }
   renderScreen();
 }
+// Behold linjeskift og avsnitt, men rydd bort doble mellomrom og tomme linjer utover én
+const cleanRule = t => (t || '').replace(/\r/g, '').split('\n').map(l => l.replace(/[ \t]+/g, ' ').trim()).join('\n').replace(/\n{3,}/g, '\n\n').trim();
 async function addRule(text){
-  text = text.trim().replace(/\s+/g, ' ');
+  text = cleanRule(text);
   if (!text || !store) return;
   try { await store.addRule({ text, at: new Date().toISOString() }); toast('Regel lagt til'); }
   catch (e){ console.error(e); toast('Kunne ikke lagre regelen.'); }
@@ -1376,7 +1420,7 @@ async function saveDrafts(){
   let saved = 0;
   for (const id of ids){
     const rule = state.rules.find(x => x.id === id);
-    const text = (rulesUi.drafts[id] || '').trim().replace(/\s+/g, ' ');
+    const text = cleanRule(rulesUi.drafts[id]);
     delete rulesUi.drafts[id];
     if (!rule || !text || text === rule.text) continue;
     try { await store.updateRule(id, text); saved++; }
@@ -1436,10 +1480,11 @@ document.addEventListener('click', async e => {
   else if (act === 'pnext') shiftPeriod(1);
   else if (act === 'pall'){ state.period.all = !state.period.all; if (!state.period.all && state.derived) state.period.key = state.derived.nowKey; renderScreen(); }
   else if (act === 'crawlonly') openCrawlOnlySheet();
+  else if (act === 'crawlextra'){ const m = state.matches.find(x => x.id === el.dataset.id); if (m) openExtraCrawlSheet(m); }
   else if (act === 'closesheet') closeSheet();
   else if (act === 'sheetchip'){
     const id = el.dataset.id; sheetState.selected.has(id) ? sheetState.selected.delete(id) : sheetState.selected.add(id);
-    sheetState.ctx.standalone ? renderCrawlOnlySheet() : renderSheet();
+    sheetState.ctx.standalone ? renderCrawlOnlySheet() : sheetState.ctx.extra ? renderExtraCrawlSheet() : renderSheet();
   }
   else if (act === 'sheetno'){ closeSheet(); toast('Kamp lagret', true); }
   else if (act === 'sheetyes'){
@@ -1447,7 +1492,7 @@ document.addEventListener('click', async e => {
     closeSheet();
     try {
       const cid = await store.addCrawl({ players, matchId: ctx.standalone ? null : ctx.match.id, at: new Date().toISOString() });
-      if (ctx.standalone){ lastAction = { matchId: null, crawlId: cid, label: 'Krabbing' }; toast(`Krabbing lagret: ${names(players)}`, true); }
+      if (ctx.standalone || ctx.extra){ lastAction = { matchId: null, crawlId: cid, label: 'Krabbing' }; toast(`Krabbing lagret: ${names(players)}`, true); }
       else toast('Kamp og krabbing lagret', true);
     } catch (err){ console.error(err); toast('Kunne ikke lagre krabbingen.'); }
   }
